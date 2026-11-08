@@ -25,6 +25,7 @@ module RedmineLookbook
       ActiveRecord::FixtureSet.reset_cache
       ActiveRecord::FixtureSet.create_fixtures(fixtures_path, names)
       copy_attachment_files
+      fill_missing_images
       names.size
     end
 
@@ -35,6 +36,35 @@ module RedmineLookbook
 
       FileUtils.mkdir_p(Attachment.storage_path)
       FileUtils.cp_r("#{source}/.", Attachment.storage_path)
+    end
+
+    IMAGE_EXTENSIONS = %w[.png .gif .jpg .jpeg].freeze
+
+    # Redmine's test data has image attachments (for example picture.jpg on
+    # issue 2) whose files are not in test/fixtures/files. Previews need them,
+    # so an image is created from a test image that is there.
+    def fill_missing_images
+      source = fixtures_path.join("files/2010/11/101123161450_testfile_1.png")
+      return unless source.exist?
+
+      Attachment.find_each do |attachment|
+        extension = File.extname(attachment.filename).downcase
+        next unless IMAGE_EXTENSIONS.include?(extension)
+        next if File.exist?(attachment.diskfile)
+
+        FileUtils.mkdir_p(File.dirname(attachment.diskfile))
+        write_image(source, attachment.diskfile, extension)
+      end
+    end
+
+    def write_image(source, target, extension)
+      if extension != ".png" && defined?(MiniMagick)
+        image = MiniMagick::Image.open(source.to_s)
+        image.format(extension.delete(".").sub("jpeg", "jpg"))
+        image.write(target)
+      else
+        FileUtils.cp(source, target)
+      end
     end
 
     def project
