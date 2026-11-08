@@ -1,10 +1,10 @@
 # Redmine Lookbook
 
-Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](https://lookbook.build/) で見られるようにするプラグインです。テーマの作者が、Redmine の画面を一つずつ開かなくても、多くの画面、言語、レイアウトでテーマを確かめられます。
+Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](https://lookbook.build/) で見られるようにするプラグインです。テーマの作者が、Redmine の画面を一つずつ開かなくても、多くの画面、言語、レイアウトでテーマを確認できます。
 
 [English](../../README.md)
 
-> **状態:** 作り始めの段階です(0.1.0)。Redmine 7.0 に対応し、Redmine 7.0.3 で確かめています。
+> **状態:** 作り始めの段階です(0.1.0)。Redmine 7.0 に対応し、Redmine 7.0.3 で動作を確認しています。
 
 ## できること
 
@@ -30,7 +30,7 @@ cd redmine_lookbook
 docker compose -f docker/compose.yml up --build
 ```
 
-起動したら <http://127.0.0.1:3000/lookbook> を開きます。すべてのプレビューがレンダリングできるかは、`bin/check-previews` で確かめられます。初めて起動したときは、Redmine 7.0.3 を取ってきて(SHA256 を確かめる)、Redmine のテストのデータを入れ、Redmine を開発のモードで起動します。Redmine そのものには、`admin` / `admin` でログインできます。
+起動したら <http://127.0.0.1:3000/lookbook> を開きます。すべてのプレビューがレンダリングできるかは、`bin/check-previews` で確認できます。初めて起動したときは、Redmine 7.0.3 を取ってきて(SHA256 を確認する)、Redmine のテストのデータを入れ、Redmine を開発のモードで起動します。Redmine そのものには、`admin` / `admin` でログインできます。
 
 | 変数 | 既定値 | 内容 |
 | --- | --- | --- |
@@ -59,7 +59,7 @@ docker compose -f docker/compose.yml up --build
 | レイアウト | None(コンポーネントだけ)、Redmine layout | None |
 
 - **レイアウト:** 「None」は、Redmine の CSS、JavaScript、テーマを読み込み、ヘッダー、メニュー、サイドバー、フッターを外します。「Redmine layout」は、画面の全体を出します。
-- **右から左に書く言語:** アラビア語やヘブライ語を選ぶと、右から左の表示でテーマを確かめられます。
+- **右から左に書く言語:** アラビア語やヘブライ語を選ぶと、右から左の表示でテーマを確認できます。
 
 ## 自分のテーマを見る
 
