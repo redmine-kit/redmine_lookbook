@@ -8,11 +8,12 @@ module RedmineLookbook
   class PreviewsController < ::ApplicationController
     include Lookbook::PreviewControllerActions
 
-    # The same helpers as Redmine's IssuesController. "helper :all" is not
+    # The helpers of Redmine's IssuesController, plus the few that other
+    # component previews need. "helper :all" is not
     # used: ProjectsQueriesHelper and UserQueriesHelper redefine the methods
     # of QueriesHelper, and the issue list would render empty cells.
     helper :issues, :journals, :projects, :custom_fields, :issue_relations, :watchers,
-           :attachments, :queries, :repositories, :timelog, :versions
+           :attachments, :queries, :repositories, :timelog, :versions, :activities
 
     # Lookbook calls the render methods directly, without action callbacks,
     # so the display options are applied right before rendering.
@@ -33,11 +34,13 @@ module RedmineLookbook
 
     # Components render as an administrator, so links and buttons that need
     # permissions are shown. Page previews choose their own user.
-    def with_display_options
-      @current_theme = Display.theme(params)
+    def with_display_options(&block)
       user = User.current
       User.current = User.active.where(admin: true).order(:id).first || user
-      ::I18n.with_locale(Display.locale(params) || ::I18n.default_locale) { yield }
+      theme = Display.theme_id(params)
+      ::I18n.with_locale(Display.locale(params) || ::I18n.default_locale) do
+        theme ? SettingsOverride.with(ui_theme: theme, &block) : yield
+      end
     ensure
       User.current = user
     end

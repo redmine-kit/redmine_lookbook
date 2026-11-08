@@ -47,7 +47,7 @@ module RedmineLookbook
         "HTTP_ACCEPT" => "text/html"
       )
       env[ApplicationControllerPatch::ENV_USER] = user_id(user)
-      env[ApplicationControllerPatch::ENV_THEME] = Display.theme(@params)
+      env[ApplicationControllerPatch::ENV_THEME] = Display.theme_id(@params)
       env[ApplicationControllerPatch::ENV_LOCALE] = Display.locale(@params)
 
       with_preserved_state do

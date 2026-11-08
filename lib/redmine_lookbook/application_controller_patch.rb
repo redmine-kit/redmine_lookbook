@@ -9,7 +9,7 @@ module RedmineLookbook
     ENV_LOCALE = "redmine_lookbook.locale"
 
     def self.prepended(base)
-      base.before_action :redmine_lookbook_apply_theme
+      base.around_action :redmine_lookbook_with_theme
     end
 
     def find_current_user
@@ -27,9 +27,9 @@ module RedmineLookbook
 
     private
 
-    def redmine_lookbook_apply_theme
+    def redmine_lookbook_with_theme(&block)
       theme = request.env[ENV_THEME]
-      @current_theme = theme if theme
+      theme ? SettingsOverride.with(ui_theme: theme, &block) : yield
     end
   end
 end

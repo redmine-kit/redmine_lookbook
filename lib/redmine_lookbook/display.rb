@@ -44,9 +44,10 @@ module RedmineLookbook
       params.dig(:lookbook, :display, key).to_s.presence
     end
 
-    def theme(params)
+    # The id of the chosen theme, or nil for Redmine's default theme.
+    def theme_id(params)
       id = value(params, :theme)
-      id && Redmine::Themes.theme(id)
+      id if id && Redmine::Themes.theme(id)
     end
 
     def locale(params)

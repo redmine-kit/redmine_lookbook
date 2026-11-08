@@ -10,6 +10,12 @@ module RedmineLookbook
         SettingsOverride.value(:text_formatting) || super
       end
 
+      # Redmine reads the theme from this setting in several places (the
+      # stylesheets, icons and favicon, and the "theme-*" class on <body>).
+      def ui_theme
+        SettingsOverride.value(:ui_theme) || super
+      end
+
       def thumbnails_enabled?
         value = SettingsOverride.value(:thumbnails_enabled)
         value.nil? ? super : value
