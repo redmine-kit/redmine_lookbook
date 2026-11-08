@@ -15,11 +15,11 @@ module RedmineLookbook
     helper :issues, :journals, :projects, :custom_fields, :issue_relations, :watchers,
            :attachments, :queries, :repositories, :timelog, :versions, :activities
 
-    # Lookbook calls the render methods directly, without action callbacks,
-    # so the display options are applied right before rendering.
+    # Lookbook renders previews through these methods (with
+    # controller.process), so the display options are applied around them.
     module DisplayOptions
       def render_scenario_to_string(*args, **kwargs)
-        return redirect_to_server if other_server_url
+        return render_server_switch(other_server_url) if other_server_url
 
         with_display_options { super }
       end
@@ -30,13 +30,19 @@ module RedmineLookbook
     end
     prepend DisplayOptions
 
+    # Previews do not depend on the browser's Redmine session: they render as
+    # an administrator even when Redmine requires a sign-in, a password
+    # change or two-factor authentication, or when the session has expired.
+    skip_before_action :check_if_login_required, :check_password_change, :check_twofa_activation,
+                       :session_expiration, raise: false
+
     private
 
     # Components render as an administrator, so links and buttons that need
     # permissions are shown. Page previews choose their own user.
     def with_display_options(&block)
       user = User.current
-      User.current = User.active.where(admin: true).order(:id).first || user
+      User.current = RedmineLookbook.first_admin || user
       theme = Display.theme_id(params)
       ::I18n.with_locale(Display.locale(params) || ::I18n.default_locale) do
         theme ? SettingsOverride.with(ui_theme: theme, &block) : yield
@@ -45,13 +51,26 @@ module RedmineLookbook
       User.current = user
     end
 
+    # The URL of the server chosen in the toolbar, only when it is one of
+    # REDMINE_LOOKBOOK_SERVERS and not this server. Lookbook keeps display
+    # values in a cookie without checking them against the choices.
     def other_server_url
       url = Display.value(params, :server)
-      url if url && url != request.base_url
+      url if url && url != request.base_url && Display.servers.any? { |_label, server| server == url }
     end
 
-    def redirect_to_server
-      redirect_to "#{other_server_url}#{request.fullpath}", allow_other_host: true
+    # Opens the same preview on the other server, in the preview pane. An HTTP
+    # redirect would move the whole Lookbook screen, and Lookbook expects
+    # HTML from this method.
+    def render_server_switch(server)
+      url = "#{server}#{request.fullpath}"
+      render html: <<~HTML.html_safe # rubocop:disable Rails/OutputSafety -- the URL is escaped
+        <!DOCTYPE html>
+        <html><body>
+        <p>Opening this preview on <a href="#{ERB::Util.html_escape(url)}">#{ERB::Util.html_escape(server)}</a>.</p>
+        <script>location.replace(#{url.to_json});</script>
+        </body></html>
+      HTML
     end
 
     def set_locale(&block)

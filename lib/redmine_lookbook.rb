@@ -20,6 +20,11 @@ module RedmineLookbook
     File.expand_path("..", __dir__)
   end
 
+  # The administrator that previews render as by default.
+  def first_admin
+    User.active.where(admin: true).order(:id).first
+  end
+
   def mount_path
     ENV.fetch("REDMINE_LOOKBOOK_PATH", "/lookbook")
   end
