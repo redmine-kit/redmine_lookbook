@@ -139,6 +139,8 @@ See [SECURITY.md](SECURITY.md) to report a vulnerability.
 - Redmine 7.0 only.
 - The preview controller repeats a few private methods of Lookbook's own preview controller (Lookbook 2.3). A future Lookbook release may need changes here.
 - Page previews use GET requests only, so they show pages as they first appear (for example, a form before it is sent).
+- Images and other files in a preview (attachments, thumbnails) are loaded by your browser directly from Redmine. Files of private projects or private issues show only when you are signed in to Redmine in the same browser.
+- Some image attachments in Redmine's test data have no file; `redmine_lookbook:load_test_data` creates an image for them from a test image.
 
 ## License
 
