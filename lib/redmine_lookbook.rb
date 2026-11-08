@@ -55,7 +55,7 @@ module RedmineLookbook
     Lookbook.config.preview_display_options = Display.options
 
     ApplicationController.prepend(ApplicationControllerPatch) unless ApplicationController < ApplicationControllerPatch
-    Setting.singleton_class.prepend(TextFormatting::SettingOverride) unless Setting.singleton_class < TextFormatting::SettingOverride
+    Setting.singleton_class.prepend(SettingsOverride::SettingMethods) unless Setting.singleton_class < SettingsOverride::SettingMethods
     load File.join(root, "lookbook", "previews_controller.rb")
     load_previews(paths)
   end

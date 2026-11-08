@@ -1,6 +1,9 @@
-<%# Issue 2 of Redmine's test data has an image, so thumbnails show too. %>
+<%# Issue 2 of Redmine's test data has an image. Thumbnails are off in
+    Redmine's default settings, so they are turned on for this preview. %>
 <% issue = Issue.joins(:attachments).where(attachments: { filename: 'picture.jpg' }).order(:id).first ||
            Issue.joins(:attachments).order(:id).first %>
 <% if issue %>
-  <%= render partial: 'attachments/links', locals: { attachments: issue.attachments, container: issue, options: { deletable: true, thumbnails: true } } %>
+  <%= RedmineLookbook::SettingsOverride.with(thumbnails_enabled: true) {
+        link_to_attachments(issue, thumbnails: true)
+      } %>
 <% end %>
