@@ -12,7 +12,10 @@ Guidelines for people and coding agents working in this repository. See [README.
 
 ## Documentation
 
-- **Two languages.** English is the source; the Japanese translation is in `docs/ja/`. Change both together.
+- **Two languages.** English is the source; the Japanese translation is `README.ja.md` and `docs/ja/`, with the same file names. Change both together.
+- **Layout.** The READMEs stay short. The details go in `docs/`, which is published with [redmine-theme/docs-skeleton](https://github.com/redmine-theme/docs-skeleton): `docs/README.md` is the home page and links every page in sidebar order, each page starts with a `#` heading, and links between pages point to the `.md` files.
+- **Anchors in Japanese.** Put `<a id="..."></a>` with the English heading's anchor before each Japanese heading, so that links such as `configuration.md#several-servers` work in both languages.
+- **Preview list.** `docs/previews.md` lists every preview. Update it (and `docs/ja/previews.md`) when you add or rename a preview.
 - **Facts.** State only what has been checked. Mark anything not yet checked, and say which Redmine and Lookbook versions were used.
 - **Japanese wording.** Write plain, precise Japanese. Keep established technical terms instead of replacing them with everyday words: "プレビュー" (preview), "コンポーネント" (component), "リクエスト" (request), "脆弱性" (vulnerability), "プラグイン", "ヘルパー", "部分テンプレート". Do not use "版" for a version.
 

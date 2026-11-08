@@ -1,6 +1,6 @@
 # Security
 
-Redmine Lookbook is a development tool. It must never be enabled on a production Redmine; see the [Security section of the README](README.md#security).
+Redmine Lookbook is a development tool. It must never be enabled on a production Redmine; see [Security](docs/security.md).
 
 ## Reporting a vulnerability
 
