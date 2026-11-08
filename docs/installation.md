@@ -41,7 +41,7 @@ For example, to preview the themes in `~/themes` from a tablet on the same netwo
 REDMINE_LOOKBOOK_THEMES=~/themes REDMINE_LOOKBOOK_BIND=0.0.0.0 docker compose -f docker/compose.yml up
 ```
 
-The database and the uploaded files are kept in a Docker volume. To start again from new test data, remove the volume: `docker compose -f docker/compose.yml down -v`.
+The database and the uploaded files are kept in Docker volumes. To start again from new test data, remove the volumes: `docker compose -f docker/compose.yml down -v`.
 
 ## An existing Redmine
 
@@ -65,9 +65,10 @@ The database and the uploaded files are kept in a Docker volume. To start again 
 - **Subtask.** The test data has no parent and child issues, so the task adds one subtask to issue 1.
 - **Repositories.** The task creates the test repositories of Redmine's own tests in `tmp/test/` from `test/fixtures/repositories`, as `rake test:scm:setup` does: the Subversion repository that the test data refers to (the default repository of eCookbook), and Git and Mercurial repositories that it adds to eCookbook. It reads their revisions and links the revisions to the issues their messages refer to.
 - **Webhook.** Redmine's test data has no webhooks (new in Redmine 7), so the task adds one.
+- **Email address.** Redmine's test data has no additional email addresses, so the task adds one to `jsmith`.
 - **Users.** `admin` / `admin` and `jsmith` / `jsmith` can sign in. The page previews render as `admin` unless a preview chooses another user.
 
-`redmine_lookbook:update_test_data` adds the files, the subtask, the webhook and the test repositories when they are missing. It runs only on a Redmine with Redmine's test data, never in production, and can run any number of times. Run it after updating Redmine Lookbook, or after the test repositories in `tmp/test/` were removed:
+`redmine_lookbook:update_test_data` adds the files, the subtask, the webhook, the email address and the test repositories when they are missing. It runs only on a Redmine with Redmine's test data, never in production, and can run any number of times. Run it after updating Redmine Lookbook, or after the test repositories in `tmp/test/` were removed:
 
 ```sh
 bin/rails redmine_lookbook:update_test_data
@@ -75,7 +76,7 @@ bin/rails redmine_lookbook:update_test_data
 
 ## Checking the previews
 
-`bin/check-previews` renders every preview with three toolbar settings (the defaults, Japanese with the Redmine layout, and Arabic) and reports the previews that fail, including page previews whose Redmine page returns another HTTP status than the preview expects (for example an error page). Run it against a running Redmine:
+`bin/check-previews` renders every preview with three toolbar settings (the defaults, Japanese with the Redmine layout, and Arabic) and reports the previews that fail, including page previews whose Redmine page returns another HTTP status than the preview expects (for example an error page), and pages that show a missing translation. Run it against a running Redmine:
 
 ```sh
 bin/check-previews                        # http://127.0.0.1:3000

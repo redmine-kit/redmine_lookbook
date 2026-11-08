@@ -6,7 +6,7 @@ Check each item with the toolbar's defaults first, then with:
 
 - the "Redmine layout" option, for the header, the menus and the sidebar,
 - a right-to-left language (Arabic, Persian or Hebrew),
-- a language with long words (for example German) and a language with other scripts (for example Japanese),
+- a language with long words (for example German) and a language in a non-Latin script (for example Japanese),
 - a narrow preview pane (below 900 pixels wide), for `responsive.css`.
 
 ## Setup
@@ -15,7 +15,7 @@ Check each item with the toolbar's defaults first, then with:
 | --- | --- | --- |
 | Redmine's styles | `application.css` imports Redmine's `application.css` or replaces all of it | Any |
 | Colors and fonts | The custom properties (`--color-header-background`, `--fonts-main`, Open Color's `--oc-*`) give the colors you want | Pages » Projects » Project overview |
-| Replaced stylesheets | `gantt.css`, `context_menu.css`, `jstoolbar.css`, `scm.css`, `dropdown.css` and `responsive.css` of the theme, if any, cover what Redmine's files cover | Gantt chart, Context menu, Text area with the wiki toolbar, Diff |
+| Replaced stylesheets | `gantt.css`, `context_menu.css`, `jstoolbar.css`, `scm.css`, `dropdown.css` and `responsive.css` of the theme, if any, cover what Redmine's files cover | Gantt chart, Context menu, Text area with the wiki toolbar, Diff; Menus; Layout » Whole layout with the flyout menu open (narrow screens) |
 | Favicon and `theme.js` | The favicon shows, and `theme.js` has no errors in the browser console | Any page with the Redmine layout |
 
 ## Layout
@@ -30,7 +30,7 @@ Check each item with the toolbar's defaults first, then with:
 | Content | Title and breadcrumbs, `.contextual` links, splitcontent | Title with breadcrumbs; Pages » Projects » Project overview |
 | No sidebar | `#main.nosidebar` | Pages » Issues » New issue |
 | Footer | | Layout » Footer |
-| Narrow screens | The header bar, the flyout menu, tables that scroll | Layout » Whole layout with the flyout menu open, with a narrow pane; any page with the Redmine layout |
+| Narrow screens | The header bar, the flyout menu, tables that scroll | Layout » Whole layout with the flyout menu open (narrow screens), with a narrow pane; any page with the Redmine layout |
 | Printing | Menus and controls are hidden | Any page, in the browser's print preview |
 
 ## Navigation
@@ -100,14 +100,13 @@ The "Menus" previews show menus open, for example the context menu of the issue 
 | Item | What to check | Previews |
 | --- | --- | --- |
 | Wiki formatting | Headings, lists, tables, code and syntax highlighting, quotes, alerts, footnotes, task lists, images, macros, links to Redmine objects. Check both formats | Wiki formatting (`format` parameter); Pages » Content |
-| Wiki pages | Sections with edit links, history, diff, annotate, index | Pages » Content » Wiki page with sections, Wiki history, Wiki diff, Wiki annotate |
+| Wiki pages | Sections with edit links, history, diff, annotate, index | Pages » Content » Wiki page with sections, Wiki history, Wiki diff, Wiki annotate, Wiki index |
 | Diffs | Inline and side by side | Diff; Pages » Content » Wiki diff; Pages » Issues » Description diff |
 | Source files | Line numbers and syntax highlighting | Source file with syntax highlighting; Pages » Content » Attachment: source file |
 | Attachments | Text, diff, image and other files | Pages » Content » Attachment: source file, Attachment: diff, Attachment: image, Attachment: other file |
 | News, documents, files and forums | Lists, comments, replies | News; Pages » Content |
 | Activity | Days, event icons | Activity; Pages » Projects » Activity |
 | Members | Roles and members | Members |
-| Help | The wiki syntax help (its own stylesheet, see [Redmine 7 themes](themes.md#other-stylesheets)) | Pages » Help |
 
 ## Repositories
 
@@ -145,4 +144,4 @@ Check these in a Redmine of your own:
 - **Private notes:** Redmine's test data has no private notes.
 - **Settings that change pages:** for example Gravatar, the text area font of a user, table sorting in wiki pages and disabled reactions. The previews use the settings of the test data, except where the preview list gives settings in "Notes". Your own previews can set others (see [Writing previews](writing-previews.md#settings-for-one-preview)).
 - **Plugins:** pages and stylesheets of plugins. Add [your own previews](writing-previews.md) for them.
-- **Emails, PDF and CSV exports, and Atom feeds:** themes do not apply to them.
+- **Emails, PDF and CSV exports, Atom feeds and the wiki syntax help:** themes do not apply to them (see [Redmine 7 themes](themes.md#other-stylesheets) for the help pages).

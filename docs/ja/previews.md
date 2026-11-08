@@ -2,9 +2,9 @@
 
 Redmine Lookbook には 265 のプレビューがあります。コンポーネントが 56、画面が 209 です。「名前」は Lookbook のナビゲーションに表示される名前で、「パス」はプレビューの URL の `/lookbook/inspect/` のあとの部分です。
 
-- **コンポーネント**は、Redmine のヘルパーと部分テンプレートで Redmine の部品をレンダリングします。「Layout」と「Menus」のグループは、ヘッダー、メニュー、フッターと一緒に Redmine の `#wrapper` の中に直接レンダリングするので、ツールバーの「Layout」の切り替えは適用されません。メニューは開いた状態で表示します。
-- **画面**は、「画面」の列の Redmine の画面を、「ユーザー」の列のユーザーとしてレンダリングします。ユーザーは、`admin`(管理者)、`jsmith` と `dlopper`(プロジェクトのメンバー)、匿名ユーザー(ログインしていない状態)のいずれかです。「備考」には、プレビューがその画面のためだけに変える設定と、エラーの画面の HTTP のステータスを書いています。
-- **置き換え:** `<Subversion>` と `<Git>` は、テスト用のリポジトリの id です。プレビューが検索します。
+- **コンポーネント**は、Redmine のヘルパーと部分テンプレートで Redmine の部品をレンダリングします。「Layout」と「Menus」のグループは、Redmine がヘッダー、メニュー、フッターを置く `#wrapper` の直下にレンダリングするので、ツールバーの「Layout」の切り替えは適用されません。メニューは開いた状態で表示します。
+- **画面**は、「画面」の列の Redmine の画面を、「ユーザー」の列のユーザーとしてレンダリングします。ユーザーは、`admin`(管理者)、`jsmith` と `dlopper`(プロジェクトのメンバー)、匿名ユーザー(ログインしていない状態)のいずれかです。「備考」には、プレビューがその画面のためだけに変える設定、エラーの画面の HTTP のステータス、Redmine の sudo モードのパスワードのフォームを表示する画面の `sudo: false` を書いています。
+- **プレースホルダー:** `<Subversion>` と `<Git>` はテスト用のリポジトリの id で、プレビューがテストデータから取得します。`deff712f…` は Git のリビジョンを省略して書いたものです。
 
 この一覧は、`previews/` のファイルから作っています。
 
@@ -298,7 +298,7 @@ Redmine Lookbook には 265 のプレビューがあります。コンポーネ�
 | My account | `/my/account` | `admin` |  |
 | Change password | `/my/password` | `jsmith` |  |
 | User profile | `/users/2` | `admin` |  |
-| Confirm password (sudo mode) | `/my/api_key` | `admin` |  |
+| Confirm password (sudo mode) | `/my/api_key` | `admin` | `sudo: false` |
 | Sign in without registration | `/login` | 匿名ユーザー | 設定: `self_registration: "0"` |
 | User profile of another user | `/users/3` | `jsmith` |  |
 
@@ -363,7 +363,7 @@ Redmine Lookbook には 265 のプレビューがあります。コンポーネ�
 | Settings: General | `/settings?tab=general` | `admin` |  |
 | Settings: Display | `/settings?tab=display` | `admin` |  |
 | Settings: Authentication | `/settings?tab=authentication` | `admin` |  |
-| Settings: API | `/settings?tab=api` | `admin` |  |
+| Settings: Integrations | `/settings?tab=integrations` | `admin` |  |
 | Settings: Projects | `/settings?tab=projects` | `admin` |  |
 | Settings: Users | `/settings?tab=users` | `admin` |  |
 | Settings: Issue tracking | `/settings?tab=issues` | `admin` |  |

@@ -63,7 +63,7 @@ The built-in "Layout" previews have partials for Redmine's layout parts, which y
 
 ## Open menus
 
-To show a menu open, add a script that opens it as a click does, for example `$('.contextual .drdn-trigger').trigger('click')` for an actions menu. Some parts are loaded by Redmine with JavaScript, as the browser's user (for example the context menu). Render them on the server with `RedmineLookbook::PageRenderer#fragment`, which requests a Redmine path as the given user and returns its HTML:
+To show a menu open, add a script that opens it as a click does, for example `$('.contextual .drdn-trigger').trigger('click')` for an actions menu. Some parts are loaded by Redmine with JavaScript, as the user who is signed in to Redmine in the browser, often nobody (for example the context menu). Render them on the server with `RedmineLookbook::PageRenderer#fragment`, which requests a Redmine path as the given user and returns its HTML:
 
 ```erb
 <% menu = RedmineLookbook::PageRenderer.new(controller).fragment(issues_context_menu_path(ids: [1, 2])) %>
@@ -94,10 +94,11 @@ end
 ```
 
 - **Path:** a string, or a block that returns the path when the preview renders (to look up the test data).
-- **User:** `:admin` (the default: the first active administrator), `:anonymous` (not signed in) or a login such as `"jsmith"`.
+- **User:** `:admin` (the default: the first active administrator), `:anonymous` (not signed in) or a login such as `"jsmith"`. A login that is not an active user raises an error.
 - **Redirects:** up to three redirects on the same host are followed.
 - **Settings:** `settings:` changes Redmine settings for this page only, for example `render_page("/admin/webhooks", settings: { webhooks_enabled: true })` (see [Settings for one preview](#settings-for-one-preview)).
 - **Status:** `status:` is the HTTP status that the page returns, 200 by default. Give it for error pages, for example `render_page("/issues/0", status: 404)`. When the page returns another status, `bin/check-previews` reports the preview.
+- **Sudo mode:** Redmine's password confirmation (sudo mode) counts as done, so pages such as Administration » Settings show their content. `sudo: false` shows the password form instead, for example `render_page("/my/api_key", sudo: false)`.
 - **Toolbar:** the theme and language options apply to the page. With the "None" layout option, Redmine's header, menus, sidebar and footer are removed from the page.
 
 A page preview sends a GET request, so it shows the page as it first appears (see [How it works](how-it-works.md#pages)).
@@ -129,7 +130,7 @@ They return `nil` when the test data is not loaded. Show a message in that case 
     } %>
 ```
 
-- **Any setting:** the names are those of Redmine's `config/settings.yml`, for example `text_formatting`, `ui_theme`, `thumbnails_enabled`, `self_registration` or `new_item_menu_tab`. Redmine reads every setting through `Setting[]`, which the override replaces.
+- **Any setting:** the names are those of Redmine's `config/settings.yml`, for example `text_formatting`, `ui_theme`, `thumbnails_enabled`, `self_registration` or `new_item_menu_tab`. Redmine reads every setting through `Setting[]`, which the override replaces. A name that is not a Redmine setting raises an error.
 - **Values:** use the values that Redmine stores, as strings (`"common_mark"`, `"2"`). `true` and `false` become `"1"` and `"0"`.
 - **Toolbar:** the toolbar's theme option uses `ui_theme` in the same way.
 

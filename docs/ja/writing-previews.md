@@ -1,6 +1,6 @@
 # プレビューを書く
 
-プレビューは [Lookbook のプレビュー](https://lookbook.build/guide/previews)です。Ruby のクラスのメソッドが一つずつのプレビューになり、それぞれに ERB のテンプレートがあります。テンプレートの中では Redmine のヘルパーを使え、データベースには Redmine のテストデータがあります。
+プレビューは [Lookbook のプレビュー](https://lookbook.build/guide/previews)です。Ruby のクラスの各メソッドが 1 つのプレビューになり、それぞれに ERB のテンプレートがあります。テンプレートの中では Redmine のヘルパーを使え、データベースには Redmine のテストデータがあります。
 
 <a id="where-previews-go"></a>
 
@@ -71,7 +71,7 @@ end
 
 ## 開いたメニュー
 
-メニューを開いた状態で表示するには、クリックと同じようにメニューを開くスクリプトを追加します。たとえば、操作のメニューは `$('.contextual .drdn-trigger').trigger('click')` です。Redmine が JavaScript で読み込む部分(たとえばコンテキストメニュー)は、ブラウザーのユーザーとして読み込まれます。これは `RedmineLookbook::PageRenderer#fragment` でサーバーでレンダリングしてください。指定したユーザーとして Redmine のパスをリクエストし、その HTML を返します。
+メニューを開いた状態で表示するには、クリックと同じようにメニューを開くスクリプトを追加します。たとえば、操作のメニューは `$('.contextual .drdn-trigger').trigger('click')` です。Redmine が JavaScript で読み込む部分(たとえばコンテキストメニュー)は、ブラウザーで Redmine にログインしているユーザーとして読み込まれます(多くの場合、だれもログインしていません)。そのような部分は、`RedmineLookbook::PageRenderer#fragment` でサーバー側でレンダリングしてください。指定したユーザーとして Redmine のパスをリクエストし、その HTML を返します。
 
 ```erb
 <% menu = RedmineLookbook::PageRenderer.new(controller).fragment(issues_context_menu_path(ids: [1, 2])) %>
@@ -104,10 +104,11 @@ end
 ```
 
 - **パス:** 文字列か、プレビューをレンダリングするときにパスを返すブロックで渡します(テストデータを検索するとき)。
-- **ユーザー:** `:admin`(既定: 最初の有効な管理者)、`:anonymous`(ログインしていない状態)、または `"jsmith"` のようなログイン名です。
+- **ユーザー:** `:admin`(既定: 最初の有効な管理者)、`:anonymous`(ログインしていない状態)、または `"jsmith"` のようなログイン名です。有効なユーザーでないログイン名はエラーになります。
 - **リダイレクト:** 同じホストへのリダイレクトを、3 回までたどります。
 - **設定:** `settings:` で、その画面のためだけに Redmine の設定を変えます。たとえば `render_page("/admin/webhooks", settings: { webhooks_enabled: true })` です([プレビューごとの設定](#settings-for-one-preview))。
 - **ステータス:** `status:` は、画面が返す HTTP のステータスです。既定は 200 です。エラーの画面では、たとえば `render_page("/issues/0", status: 404)` のように指定します。画面がほかのステータスを返すと、`bin/check-previews` がそのプレビューを表示します。
+- **sudo モード:** Redmine のパスワードの確認(sudo モード)は済んだものとして扱うので、管理 » 設定などの画面は内容を表示します。`sudo: false` では、たとえば `render_page("/my/api_key", sudo: false)` のように、パスワードのフォームを表示します。
 - **ツールバー:** テーマと言語の切り替えが、画面に適用されます。「None」では、画面から Redmine のヘッダー、メニュー、サイドバー、フッターを取り除きます。
 
 画面のプレビューは GET のリクエストを送るので、画面を最初に開いたときの状態を表示します([仕組み](how-it-works.md#pages))。
@@ -143,7 +144,7 @@ end
     } %>
 ```
 
-- **すべての設定:** 名前は Redmine の `config/settings.yml` の名前です。たとえば `text_formatting`、`ui_theme`、`thumbnails_enabled`、`self_registration`、`new_item_menu_tab` です。Redmine はすべての設定を `Setting[]` で読み、上書きはこれを置き換えます。
+- **すべての設定:** 名前は Redmine の `config/settings.yml` の名前です。たとえば `text_formatting`、`ui_theme`、`thumbnails_enabled`、`self_registration`、`new_item_menu_tab` です。Redmine はすべての設定を `Setting[]` で読み、上書きはこれを置き換えます。Redmine の設定にない名前はエラーになります。
 - **値:** Redmine が保存する値を文字列で指定します(`"common_mark"`、`"2"`)。`true` と `false` は `"1"` と `"0"` になります。
 - **ツールバー:** ツールバーのテーマの切り替えも、同じ方法で `ui_theme` を使います。
 

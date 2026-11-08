@@ -6,7 +6,7 @@ Redmine 7 のテーマが対応する必要のある項目と、それぞれを�
 
 - 「Redmine layout」: ヘッダー、メニュー、サイドバー
 - 右から左に書く言語(アラビア語、ペルシア語、ヘブライ語)
-- 長い単語の言語(たとえばドイツ語)と、ほかの文字の言語(たとえば日本語)
+- 長い単語の言語(たとえばドイツ語)と、ラテン文字以外の言語(たとえば日本語)
 - 狭いプレビュー欄(幅 900 ピクセル未満): `responsive.css`
 
 <a id="setup"></a>
@@ -17,7 +17,7 @@ Redmine 7 のテーマが対応する必要のある項目と、それぞれを�
 | --- | --- | --- |
 | Redmine のスタイル | `application.css` が Redmine の `application.css` を読み込むか、すべてを置き換えている | どれでも |
 | 色とフォント | カスタムプロパティ(`--color-header-background`、`--fonts-main`、Open Color の `--oc-*`)で、意図した色になる | Pages » Projects » Project overview |
-| 置き換えたスタイルシート | テーマの `gantt.css`、`context_menu.css`、`jstoolbar.css`、`scm.css`、`dropdown.css`、`responsive.css`(あれば)が、Redmine のファイルの内容を満たしている | Gantt chart、Context menu、Text area with the wiki toolbar、Diff |
+| 置き換えたスタイルシート | テーマの `gantt.css`、`context_menu.css`、`jstoolbar.css`、`scm.css`、`dropdown.css`、`responsive.css`(あれば)が、Redmine のファイルが指定する内容をすべて含んでいる | Gantt chart、Context menu、Text area with the wiki toolbar、Diff、Menus、Layout » Whole layout with the flyout menu open (narrow screens) |
 | ファビコンと `theme.js` | ファビコンが表示され、`theme.js` がブラウザーのコンソールにエラーを出さない | 「Redmine layout」のどの画面でも |
 
 <a id="layout"></a>
@@ -34,7 +34,7 @@ Redmine 7 のテーマが対応する必要のある項目と、それぞれを�
 | 本文 | タイトルとパンくずリスト、`.contextual` のリンク、splitcontent | Title with breadcrumbs、Pages » Projects » Project overview |
 | サイドバーのない画面 | `#main.nosidebar` | Pages » Issues » New issue |
 | フッター | | Layout » Footer |
-| 狭い画面 | ヘッダーのバー、フライアウトメニュー、スクロールするテーブル | 狭いプレビュー欄の Layout » Whole layout with the flyout menu open、「Redmine layout」のどの画面でも |
+| 狭い画面 | ヘッダーのバー、フライアウトメニュー、スクロールするテーブル | 狭いプレビュー欄の Layout » Whole layout with the flyout menu open (narrow screens)、「Redmine layout」のどの画面でも |
 | 印刷 | メニューと操作の部分が印刷されない | どの画面でも、ブラウザーの印刷プレビューで |
 
 <a id="navigation"></a>
@@ -116,14 +116,13 @@ Redmine 7 のテーマが対応する必要のある項目と、それぞれを�
 | 項目 | 確認すること | プレビュー |
 | --- | --- | --- |
 | wiki の書式 | 見出し、リスト、テーブル、コードとシンタックスハイライト、引用、アラート、脚注、タスクリスト、画像、マクロ、Redmine のオブジェクトへのリンク。両方の書式で確認する | Wiki formatting(`format` のパラメーター)、Pages » Content |
-| wiki のページ | 編集のリンクのあるセクション、履歴、差分、アノテート、索引 | Pages » Content » Wiki page with sections、Wiki history、Wiki diff、Wiki annotate |
+| wiki のページ | 編集のリンクのあるセクション、履歴、差分、アノテート、索引 | Pages » Content » Wiki page with sections、Wiki history、Wiki diff、Wiki annotate、Wiki index |
 | 差分 | インラインと左右並べ | Diff、Pages » Content » Wiki diff、Pages » Issues » Description diff |
 | ソースファイル | 行番号とシンタックスハイライト | Source file with syntax highlighting、Pages » Content » Attachment: source file |
 | 添付ファイル | テキスト、差分、画像、そのほかのファイル | Pages » Content » Attachment: source file、Attachment: diff、Attachment: image、Attachment: other file |
 | ニュース、文書、ファイル、フォーラム | 一覧、コメント、返信 | News、Pages » Content |
 | 活動 | 日付、イベントのアイコン | Activity、Pages » Projects » Activity |
 | メンバー | ロールとメンバー | Members |
-| ヘルプ | wiki の書式のヘルプ(専用のスタイルシートを使う。[Redmine 7 のテーマ](themes.md#other-stylesheets)) | Pages » Help |
 
 <a id="repositories"></a>
 
@@ -165,6 +164,6 @@ Redmine 7 のテーマが対応する必要のある項目と、それぞれを�
 - **ホバーとフォーカス:** プレビューの上でポインターを合わせたり、Tab キーで移動したりして確認してください。
 - **ほかのユーザー:** ほとんどの画面のプレビューは、すべてのリンクが表示される管理者としてレンダリングします。一部は `jsmith`(たとえば「Project overview as a member」と「Issue as a member」)、`dlopper`(「Forbidden (403)」)、匿名ユーザー(ログインしていない状態の画面)としてレンダリングします。利用者にとって大切な画面は、そのロールのユーザーで確認してください。
 - **非公開の注記:** Redmine のテストデータには、非公開の注記がありません。
-- **画面を変える設定:** たとえば、Gravatar、ユーザーのテキストエリアのフォント、wiki のテーブルの並べ替え、無効にしたリアクション。プレビューは、プレビューの一覧の「備考」に設定を書いたもの以外は、テストデータの設定を使います。独自のプレビューでは、ほかの設定も変えられます([プレビューを書く](writing-previews.md#settings-for-one-preview))。
+- **画面を変える設定:** たとえば、Gravatar、ユーザーのテキストエリアのフォント、wiki のテーブルの並べ替え、無効にしたリアクション。プレビューの一覧の「備考」に設定を書いたものを除き、プレビューはテストデータの設定を使います。独自のプレビューでは、ほかの設定も変えられます([プレビューを書く](writing-previews.md#settings-for-one-preview))。
 - **プラグイン:** プラグインの画面とスタイルシート。[独自のプレビュー](writing-previews.md)を追加してください。
-- **メール、PDF と CSV の出力、Atom のフィード:** テーマは適用されません。
+- **メール、PDF と CSV の出力、Atom のフィード、wiki の書式のヘルプ:** テーマは適用されません(ヘルプの画面は [Redmine 7 のテーマ](themes.md#other-stylesheets)を参照)。

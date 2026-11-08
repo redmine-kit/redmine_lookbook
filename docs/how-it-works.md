@@ -13,7 +13,7 @@ Redmine Lookbook connects Lookbook to Redmine in three places: the controller th
 Lookbook renders previews through `RedmineLookbook::PreviewsController`. It is based on Redmine's `ApplicationController`, so Redmine's helpers, layouts and theme handling work as in Redmine's own pages.
 
 - **Layout:** with the "None" layout option, the controller uses a layout with Redmine's stylesheets, scripts and theme, but without Redmine's header, menus, sidebar and footer. With "Redmine layout", it uses Redmine's `base` layout.
-- **User:** previews render as the first active administrator.
+- **User:** previews render as the first active administrator, whatever the browser's Redmine session is: Redmine's checks for sign-in, password changes, two-factor authentication and session expiry are skipped for previews.
 - **Language and theme:** the language is set for the duration of the render, and the theme through a settings override (see below).
 - **One pass:** previews are rendered in one pass with their layout (Lookbook's `preview_single_pass_rendering`), so that `content_for :header_tags` from Redmine's helpers reaches the layout's `<head>`.
 - **Layout parts:** the "Layout" and "Menus" previews use the layout `redmine_lookbook/bare`, which puts the preview directly in `#wrapper`, as Redmine's base layout does with its header and menus.
@@ -22,7 +22,7 @@ Lookbook renders previews through `RedmineLookbook::PreviewsController`. It is b
 
 A page preview sends an internal GET request through the Rails application (`Rails.application.call`) and shows the HTML that Redmine returns.
 
-- **User, theme and language:** they are passed in Rack env keys of the request (`redmine_lookbook.user`, `redmine_lookbook.theme`, `redmine_lookbook.locale`). A patch of Redmine's `ApplicationController` reads them: it signs in the given user, sets the language and applies the theme for that request. Only code in the same process can set these keys. HTTP headers become `HTTP_*` keys, so a request from outside cannot set them.
+- **User, theme and language:** they are passed in Rack env keys of the request (`redmine_lookbook.user`, `redmine_lookbook.locale`, `redmine_lookbook.sudo`). A patch of Redmine's `ApplicationController` reads them: it signs in the given user, sets the language and, unless the preview says otherwise, counts Redmine's sudo mode as confirmed for that request. The theme needs no key: the internal request runs in the preview's thread, where the settings override (see below) already sets it. Internal requests do not change the user's recently used projects. Only code in the same process can set these keys. HTTP headers become `HTTP_*` keys, so a request from outside cannot set them.
 - **Source panel:** `render_page` returns a component (`RedmineLookbook::PageComponent`) instead of rendering a template, so Lookbook's Source panel shows the preview method with the page's path, for example `render_page("/issues/1", user: :admin)`.
 - **Redirects:** up to three redirects on the same host are followed.
 - **Settings and status:** the request runs with the settings that the preview gives (see below). When the final HTTP status is not the one the preview expects, the preview's response gets the header `X-Redmine-Lookbook-Unexpected-Status`, which `bin/check-previews` reports.

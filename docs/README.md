@@ -19,7 +19,7 @@ Redmine Lookbook is in early development (0.1.0). It supports Redmine 7.0 only a
 ## Features
 
 - **Rendered by Redmine:** components are rendered with Redmine's own helpers and partials, and pages by Redmine's own controllers. No HTML is copied by hand, so the previews follow Redmine's markup.
-- **Many screens:** 265 previews: 56 components and 209 pages. The components include Redmine's layout parts (the header, the top menu, the flyout menu, the sidebar and the footer) and menus shown open (the context menu, "Jump to a project", the actions menu and the account menu). The pages range from the issue list and the Gantt chart to the repository browser and every administration page. See the [preview list](previews.md).
+- **Many screens:** 265 previews: 56 components and 209 pages. The components include Redmine's layout parts (the header, the top menu, the flyout menu, the sidebar and the footer) and menus shown open (the context menu, "Jump to a project", the "+" menu, the actions menu and the account menu). The pages range from the issue list and the Gantt chart to the repository browser and every administration page. See the [preview list](previews.md).
 - **Toolbar options:** switch the theme, the language and the layout while you look at a preview. The defaults follow Redmine's own settings.
 - **Wiki formatting:** sample texts in CommonMark and Textile cover Redmine's formatting, links to Redmine objects and macros.
 - **Test data:** Redmine's own test data (`test/fixtures`) fills the screens with projects, issues, wiki pages and more, and the test repositories of Redmine's tests (Subversion, Git and Mercurial) fill the repository pages.

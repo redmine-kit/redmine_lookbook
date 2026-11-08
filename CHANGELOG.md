@@ -15,3 +15,12 @@
 - Screenshots in the documentation and README, in English and Japanese, taken with `bin/capture-screenshots`.
 - Fixed: the open context menu and flyout menu previews did not always open.
 - The Source panel of page previews shows the preview method with the page's path, instead of an internal template.
+- Page previews count Redmine's sudo mode as confirmed (`sudo: false` shows the password form), so the administration settings show their content instead of the password form.
+- Fixed: the "Settings: API" preview is "Settings: Integrations", the tab's name in Redmine 7.
+- `bin/check-previews` also reports previews that show a missing translation.
+- Test data: an additional email address for jsmith.
+- Fixed: the "Server" option accepted any URL and broke the preview. It now opens only the servers in `REDMINE_LOOKBOOK_SERVERS`, in the preview pane.
+- Previews no longer depend on the browser's Redmine session (sign-in required, password change, two-factor authentication, session expiry).
+- Page previews raise an error for an unknown user or setting name, follow redirects only on the same server, and accept paths outside ASCII. Internal requests no longer record recently used projects.
+- The test repositories are built in a temporary directory, so a failed setup leaves nothing broken. The Docker entrypoint decides by the data in the database instead of a marker file.
+- CI checks that Redmine loads in production without Lookbook.

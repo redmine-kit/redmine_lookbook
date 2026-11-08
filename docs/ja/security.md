@@ -1,6 +1,6 @@
 # セキュリティ
 
-Redmine Lookbook は開発用の道具です。開ける人にはだれにでも、Redmine の画面を管理者としてレンダリングして見せます。
+Redmine Lookbook は開発用のツールです。`/lookbook` を開けるすべての人に、管理者としてレンダリングした Redmine の画面を表示します。
 
 <a id="use-it-only-for-previews"></a>
 
@@ -16,7 +16,7 @@ Redmine Lookbook は開発用の道具です。開ける人にはだれにでも
 
 - **既定はローカルだけ:** Docker の環境は、`127.0.0.1` でだけ待ち受けます。
 - **ローカルネットワーク:** `REDMINE_LOOKBOOK_BIND=0.0.0.0` にすると、同じネットワークの端末から開けます(たとえば、タブレットでテーマを確認するとき)。そのネットワークのだれにプレビューを見られてもよいときだけにし、インターネットには決して公開しないでください。
-- **テスト用のパスワード:** テストデータには、知られたパスワードがあります(`admin` / `admin`、`jsmith` / `jsmith`)。
+- **テスト用のパスワード:** テストデータのパスワードは公開されています(`admin` / `admin`、`jsmith` / `jsmith`)。
 
 <a id="internal-requests"></a>
 
@@ -29,7 +29,9 @@ Redmine Lookbook は開発用の道具です。開ける人にはだれにでも
 ## Docker のイメージ
 
 - Dockerfile は、redmine.org から Redmine をダウンロードし、決まった SHA256 で確認してから使います。
-- このリポジトリの GitHub Actions は、コミットの SHA で固定しています。
+- このリポジトリの外部の GitHub Actions は、コミットの SHA で固定しています。ドキュメントのワークフローは、同じ組織の `redmine-theme/docs-skeleton` を `main` のブランチから使います。
+- CI では、本番のサーバーと同じく Lookbook のない本番の設定で、Redmine を読み込めることを確認しています。
+- 「Server」の切り替えは、`REDMINE_LOOKBOOK_SERVERS` のサーバーだけを開きます。
 
 <a id="reporting-a-vulnerability"></a>
 

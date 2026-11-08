@@ -59,7 +59,7 @@ Redmine の `responsive.css` は、幅が 900 ピクセルより狭いときの�
 - Lookbook のプレビュー欄の、大きさを変えるハンドルをドラッグします。
 - プレビューを単独で開き(プレビューの URL は `/lookbook/preview/` で始まります)、ブラウザーの開発者ツールのレスポンシブのモードを使います。
 
-狭い画面のメニューとサイドバーは、「Redmine layout」で確認します。「Whole layout with the flyout menu open」のコンポーネントでは、ヘッダーのボタンで開くメニューを確認できます。
+狭い画面のメニューとサイドバーは、「Redmine layout」で確認します。「Whole layout with the flyout menu open (narrow screens)」のコンポーネントでは、ヘッダーのボタンで開くメニューを確認できます。
 
 ![狭い画面のフライアウトメニュー](../img/ja/narrow.png)
 

@@ -9,7 +9,7 @@ Redmine Lookbook は、Redmine のプロセスの環境変数で設定します�
 | 環境変数 | 既定値 | 内容 |
 | --- | --- | --- |
 | `REDMINE_LOOKBOOK` | 開発モードでは `1`、ほかは `0` | プレビューを有効(`1`)か無効(`0`)にします。本番では無効のままにしてください([セキュリティ](security.md))。 |
-| `REDMINE_LOOKBOOK_PATH` | `/lookbook` | Lookbook を置くパス。 |
+| `REDMINE_LOOKBOOK_PATH` | `/lookbook` | Lookbook をマウントするパス。 |
 | `REDMINE_LOOKBOOK_PREVIEW_PATHS` | なし | 追加するプレビューのディレクトリ。`:` で区切ります([プレビューを書く](writing-previews.md#where-previews-go))。 |
 | `REDMINE_LOOKBOOK_SERVERS` | なし | このプラグインをインストールしたほかの Redmine のサーバー。`名前=URL,名前=URL` の形式で指定します。指定すると、ツールバーに「Server」の切り替えが表示されます([複数のサーバー](#several-servers))。 |
 
@@ -27,7 +27,9 @@ REDMINE_LOOKBOOK_SERVERS="local=http://127.0.0.1:3000,second=http://127.0.0.1:30
 
 ツールバーの「Server」の切り替えには、「This server」(その Redmine のバージョン付き)と、これらのサーバーが表示されます。ほかのサーバーを選ぶと、プレビュー欄は、そのサーバーの同じプレビューに同じツールバーの設定でリダイレクトされ、そのサーバーの Redmine がプレビューをレンダリングします。Lookbook のナビゲーションは、元のサーバーのままです。
 
-ブラウザーがほかのサーバーを直接開くので、そのサーバーはブラウザーからアクセスでき、同じプレビューを持っている必要があります。
+ブラウザーがほかのサーバーを直接開くので、そのサーバーはブラウザーからアクセスでき、同じプレビューを持っている必要があります。開くのは `REDMINE_LOOKBOOK_SERVERS` のサーバーだけで、それ以外の値は無視します。
+
+Lookbook は、ツールバーの切り替えを cookie に保存します。ブラウザーは同じホストのポート違いで cookie を共有するので、1 つのホストでポートを変えて 2 つのサーバーを動かすと、選んだサーバーはもう一方でも有効になります。元に戻すときは、そちらで「This server」を選んでください。
 
 <a id="docker"></a>
 

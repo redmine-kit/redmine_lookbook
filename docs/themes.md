@@ -105,12 +105,12 @@ These stylesheets are linked by name and can be replaced in the same way:
 | `context_menu` | Pages with the context menu of issues and spent time |
 | `jstoolbar` | Pages with the wiki toolbar |
 | `gantt` | The Gantt chart |
-| `scm` | Diffs and the repository browser |
+| `scm` | Repository pages, diffs, file views, wiki annotate and news pages |
 
 These cannot be replaced by a theme:
 
 - `jquery/jquery-ui-1.13.2`: it is linked with a directory in its name, which never matches a file of the theme.
-- `wiki_syntax.css` and `wiki_syntax_detailed.css` (the wiki syntax help): they are linked with the `.css` extension, which never matches a theme's stylesheet name. Style the help pages from `application.css` instead; their `<body>` has the `controller-help` class.
+- `wiki_syntax.css` and `wiki_syntax_detailed.css` (the wiki syntax help): the help pages are standalone HTML pages without Redmine's layout (checked: `HelpController` renders them with `layout: nil`). They link only these files, with the `.css` extension, and link neither `application.css` nor the theme, so a theme cannot style them.
 
 Stylesheets of plugins are linked with their plugin's name and are not replaced by a theme either. Override them with more specific selectors.
 
@@ -131,7 +131,7 @@ Redmine 7 removed the old raster icons. `legacy-icons-compat.css` restores their
 
 ## JavaScript
 
-When the theme has `javascripts/theme.js`, Redmine links it on every page, in `<head>`, after Redmine's own scripts (jQuery, Rails UJS and `application-legacy.js`) and before the page's own tags. It is a classic script, not a module. Other files in `javascripts/` are served but not linked.
+When the theme has `javascripts/theme.js`, Redmine links it on every page, in `<head>`, after Redmine's own scripts (jQuery, Rails UJS, Tribute, `application-legacy.js` and `responsive.js`) and before the page's own tags. It is a classic script, not a module. Other files in `javascripts/` are served but not linked.
 
 ## Images
 
@@ -192,7 +192,7 @@ The main elements of Redmine's layout (`base.html.erb`):
 | `.flyout-menu` | The menu for narrow screens |
 | `#top-menu` | The top menu and `#account` (sign in, my account) |
 | `#header` | `#quick-search`, `#project-jump`, the title and `#main-menu` (the project menu) |
-| `#main` | `#sidebar` and `#content`. `#main` has the class `nosidebar` when the page has no sidebar |
+| `#main` | `#sidebar` and `#content`. `#main` has the class `collapsiblesidebar`, or `nosidebar` when the page has no sidebar |
 | `#footer` | "Powered by Redmine" |
 | `#ajax-indicator`, `#ajax-modal` | The loading indicator and the dialog |
 

@@ -1,6 +1,6 @@
 # Redmine 7 のテーマ
 
-Redmine 7 がテーマを見つけ、読み込み、適用する仕組みです。このページの内容は、Redmine 7.0.3 のソース(主に `lib/redmine/themes.rb`、`lib/redmine/asset_path.rb`、`app/helpers/application_helper.rb`、`app/helpers/icons_helper.rb`、`app/views/layouts/base.html.erb`)で確認し、動作は開発モードの Redmine 7.0.3 と試験用のテーマで確認しました。
+Redmine 7 がテーマを見つけ、読み込み、適用する仕組みです。このページの内容は、Redmine 7.0.3 のソース(主に `lib/redmine/themes.rb`、`lib/redmine/asset_path.rb`、`app/helpers/application_helper.rb`、`app/helpers/icons_helper.rb`、`app/views/layouts/base.html.erb`)で確認し、動作は開発モードの Redmine 7.0.3 とテスト用のテーマで確認しました。
 
 <a id="where-themes-are"></a>
 
@@ -71,7 +71,7 @@ Redmine のレイアウトは、スタイルシートを次の順に読み込み
 <%= stylesheet_link_tag 'jquery/jquery-ui-1.13.2', 'tribute-5.1.3', 'application', 'dropdown', 'responsive', :media => 'all' %>
 ```
 
-テーマを選ぶと、Redmine は、テーマの `stylesheets/` に同じ名前のファイルがあるものについて、自身のファイルの代わりにテーマのファイルを読み込みます。そのため、テーマの `application.css` は Redmine の `application.css` を**置き換えます**。Redmine のスタイルの上に作るときは、付属のテーマと同じように、最初に読み込みます。
+テーマを選ぶと、Redmine は、テーマの `stylesheets/` に同じ名前のファイルがあるものについて、自身のファイルの代わりにテーマのファイルを読み込みます。そのため、テーマの `application.css` は Redmine の `application.css` を**置き換えます**。Redmine のスタイルの上に作るときは、付属のテーマと同じように、最初に Redmine の `application.css` を読み込みます。
 
 ```css
 @import url(/application.css);
@@ -119,14 +119,14 @@ Redmine 7 には、Noto Sans のフォント(標準、太字、斜体、太字�
 | `context_menu` | チケットと作業時間のコンテキストメニューがある画面 |
 | `jstoolbar` | wiki のツールバーがある画面 |
 | `gantt` | ガントチャート |
-| `scm` | 差分とリポジトリのブラウザー |
+| `scm` | リポジトリの画面、差分、ファイルの表示、wiki のアノテート、ニュースの画面 |
 
 次のものは、テーマで置き換えられません。
 
 - `jquery/jquery-ui-1.13.2`: 名前にディレクトリが含まれるので、テーマのファイルと一致しません。
-- `wiki_syntax.css` と `wiki_syntax_detailed.css`(wiki の書式のヘルプ): 拡張子 `.css` を付けて読み込まれるので、テーマのスタイルシートの名前と一致しません。ヘルプの画面は、`application.css` からスタイルを指定してください。ヘルプの画面の `<body>` には `controller-help` のクラスがあります。
+- `wiki_syntax.css` と `wiki_syntax_detailed.css`(wiki の書式のヘルプ): ヘルプの画面は Redmine のレイアウトを使わない独立した HTML です(確認済み: `HelpController` は `layout: nil` でレンダリングします)。拡張子 `.css` を付けてこれらだけを読み込み、`application.css` もテーマも読み込まないので、テーマではスタイルを変えられません。
 
-プラグインのスタイルシートは、プラグインの名前を付けて読み込まれるので、これもテーマでは置き換えられません。より詳細なセレクターで上書きしてください。
+プラグインのスタイルシートは、プラグインの名前を付けて読み込まれるので、これもテーマでは置き換えられません。詳細度の高いセレクターで上書きしてください。
 
 <a id="url-in-stylesheets"></a>
 
@@ -151,7 +151,7 @@ Redmine 7 では、古いラスター画像のアイコンが削除されまし�
 
 ## JavaScript
 
-テーマに `javascripts/theme.js` があると、Redmine はすべての画面の `<head>` で、Redmine 自身のスクリプト(jQuery、Rails UJS、`application-legacy.js`)のあと、画面ごとのタグの前に読み込みます。モジュールではなく、通常のスクリプトです。`javascripts/` のほかのファイルは配信されますが、読み込まれません。
+テーマに `javascripts/theme.js` があると、Redmine はすべての画面の `<head>` で、Redmine 自身のスクリプト(jQuery、Rails UJS、Tribute、`application-legacy.js`、`responsive.js`)のあと、画面ごとのタグの前に読み込みます。モジュールではなく、通常のスクリプトです。`javascripts/` のほかのファイルは配信されますが、読み込まれません。
 
 <a id="images"></a>
 
@@ -222,7 +222,7 @@ Redmine のレイアウト(`base.html.erb`)の主な要素です。
 | `.flyout-menu` | 狭い画面のメニュー |
 | `#top-menu` | トップメニューと `#account`(ログイン、個人設定) |
 | `#header` | `#quick-search`、`#project-jump`、タイトル、`#main-menu`(プロジェクトのメニュー) |
-| `#main` | `#sidebar` と `#content`。サイドバーのない画面では、`#main` に `nosidebar` のクラスが付きます |
+| `#main` | `#sidebar` と `#content`。`#main` には `collapsiblesidebar` のクラスが付き、サイドバーのない画面では `nosidebar` が付きます |
 | `#footer` | 「Powered by Redmine」 |
 | `#ajax-indicator`、`#ajax-modal` | 読み込み中の表示とダイアログ |
 

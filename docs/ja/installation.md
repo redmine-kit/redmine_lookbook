@@ -73,9 +73,10 @@ REDMINE_LOOKBOOK_THEMES=~/themes REDMINE_LOOKBOOK_BIND=0.0.0.0 docker compose -f
 - **子チケット:** テストデータには親子のチケットがないので、このタスクはチケット 1 に子チケットを 1 つ追加します。
 - **リポジトリ:** このタスクは、`rake test:scm:setup` と同じように、`test/fixtures/repositories` から Redmine のテストのリポジトリを `tmp/test/` に作ります。テストデータが参照する Subversion のリポジトリ(eCookbook の既定のリポジトリ)と、eCookbook に追加する Git と Mercurial のリポジトリです。リビジョンを読み込み、メッセージが参照するチケットにリビジョンを関連付けます。
 - **Webhook:** Redmine のテストデータには Webhook(Redmine 7 の新機能)がないので、このタスクが 1 つ追加します。
+- **メールアドレス:** Redmine のテストデータには追加のメールアドレスがないので、このタスクは `jsmith` に 1 つ追加します。
 - **ユーザー:** `admin` / `admin` と `jsmith` / `jsmith` でログインできます。画面のプレビューは、プレビューが別のユーザーを指定しない限り `admin` としてレンダリングします。
 
-`redmine_lookbook:update_test_data` は、ファイル、子チケット、Webhook、テスト用のリポジトリのうち、ないものを追加します。Redmine のテストデータがある Redmine でだけ動き、本番では動かず、何度でも実行できます。Redmine Lookbook を更新したあとや、`tmp/test/` のテスト用のリポジトリを消したあとに実行します。
+`redmine_lookbook:update_test_data` は、ファイル、子チケット、Webhook、メールアドレス、テスト用のリポジトリのうち、ないものを追加します。Redmine のテストデータがある Redmine でだけ動き、本番では動かず、何度でも実行できます。Redmine Lookbook を更新したあとや、`tmp/test/` のテスト用のリポジトリを消したあとに実行します。
 
 ```sh
 bin/rails redmine_lookbook:update_test_data
@@ -85,7 +86,7 @@ bin/rails redmine_lookbook:update_test_data
 
 ## プレビューの確認
 
-`bin/check-previews` は、すべてのプレビューを 3 つのツールバーの設定(既定、日本語と Redmine のレイアウト、アラビア語)でレンダリングし、失敗したプレビューを表示します。画面のプレビューで、Redmine の画面がプレビューの期待と違う HTTP のステータスを返したとき(たとえばエラーの画面)も失敗にします。動いている Redmine に対して実行します。
+`bin/check-previews` は、すべてのプレビューを 3 つのツールバーの設定(既定、日本語と Redmine のレイアウト、アラビア語)でレンダリングし、失敗したプレビューを表示します。画面のプレビューで、Redmine の画面がプレビューの期待と違う HTTP のステータスを返したとき(たとえばエラーの画面)と、翻訳がない文字列を表示した画面も失敗にします。動いている Redmine に対して実行します。
 
 ```sh
 bin/check-previews                        # http://127.0.0.1:3000

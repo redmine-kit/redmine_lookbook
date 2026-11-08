@@ -51,7 +51,7 @@ Redmine's `responsive.css` changes the layout below 900 pixels wide. To check it
 - drag the resize handles of the preview pane in Lookbook, or
 - open the preview on its own (the preview's URL starts with `/lookbook/preview/`) and use the responsive mode of your browser's developer tools.
 
-Use the "Redmine layout" option to see the menus and the sidebar on narrow screens. The "Whole layout with the flyout menu open" component shows the menu that the button in the header opens:
+Use the "Redmine layout" option to see the menus and the sidebar on narrow screens. The "Whole layout with the flyout menu open (narrow screens)" component shows the menu that the button in the header opens:
 
 ![The flyout menu on a narrow screen](img/narrow.png)
 

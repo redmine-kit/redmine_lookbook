@@ -2,9 +2,9 @@
 
 Redmine Lookbook has 265 previews: 56 components and 209 pages. The name is the label in Lookbook's navigation, and the path is the part of the preview's URL after `/lookbook/inspect/`.
 
-- **Components** render parts of Redmine with Redmine's helpers and partials. The "Layout" and "Menus" groups render directly in Redmine's `#wrapper` with the header, menus and footer, so the "Layout" toolbar option does not apply to them. Menus are shown open.
-- **Pages** render the Redmine page in the "Page" column as the user in the "User" column: `admin` (an administrator), `jsmith` and `dlopper` (project members) or `anonymous` (not signed in). "Notes" lists the settings that the preview changes for that page only, and the HTTP status of error pages.
-- **Placeholders:** `<Subversion>` and `<Git>` are the ids of the test repositories, which the previews look up.
+- **Components** render parts of Redmine with Redmine's helpers and partials. The "Layout" and "Menus" groups render directly in Redmine's `#wrapper`, where Redmine puts its header, menus and footer, so the "Layout" toolbar option does not apply to them. Menus are shown open.
+- **Pages** render the Redmine page in the "Page" column as the user in the "User" column: `admin` (an administrator), `jsmith` and `dlopper` (project members) or `anonymous` (not signed in). "Notes" lists the settings that the preview changes for that page only, the HTTP status of error pages, and `sudo: false` where the page shows the password form of Redmine's sudo mode.
+- **Placeholders:** `<Subversion>` and `<Git>` are the ids of the test repositories, which the previews look up in the test data. `deff712f…` is a Git revision, shortened here.
 
 This list is generated from the files in `previews/`.
 
@@ -270,7 +270,7 @@ This list is generated from the files in `previews/`.
 | My account | `/my/account` | `admin` |  |
 | Change password | `/my/password` | `jsmith` |  |
 | User profile | `/users/2` | `admin` |  |
-| Confirm password (sudo mode) | `/my/api_key` | `admin` |  |
+| Confirm password (sudo mode) | `/my/api_key` | `admin` | `sudo: false` |
 | Sign in without registration | `/login` | `anonymous` | Settings: `self_registration: "0"` |
 | User profile of another user | `/users/3` | `jsmith` |  |
 
@@ -331,7 +331,7 @@ This list is generated from the files in `previews/`.
 | Settings: General | `/settings?tab=general` | `admin` |  |
 | Settings: Display | `/settings?tab=display` | `admin` |  |
 | Settings: Authentication | `/settings?tab=authentication` | `admin` |  |
-| Settings: API | `/settings?tab=api` | `admin` |  |
+| Settings: Integrations | `/settings?tab=integrations` | `admin` |  |
 | Settings: Projects | `/settings?tab=projects` | `admin` |  |
 | Settings: Users | `/settings?tab=users` | `admin` |  |
 | Settings: Issue tracking | `/settings?tab=issues` | `admin` |  |

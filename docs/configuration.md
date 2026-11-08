@@ -23,7 +23,9 @@ REDMINE_LOOKBOOK_SERVERS="local=http://127.0.0.1:3000,second=http://127.0.0.1:30
 
 The "Server" option of the toolbar lists "This server" (with its Redmine version) and these servers. When another server is chosen, the preview pane is redirected to the same preview on that server, with the same toolbar options, so the preview is rendered by that Redmine. Lookbook's navigation stays on this server.
 
-Your browser opens the other server directly, so it must be reachable from your browser, and it must have the same previews.
+Your browser opens the other server directly, so it must be reachable from your browser, and it must have the same previews. Only the servers in `REDMINE_LOOKBOOK_SERVERS` are opened; any other value is ignored.
+
+Lookbook keeps the toolbar options in cookies. Browsers share cookies between ports of the same host, so when two servers run on one host with different ports, the chosen server also applies on the other one. Choose "This server" there to go back.
 
 ## Docker
 
