@@ -7,7 +7,8 @@ module RedmineLookbook
     def options
       {
         theme: theme_choices,
-        locale: locale_choices,
+        # Lookbook shows each key as the option's label ("Language").
+        language: language_choices,
         layout: [["None (component only)", "none"], ["Redmine layout", "page"]],
         **server_option
       }
@@ -17,7 +18,7 @@ module RedmineLookbook
       [["Default", ""]] + Redmine::Themes.themes.map { |theme| [theme.name, theme.id] }
     end
 
-    def locale_choices
+    def language_choices
       helper = Object.new.extend(Redmine::I18n)
       languages = helper.valid_languages.map(&:to_s).sort
       [["Default (Redmine's default language)", ""]] +
@@ -51,7 +52,7 @@ module RedmineLookbook
 
     def locale(params)
       helper = Object.new.extend(Redmine::I18n)
-      candidate = value(params, :locale) || Setting.default_language
+      candidate = value(params, :language) || Setting.default_language
       helper.valid_languages.map(&:to_s).include?(candidate.to_s) ? candidate.to_s : nil
     end
 

@@ -12,9 +12,9 @@ paths = index.scan(%r{#{Regexp.escape(mount)}/inspect/([a-z0-9_/]+)}).flatten.un
 abort "No previews found at #{base}#{mount}." if paths.empty?
 
 displays = [
-  { theme: "", locale: "", layout: "none" },
-  { theme: "", locale: "ja", layout: "page" },
-  { theme: "", locale: "ar", layout: "none" }
+  { theme: "", language: "", layout: "none" },
+  { theme: "", language: "ja", layout: "page" },
+  { theme: "", language: "ar", layout: "none" }
 ]
 
 failures = []
