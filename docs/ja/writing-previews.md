@@ -44,6 +44,39 @@ end
 - **ユーザー:** コンポーネントのプレビューは、最初の有効な管理者としてレンダリングするので、権限が必要なリンクも表示されます。
 - **ヘルパー:** プレビューのコントローラーには、Redmine の `ApplicationHelper` に加えて、Redmine のチケットの画面のヘルパー(`issues`、`journals`、`projects`、`custom_fields`、`issue_relations`、`watchers`、`attachments`、`queries`、`repositories`、`timelog`、`versions`)と `activities` があります。`helper :all` は使いません。Redmine のヘルパーには同じメソッドを定義し直すものがあり、チケットの一覧のセルが空になるためです。
 - **インスタンス変数:** Redmine の部分テンプレートには、`@project` や `@issue` などのインスタンス変数を必要とするものがあります。部分テンプレートをレンダリングする前に、テンプレートの中で設定してください。
+- **スクリプトとスタイルシート:** `content_for :header_tags` で `<head>` にタグを追加するヘルパー(たとえば `context_menu` と `wikitoolbar_for`)も使えます。プレビューはレイアウトと一緒に 1 回でレンダリングするためです。
+
+<a id="layout-parts"></a>
+
+## レイアウトの部品
+
+ヘッダー、トップメニュー、フライアウトメニュー、フッターは、`#content` ではなく `#wrapper` の直下に置くものです。`redmine_lookbook/bare` のレイアウトを使ってください。このレイアウトは、Redmine の CSS、JavaScript、テーマを読み込み、プレビューを `#wrapper` の直下に置きます。
+
+```ruby
+module Components
+  class MyThemeLayoutPreview < Lookbook::Preview
+    layout "redmine_lookbook/bare"
+
+    # @label Header
+    def header
+      render_with_template
+    end
+  end
+end
+```
+
+組み込みの「Layout」のプレビューには、Redmine のレイアウトの部品の部分テンプレートがあり、独自のプレビューからも使えます。たとえば `render partial: 'components/layout_preview/parts/header'` です(ほかに `top_menu`、`flyout`、`footer`)。
+
+<a id="open-menus"></a>
+
+## 開いたメニュー
+
+メニューを開いた状態で表示するには、クリックと同じようにメニューを開くスクリプトを追加します。たとえば、操作のメニューは `$('.contextual .drdn-trigger').trigger('click')` です。Redmine が JavaScript で読み込む部分(たとえばコンテキストメニュー)は、ブラウザーのユーザーとして読み込まれます。これは `RedmineLookbook::PageRenderer#fragment` でサーバーでレンダリングしてください。指定したユーザーとして Redmine のパスをリクエストし、その HTML を返します。
+
+```erb
+<% menu = RedmineLookbook::PageRenderer.new(controller).fragment(issues_context_menu_path(ids: [1, 2])) %>
+<%= javascript_tag "$(window).on('load', function() { $('#context-menu').html(#{menu.to_json}).show(); });" %>
+```
 
 <a id="a-page"></a>
 
@@ -73,6 +106,8 @@ end
 - **パス:** 文字列か、プレビューをレンダリングするときにパスを返すブロックで渡します(テストデータを検索するとき)。
 - **ユーザー:** `:admin`(既定: 最初の有効な管理者)、`:anonymous`(ログインしていない状態)、または `"jsmith"` のようなログイン名です。
 - **リダイレクト:** 同じホストへのリダイレクトを、3 回までたどります。
+- **設定:** `settings:` で、その画面のためだけに Redmine の設定を変えます。たとえば `render_page("/admin/webhooks", settings: { webhooks_enabled: true })` です([プレビューごとの設定](#settings-for-one-preview))。
+- **ステータス:** `status:` は、画面が返す HTTP のステータスです。既定は 200 です。エラーの画面では、たとえば `render_page("/issues/0", status: 404)` のように指定します。画面がほかのステータスを返すと、`bin/check-previews` がそのプレビューを表示します。
 - **ツールバー:** テーマと言語の切り替えが、画面に適用されます。「None」では、画面から Redmine のヘッダー、メニュー、サイドバー、フッターを取り除きます。
 
 画面のプレビューは GET のリクエストを送るので、画面を最初に開いたときの状態を表示します([仕組み](how-it-works.md#pages))。
@@ -92,13 +127,15 @@ end
 | `TestData.news`、`TestData.document`、`TestData.board`、`TestData.topic` | ニュース、文書、フォーラム、フォーラムのトピック |
 | `TestData.user` | ユーザー `jsmith` |
 
+テスト用のリポジトリは eCookbook のリポジトリです。`TestData.project.repository`(Subversion、既定のリポジトリ)と `TestData.project.repositories.find_by(identifier: "git")`(ほかに `"mercurial"`)で取得できます。
+
 テストデータを読み込んでいないときは `nil` を返します。そのときは、組み込みのプレビューと同じように、エラーにせずメッセージを表示してください。
 
 <a id="settings-for-one-preview"></a>
 
 ## プレビューごとの設定
 
-`RedmineLookbook::SettingsOverride.with` は、ブロックをレンダリングするあいだだけ、Redmine の設定の一部を変えます。データベースの中の Redmine の設定は変わりません。
+`RedmineLookbook::SettingsOverride.with` は、ブロックをレンダリングするあいだだけ、Redmine の設定を変えます。データベースの中の Redmine の設定は変わりません。画面のプレビューでは、同じ設定を `settings:` で渡せます。
 
 ```erb
 <%= RedmineLookbook::SettingsOverride.with(thumbnails_enabled: true) {
@@ -106,13 +143,9 @@ end
     } %>
 ```
 
-| 設定 | 値 |
-| --- | --- |
-| `text_formatting` | `"common_mark"` か `"textile"` |
-| `ui_theme` | テーマの id。ツールバーのテーマの切り替えは、この設定を使います。 |
-| `thumbnails_enabled` | `true` か `false` |
-
-今のところ、ほかの設定はこの方法では変えられません。
+- **すべての設定:** 名前は Redmine の `config/settings.yml` の名前です。たとえば `text_formatting`、`ui_theme`、`thumbnails_enabled`、`self_registration`、`new_item_menu_tab` です。Redmine はすべての設定を `Setting[]` で読み、上書きはこれを置き換えます。
+- **値:** Redmine が保存する値を文字列で指定します(`"common_mark"`、`"2"`)。`true` と `false` は `"1"` と `"0"` になります。
+- **ツールバー:** ツールバーのテーマの切り替えも、同じ方法で `ui_theme` を使います。
 
 <a id="wiki-text"></a>
 

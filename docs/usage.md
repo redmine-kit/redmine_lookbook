@@ -2,7 +2,7 @@
 
 Open `/lookbook` (for example <http://127.0.0.1:3000/lookbook>). The navigation lists the previews in two groups:
 
-- **Components:** parts of Redmine's screens (buttons, forms, the issue list, menus and more), rendered with Redmine's helpers and partials.
+- **Components:** parts of Redmine's screens (buttons, forms, the issue list, menus and more), rendered with Redmine's helpers and partials. The "Layout" group has Redmine's layout parts and the whole layout with sample content, and the "Menus" group shows menus open, as after a click.
 - **Pages:** whole Redmine pages, rendered by Redmine's controllers.
 
 See the [preview list](previews.md) for all previews.
@@ -18,7 +18,7 @@ The display options in the toolbar apply to every preview.
 | Layout | None (component only), Redmine layout | None |
 
 - **Theme:** the chosen theme is used for the preview's request only. Redmine's settings in the database are not changed.
-- **Layout:** "None" keeps Redmine's stylesheets, scripts and theme, and leaves out the header, menus, sidebar and footer. "Redmine layout" shows the whole page, as Redmine shows it.
+- **Layout:** "None" keeps Redmine's stylesheets, scripts and theme, and leaves out the header, menus, sidebar and footer. "Redmine layout" shows the whole page, as Redmine shows it. The "Layout" and "Menus" groups of components always render as in Redmine's layout, so this option does not change them.
 - **Server:** when `REDMINE_LOOKBOOK_SERVERS` is set, a "Server" option shows the same preview rendered by another Redmine (see [Configuration](configuration.md#several-servers)).
 
 ## Checking a theme

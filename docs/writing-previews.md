@@ -40,6 +40,35 @@ end
 - **User:** component previews render as the first active administrator, so links that need permissions are shown.
 - **Helpers:** the preview controller has the helpers of Redmine's issues pages (`issues`, `journals`, `projects`, `custom_fields`, `issue_relations`, `watchers`, `attachments`, `queries`, `repositories`, `timelog`, `versions`) and `activities`, besides Redmine's `ApplicationHelper`. It does not use `helper :all`: some of Redmine's helpers redefine the same methods, and the issue list would render empty cells.
 - **Instance variables:** some of Redmine's partials expect instance variables such as `@project` or `@issue`. Set them in the template before rendering the partial.
+- **Scripts and stylesheets:** helpers that add tags to `<head>` with `content_for :header_tags` (for example `context_menu` and `wikitoolbar_for`) work, because previews are rendered in one pass with their layout.
+
+## Layout parts
+
+The header, the top menu, the flyout menu and the footer belong directly in `#wrapper`, not in `#content`. Use the layout `redmine_lookbook/bare`, which has Redmine's stylesheets, scripts and theme and puts the preview directly in `#wrapper`:
+
+```ruby
+module Components
+  class MyThemeLayoutPreview < Lookbook::Preview
+    layout "redmine_lookbook/bare"
+
+    # @label Header
+    def header
+      render_with_template
+    end
+  end
+end
+```
+
+The built-in "Layout" previews have partials for Redmine's layout parts, which your previews can render, for example `render partial: 'components/layout_preview/parts/header'` (also `top_menu`, `flyout` and `footer`).
+
+## Open menus
+
+To show a menu open, add a script that opens it as a click does, for example `$('.contextual .drdn-trigger').trigger('click')` for an actions menu. Some parts are loaded by Redmine with JavaScript, as the browser's user (for example the context menu). Render them on the server with `RedmineLookbook::PageRenderer#fragment`, which requests a Redmine path as the given user and returns its HTML:
+
+```erb
+<% menu = RedmineLookbook::PageRenderer.new(controller).fragment(issues_context_menu_path(ids: [1, 2])) %>
+<%= javascript_tag "$(window).on('load', function() { $('#context-menu').html(#{menu.to_json}).show(); });" %>
+```
 
 ## A page
 
@@ -67,6 +96,8 @@ end
 - **Path:** a string, or a block that returns the path when the preview renders (to look up the test data).
 - **User:** `:admin` (the default: the first active administrator), `:anonymous` (not signed in) or a login such as `"jsmith"`.
 - **Redirects:** up to three redirects on the same host are followed.
+- **Settings:** `settings:` changes Redmine settings for this page only, for example `render_page("/admin/webhooks", settings: { webhooks_enabled: true })` (see [Settings for one preview](#settings-for-one-preview)).
+- **Status:** `status:` is the HTTP status that the page returns, 200 by default. Give it for error pages, for example `render_page("/issues/0", status: 404)`. When the page returns another status, `bin/check-previews` reports the preview.
 - **Toolbar:** the theme and language options apply to the page. With the "None" layout option, Redmine's header, menus, sidebar and footer are removed from the page.
 
 A page preview sends a GET request, so it shows the page as it first appears (see [How it works](how-it-works.md#pages)).
@@ -84,11 +115,13 @@ A page preview sends a GET request, so it shows the page as it first appears (se
 | `TestData.news`, `TestData.document`, `TestData.board`, `TestData.topic` | A news item, a document, a forum and a forum topic |
 | `TestData.user` | The user `jsmith` |
 
+The test repositories are the repositories of eCookbook: `TestData.project.repository` (Subversion, the default) and `TestData.project.repositories.find_by(identifier: "git")` (also `"mercurial"`).
+
 They return `nil` when the test data is not loaded. Show a message in that case instead of raising an error, as the built-in previews do.
 
 ## Settings for one preview
 
-`RedmineLookbook::SettingsOverride.with` changes some of Redmine's settings while a block renders, without changing Redmine's settings in the database:
+`RedmineLookbook::SettingsOverride.with` changes Redmine's settings while a block renders, without changing Redmine's settings in the database. Page previews take the same settings with `settings:`.
 
 ```erb
 <%= RedmineLookbook::SettingsOverride.with(thumbnails_enabled: true) {
@@ -96,13 +129,9 @@ They return `nil` when the test data is not loaded. Show a message in that case 
     } %>
 ```
 
-| Setting | Value |
-| --- | --- |
-| `text_formatting` | `"common_mark"` or `"textile"` |
-| `ui_theme` | A theme id. The toolbar's theme option uses this setting. |
-| `thumbnails_enabled` | `true` or `false` |
-
-Other settings cannot be changed this way yet.
+- **Any setting:** the names are those of Redmine's `config/settings.yml`, for example `text_formatting`, `ui_theme`, `thumbnails_enabled`, `self_registration` or `new_item_menu_tab`. Redmine reads every setting through `Setting[]`, which the override replaces.
+- **Values:** use the values that Redmine stores, as strings (`"common_mark"`, `"2"`). `true` and `false` become `"1"` and `"0"`.
+- **Toolbar:** the toolbar's theme option uses `ui_theme` in the same way.
 
 ## Wiki text
 

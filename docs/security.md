@@ -6,7 +6,7 @@ Redmine Lookbook is a development tool. It renders Redmine's pages as an adminis
 
 - **Development only.** Never enable Redmine Lookbook on a production server. The previews are off by default outside development mode; do not turn them on with `REDMINE_LOOKBOOK=1` there.
 - **No sign-in.** Lookbook has no sign-in of its own. Anyone who can open `/lookbook` can see the pages that the previews render, as an administrator: users, settings, the information page with Redmine's environment, and the data of every project.
-- **A Redmine for previews.** Use a Redmine that holds only Redmine's test data. `redmine_lookbook:load_test_data` refuses to run in production, and refuses to run when the database already has projects, issues, trackers or users other than `admin`, so it does not mix test data into a Redmine with data.
+- **A Redmine for previews.** Use a Redmine that holds only Redmine's test data. `redmine_lookbook:load_test_data` refuses to run in production, and refuses to run when the database already has projects, issues, trackers or users other than `admin`, so it does not mix test data into a Redmine with data. `redmine_lookbook:update_test_data` runs only on a Redmine with Redmine's test data, and never in production.
 
 ## Network
 

@@ -19,6 +19,8 @@ Lookbook は、`RedmineLookbook::PreviewsController` でプレビューをレン
 - **レイアウト:** 「None」では、Redmine の CSS、JavaScript、テーマを読み込み、Redmine のヘッダー、メニュー、サイドバー、フッターのないレイアウトを使います。「Redmine layout」では、Redmine の `base` のレイアウトを使います。
 - **ユーザー:** 最初の有効な管理者としてレンダリングします。
 - **言語とテーマ:** 言語はレンダリングのあいだだけ設定し、テーマは設定の上書き(下記)で適用します。
+- **1 回のレンダリング:** プレビューはレイアウトと一緒に 1 回でレンダリングします(Lookbook の `preview_single_pass_rendering`)。Redmine のヘルパーの `content_for :header_tags` が、レイアウトの `<head>` に届くようにするためです。
+- **レイアウトの部品:** 「Layout」と「Menus」のプレビューは、`redmine_lookbook/bare` のレイアウトを使います。このレイアウトは、Redmine の base のレイアウトのヘッダーやメニューと同じように、プレビューを `#wrapper` の直下に置きます。
 
 <a id="pages"></a>
 
@@ -28,6 +30,8 @@ Lookbook は、`RedmineLookbook::PreviewsController` でプレビューをレン
 
 - **ユーザー、テーマ、言語:** リクエストの Rack の env のキー(`redmine_lookbook.user`、`redmine_lookbook.theme`、`redmine_lookbook.locale`)で渡します。Redmine の `ApplicationController` へのパッチがこれを読み、そのリクエストだけ、指定したユーザーでログインし、言語を設定し、テーマを適用します。このキーは、同じプロセスの中のコードだけが設定できます。HTTP のヘッダーは `HTTP_*` のキーになるので、外部からのリクエストでは設定できません。
 - **リダイレクト:** 同じホストへのリダイレクトを、3 回までたどります。
+- **設定とステータス:** リクエストは、プレビューが渡す設定(下記)で動きます。最後の HTTP のステータスがプレビューの期待と違うときは、プレビューのレスポンスに `X-Redmine-Lookbook-Unexpected-Status` のヘッダーを付け、`bin/check-previews` がそれを表示します。
+- **コードの再読み込み:** 開発モードでも、内部のリクエストでは変更したコードを読み込み直しません。プレビュー自身のリクエストがすでに読み込み直しており、その途中で読み込み直すと、使っている定数が取り除かれてしまうためです。
 - **状態:** 内部のリクエストのあと、プレビュー自身のリクエストの `User.current` と言語を元に戻します。
 - **レイアウト:** 「None」では、HTML からヘッダー、メニュー、サイドバー、フッター、フライアウトメニューを取り除き、`#main` に `nosidebar` のクラスを付けます。
 
@@ -35,9 +39,15 @@ Lookbook は、`RedmineLookbook::PreviewsController` でプレビューをレン
 
 ## 設定の上書き
 
-ツールバーのテーマと、wiki の書式のパラメーターは、1 回のレンダリングのあいだだけ Redmine の設定を変えます。`RedmineLookbook::SettingsOverride` は `Setting` に prepend され、`ui_theme`、`text_formatting`、`thumbnails_enabled?` について、今のスレッドに値があればその値を返します。データベースの中の Redmine の設定は変わりません。
+ツールバーのテーマ、wiki の書式のパラメーター、画面のプレビューの `settings:` は、1 回のレンダリングのあいだだけ Redmine の設定を変えます。`RedmineLookbook::SettingsOverride` は `Setting` に prepend され、Redmine のすべての設定の読み出し(`Setting.ui_theme`、`Setting.thumbnails_enabled?` など)が使う `Setting[]` を置き換えて、今のスレッドに値があればその値を返します。データベースの中の Redmine の設定は変わりません。
 
 Redmine は、いくつかの所(スタイルシート、アイコン、ファビコン、`<body>` の `theme-*` のクラス)で `Setting.ui_theme` からテーマを読みます。そのため、この設定を上書きすると、Redmine 自身と同じように、すべての所にテーマが適用されます。
+
+<a id="test-repositories"></a>
+
+## テスト用のリポジトリ
+
+`RedmineLookbook::TestRepositories` は、Redmine の `rake test:scm:setup` と同じように、Redmine のテストのリポジトリを `tmp/test/` に作ります。Subversion は `svnadmin load`、Mercurial はバンドルからの `hg pull`、Git は `tar` で作ります。Subversion のリポジトリは、Redmine のテストデータが参照するものです。Git と Mercurial のリポジトリは、Redmine のリポジトリのテストと同じく、パスの文字コードを ISO-8859-1 にして eCookbook に追加します。Redmine がリビジョンを読み込み(`fetch_changesets`)、メッセージからチケットに関連付けます(`scan_comment_for_issue_ids`)。
 
 <a id="toolbar-options"></a>
 

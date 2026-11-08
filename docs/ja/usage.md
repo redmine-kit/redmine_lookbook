@@ -2,7 +2,7 @@
 
 `/lookbook`(たとえば <http://127.0.0.1:3000/lookbook>)を開きます。ナビゲーションには、プレビューが 2 つのグループに分かれて表示されます。
 
-- **Components:** Redmine の画面の部品(ボタン、フォーム、チケットの一覧、メニューなど)です。Redmine のヘルパーと部分テンプレートでレンダリングします。
+- **Components:** Redmine の画面の部品(ボタン、フォーム、チケットの一覧、メニューなど)です。Redmine のヘルパーと部分テンプレートでレンダリングします。「Layout」のグループには Redmine のレイアウトの部品と、見本の内容を入れたレイアウトの全体が、「Menus」のグループにはクリックしたあとのように開いたメニューがあります。
 - **Pages:** Redmine の画面の全体です。Redmine のコントローラーでレンダリングします。
 
 すべてのプレビューは、[プレビューの一覧](previews.md)にあります。
@@ -20,7 +20,7 @@
 | Layout | None(コンポーネントだけ)、Redmine layout | None |
 
 - **テーマ:** 選んだテーマは、そのプレビューのリクエストにだけ使います。データベースの中の Redmine の設定は変わりません。
-- **レイアウト:** 「None」は、Redmine の CSS、JavaScript、テーマを読み込み、ヘッダー、メニュー、サイドバー、フッターを表示しません。「Redmine layout」は、Redmine と同じように画面の全体を表示します。
+- **レイアウト:** 「None」は、Redmine の CSS、JavaScript、テーマを読み込み、ヘッダー、メニュー、サイドバー、フッターを表示しません。「Redmine layout」は、Redmine と同じように画面の全体を表示します。コンポーネントの「Layout」と「Menus」のグループは、常に Redmine のレイアウトと同じ形でレンダリングするので、この切り替えでは変わりません。
 - **サーバー:** `REDMINE_LOOKBOOK_SERVERS` を設定すると、「Server」の切り替えで、同じプレビューを別の Redmine がレンダリングしたものを表示できます([設定](configuration.md#several-servers))。
 
 <a id="checking-a-theme"></a>
