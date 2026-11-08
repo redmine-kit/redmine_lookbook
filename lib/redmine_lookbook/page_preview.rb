@@ -5,7 +5,7 @@ module RedmineLookbook
   #     include RedmineLookbook::PagePreview
   #
   #     def index
-  #       render_page { "/projects/#{TestData.project.identifier}/issues" }
+  #       render_page("/projects/ecookbook/issues", user: :admin)
   #     end
   #   end
   module PagePreview
@@ -19,11 +19,11 @@ module RedmineLookbook
     # user: :admin (the default), :anonymous or a login.
     # settings: Redmine settings for this page only, e.g. { webhooks_enabled: true }.
     # status: the HTTP status the page returns (200 unless it is an error page).
+    #
+    # It returns a component rather than rendering a template, so Lookbook's
+    # Source panel shows the preview method.
     def render_page(path = nil, user: :admin, settings: {}, status: 200, &block)
-      render_with_template(
-        template: "redmine_lookbook/page",
-        locals: { path: path, path_block: block, user: user, settings: settings, status: status }
-      )
+      render(PageComponent.new(path: path || block, user: user, settings: settings, status: status))
     end
   end
 end

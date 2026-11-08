@@ -74,6 +74,7 @@ module RedmineLookbook
       reloader.prepend(ReloadGuard::ReloaderMethods)
     end
     load File.join(root, "lookbook", "previews_controller.rb")
+    load File.join(root, "lookbook", "page_component.rb")
     load_previews(paths)
   end
 

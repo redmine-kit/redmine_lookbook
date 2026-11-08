@@ -14,3 +14,4 @@
 - Fixed: the "Import issues" preview used a path that Redmine 7 does not have.
 - Screenshots in the documentation and README, in English and Japanese, taken with `bin/capture-screenshots`.
 - Fixed: the open context menu and flyout menu previews did not always open.
+- The Source panel of page previews shows the preview method with the page's path, instead of an internal template.

@@ -1,7 +1,0 @@
-<% resolved = path || path_block&.call %>
-<% if resolved %>
-<%= raw RedmineLookbook::PageRenderer.new(controller).render(resolved, user: user, settings: settings, status: status) %>
-<% else %>
-<!DOCTYPE html>
-<html><body><p>Load Redmine's test data first: <code>bin/rails redmine_lookbook:load_test_data</code></p></body></html>
-<% end %>

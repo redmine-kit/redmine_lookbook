@@ -6,7 +6,7 @@ Redmine Lookbook connects Lookbook to Redmine in three places: the controller th
 
 - **Enabled check:** the plugin is enabled when the Lookbook gem is installed and `REDMINE_LOOKBOOK` is `1` (the default in development).
 - **Setup:** Redmine runs the plugin's `init.rb` in a `to_prepare` callback, after Rails' autoloader is set up, and again on every code reload in development. The plugin then loads its previews and the preview controller itself, because Lookbook expects them to be autoloaded.
-- **Off means off:** the preview controller refers to Lookbook, so it is kept in `lookbook/`, outside the directories that Redmine autoloads. With the plugin disabled, nothing refers to Lookbook, and Redmine eager loads without it in production.
+- **Off means off:** the preview controller and the page component refer to Lookbook and ViewComponent, so they are kept in `lookbook/`, outside the directories that Redmine autoloads. With the plugin disabled, nothing refers to Lookbook, and Redmine eager loads without it in production.
 
 ## Components
 
@@ -23,6 +23,7 @@ Lookbook renders previews through `RedmineLookbook::PreviewsController`. It is b
 A page preview sends an internal GET request through the Rails application (`Rails.application.call`) and shows the HTML that Redmine returns.
 
 - **User, theme and language:** they are passed in Rack env keys of the request (`redmine_lookbook.user`, `redmine_lookbook.theme`, `redmine_lookbook.locale`). A patch of Redmine's `ApplicationController` reads them: it signs in the given user, sets the language and applies the theme for that request. Only code in the same process can set these keys. HTTP headers become `HTTP_*` keys, so a request from outside cannot set them.
+- **Source panel:** `render_page` returns a component (`RedmineLookbook::PageComponent`) instead of rendering a template, so Lookbook's Source panel shows the preview method with the page's path, for example `render_page("/issues/1", user: :admin)`.
 - **Redirects:** up to three redirects on the same host are followed.
 - **Settings and status:** the request runs with the settings that the preview gives (see below). When the final HTTP status is not the one the preview expects, the preview's response gets the header `X-Redmine-Lookbook-Unexpected-Status`, which `bin/check-previews` reports.
 - **Code reloading:** in development, the internal request does not reload changed code. The preview's own request has already done that, and reloading in the middle of it would unload the constants it is using.
