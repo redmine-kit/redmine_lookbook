@@ -39,10 +39,28 @@ module RedmineLookbook
       names = Dir[fixtures_path.join("*.yml")].map { |file| File.basename(file, ".yml") }
       ActiveRecord::FixtureSet.reset_cache
       ActiveRecord::FixtureSet.create_fixtures(fixtures_path, names)
+      update!
+      names.size
+    end
+
+    # True when Redmine's test data is loaded: its eCookbook project and its
+    # user jsmith are there.
+    def loaded?
+      project.present? && user.present?
+    end
+
+    # Adds what the previews need beyond Redmine's test data, when it is
+    # missing: attachment files, a subtask, a webhook and the test
+    # repositories. It runs only on Redmine's test data and can run again.
+    # Returns the identifiers of the test repositories that are ready.
+    def update!
+      return [] unless loaded?
+
       copy_attachment_files
       fill_missing_images
       add_subtask
-      names.size
+      add_webhook
+      TestRepositories.setup!
     end
 
     # Attachments in the test data point at files under test/fixtures/files.
@@ -92,6 +110,17 @@ module RedmineLookbook
       Issue.create!(project: parent.project, tracker: parent.tracker, parent_issue_id: parent.id,
                     subject: "Check the print layout", author: User.find_by_login("jsmith") || parent.author,
                     status: IssueStatus.sorted.first, priority: IssuePriority.default || IssuePriority.first)
+    end
+
+    # Redmine's test data has no webhooks (new in Redmine 7), so one is added
+    # for the webhook pages.
+    def add_webhook
+      return if Webhook.exists?
+
+      webhook = Webhook.new(user: user, url: "https://example.com/redmine/webhook", active: true)
+      webhook.projects = [project]
+      webhook.events = %w[issue.created issue.updated]
+      webhook.save!(validate: false)
     end
 
     def project
