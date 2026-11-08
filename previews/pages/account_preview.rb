@@ -37,5 +37,20 @@ module Pages
     def user
       render_page("/users/2", user: :admin)
     end
+
+    # @label Confirm password (sudo mode)
+    def api_key
+      render_page("/my/api_key", user: :admin)
+    end
+
+    # @label Sign in without registration
+    def login_without_register
+      render_page("/login", user: :anonymous, settings: { self_registration: "0" })
+    end
+
+    # @label User profile of another user
+    def other_user
+      render_page("/users/3", user: "jsmith")
+    end
   end
 end

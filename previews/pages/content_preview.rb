@@ -112,5 +112,90 @@ module Pages
     def new_topic
       render_page("/boards/1/topics/new", user: :admin)
     end
+
+    # @label New wiki page
+    def wiki_new
+      render_page("/projects/ecookbook/wiki/new", user: :admin)
+    end
+
+    # @label Old version of a wiki page
+    def wiki_version
+      render_page("/projects/ecookbook/wiki/CookBook_documentation/1", user: :admin)
+    end
+
+    # @label Wiki page with child pages
+    def wiki_children
+      render_page("/projects/ecookbook/wiki/Another_page", user: :admin)
+    end
+
+    # @label Wiki child page
+    def wiki_child
+      render_page("/projects/ecookbook/wiki/Child_1", user: :admin)
+    end
+
+    # @label Wiki export
+    def wiki_export
+      render_page("/projects/ecookbook/wiki/export", user: :admin)
+    end
+
+    # @label Wiki page, signed out
+    def wiki_anonymous
+      render_page("/projects/ecookbook/wiki", user: :anonymous)
+    end
+
+    # @label News of all projects
+    def all_news
+      render_page("/news", user: :admin)
+    end
+
+    # @label Edit news
+    def edit_news
+      render_page("/news/1/edit", user: :admin)
+    end
+
+    # @label Edit document
+    def edit_document
+      render_page("/documents/1/edit", user: :admin)
+    end
+
+    # @label New forum
+    def new_forum
+      render_page("/projects/ecookbook/boards/new", user: :admin)
+    end
+
+    # @label Edit forum
+    def edit_forum
+      render_page("/projects/ecookbook/boards/1/edit", user: :admin)
+    end
+
+    # @label Forum topic with replies
+    def topic_replies
+      render_page("/boards/1/topics/2", user: :admin)
+    end
+
+    # @label Edit forum topic
+    def edit_topic
+      render_page("/boards/1/topics/1/edit", user: :admin)
+    end
+
+    # @label Attachment: source file
+    def attachment_text
+      render_page("/attachments/4", user: :admin)
+    end
+
+    # @label Attachment: diff
+    def attachment_diff
+      render_page("/attachments/5", user: :admin)
+    end
+
+    # @label Attachment: image
+    def attachment_image
+      render_page("/attachments/3", user: :admin)
+    end
+
+    # @label Attachment: other file
+    def attachment_other
+      render_page("/attachments/6", user: :admin)
+    end
   end
 end
