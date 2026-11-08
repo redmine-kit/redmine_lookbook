@@ -14,7 +14,7 @@ Redmine Lookbook runs in a Redmine 7.0 in development mode that is set up only f
 The Docker setup builds a Redmine 7.0.3 with this plugin and Redmine's test data. It needs only Docker.
 
 ```sh
-git clone https://github.com/redmine-theme/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
 docker compose -f docker/compose.yml up --build
 ```

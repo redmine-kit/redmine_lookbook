@@ -3,8 +3,8 @@ Redmine::Plugin.register :redmine_lookbook do
   author "Tsuyoshi Tsurushima"
   description "Preview Redmine components and pages with Lookbook, switching themes, languages and layouts."
   version RedmineLookbook::VERSION
-  url "https://github.com/redmine-theme/redmine_lookbook"
-  author_url "https://github.com/redmine-theme"
+  url "https://github.com/redmine-kit/redmine_lookbook"
+  author_url "https://github.com/redmine-kit"
   requires_redmine version_or_higher: "7.0.0"
 end
 

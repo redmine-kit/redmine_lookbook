@@ -28,7 +28,7 @@ Redmine Lookbook is in early development (0.1.0). It supports Redmine 7.0 only a
 ## Quick start
 
 ```sh
-git clone https://github.com/redmine-theme/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
 docker compose -f docker/compose.yml up --build
 ```

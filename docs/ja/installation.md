@@ -18,7 +18,7 @@ Redmine Lookbook は、プレビューのためだけに用意した、開発モ
 Docker の環境は、このプラグインと Redmine のテストデータを入れた Redmine 7.0.3 をビルドします。必要なのは Docker だけです。
 
 ```sh
-git clone https://github.com/redmine-theme/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
 docker compose -f docker/compose.yml up --build
 ```

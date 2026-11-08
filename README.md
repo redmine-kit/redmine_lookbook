@@ -1,6 +1,6 @@
 # Redmine Lookbook
 
-[![CI](https://github.com/redmine-theme/redmine_lookbook/actions/workflows/ci.yml/badge.svg)](https://github.com/redmine-theme/redmine_lookbook/actions/workflows/ci.yml)
+[![CI](https://github.com/redmine-kit/redmine_lookbook/actions/workflows/ci.yml/badge.svg)](https://github.com/redmine-kit/redmine_lookbook/actions/workflows/ci.yml)
 
 Redmine Lookbook is a Redmine 7 plugin that previews Redmine's components and pages in [Lookbook](https://lookbook.build/). Theme authors can check a theme across many screens, languages and layouts without clicking through Redmine.
 
@@ -12,7 +12,7 @@ Redmine Lookbook is a Redmine 7 plugin that previews Redmine's components and pa
 
 ## Documentation
 
-- Website: https://redmine-theme.github.io/redmine_lookbook/ (日本語: https://redmine-theme.github.io/redmine_lookbook/ja/)
+- Website: https://redmine-kit.github.io/redmine_lookbook/ (日本語: https://redmine-kit.github.io/redmine_lookbook/ja/)
 - Markdown: [docs/README.md](docs/README.md) (日本語: [docs/ja/README.md](docs/ja/README.md)) and the pages it links
 
 The documentation covers [installation](docs/installation.md), [the toolbar](docs/usage.md), [every preview](docs/previews.md), a [checklist for theme authors](docs/theme-checklist.md), [how Redmine 7 applies themes](docs/themes.md) and [writing your own previews](docs/writing-previews.md).
@@ -27,7 +27,7 @@ The documentation covers [installation](docs/installation.md), [the toolbar](doc
 ## Quick start
 
 ```sh
-git clone https://github.com/redmine-theme/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
 docker compose -f docker/compose.yml up --build
 ```

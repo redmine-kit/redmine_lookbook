@@ -18,5 +18,5 @@ concurrency:
 
 jobs:
   docs:
-    if: github.repository_owner == 'redmine-theme'
-    uses: redmine-theme/docs-skeleton/.github/workflows/repo-docs.yml@main
+    if: github.repository_owner == 'redmine-kit'
+    uses: redmine-kit/docs-skeleton/.github/workflows/repo-docs.yml@main

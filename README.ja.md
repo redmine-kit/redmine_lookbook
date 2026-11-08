@@ -1,6 +1,6 @@
 # Redmine Lookbook
 
-[![CI](https://github.com/redmine-theme/redmine_lookbook/actions/workflows/ci.yml/badge.svg)](https://github.com/redmine-theme/redmine_lookbook/actions/workflows/ci.yml)
+[![CI](https://github.com/redmine-kit/redmine_lookbook/actions/workflows/ci.yml/badge.svg)](https://github.com/redmine-kit/redmine_lookbook/actions/workflows/ci.yml)
 
 Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](https://lookbook.build/) でプレビューする Redmine 7 のプラグインです。テーマの作者は、Redmine の画面を一つずつ開かなくても、多くの画面、言語、レイアウトでテーマを確認できます。
 
@@ -12,7 +12,7 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 
 ## ドキュメント
 
-- Web サイト: https://redmine-theme.github.io/redmine_lookbook/ja/ (English: https://redmine-theme.github.io/redmine_lookbook/)
+- Web サイト: https://redmine-kit.github.io/redmine_lookbook/ja/ (English: https://redmine-kit.github.io/redmine_lookbook/)
 - Markdown: [docs/ja/README.md](docs/ja/README.md) (English: [docs/README.md](docs/README.md)) と、そこからリンクしているページ
 
 ドキュメントには、[インストール](docs/ja/installation.md)、[ツールバー](docs/ja/usage.md)、[すべてのプレビュー](docs/ja/previews.md)、[テーマの作者のためのチェックリスト](docs/ja/theme-checklist.md)、[Redmine 7 がテーマを適用する仕組み](docs/ja/themes.md)、[独自のプレビューの書き方](docs/ja/writing-previews.md)があります。
@@ -27,7 +27,7 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 ## クイックスタート
 
 ```sh
-git clone https://github.com/redmine-theme/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
 docker compose -f docker/compose.yml up --build
 ```

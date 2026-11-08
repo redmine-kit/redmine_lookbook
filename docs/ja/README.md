@@ -32,7 +32,7 @@ Redmine Lookbook は開発の初期段階です(0.1.0)。対応するのは Redm
 ## クイックスタート
 
 ```sh
-git clone https://github.com/redmine-theme/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
 docker compose -f docker/compose.yml up --build
 ```
