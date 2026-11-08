@@ -1,5 +1,7 @@
 # Redmine Lookbook
 
+[![CI](https://github.com/redmine-theme/redmine_lookbook/actions/workflows/ci.yml/badge.svg)](https://github.com/redmine-theme/redmine_lookbook/actions/workflows/ci.yml)
+
 Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](https://lookbook.build/) で見られるようにするプラグインです。テーマの作者が、Redmine の画面を一つずつ開かなくても、多くの画面、言語、レイアウトでテーマを確認できます。
 
 [English](../../README.md)

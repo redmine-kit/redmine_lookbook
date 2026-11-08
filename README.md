@@ -1,5 +1,7 @@
 # Redmine Lookbook
 
+[![CI](https://github.com/redmine-theme/redmine_lookbook/actions/workflows/ci.yml/badge.svg)](https://github.com/redmine-theme/redmine_lookbook/actions/workflows/ci.yml)
+
 Redmine Lookbook previews Redmine's components and pages in [Lookbook](https://lookbook.build/), so that theme authors can check a theme across many screens, languages and layouts without clicking through Redmine.
 
 [日本語](docs/ja/README.md)
