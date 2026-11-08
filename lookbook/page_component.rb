@@ -11,17 +11,18 @@ module RedmineLookbook
       <html><body><p>Load Redmine's test data first: <code>bin/rails redmine_lookbook:load_test_data</code></p></body></html>
     HTML
 
-    def initialize(path:, user:, settings:, status:)
+    def initialize(path:, user:, settings:, status:, sudo:)
       super()
       @path = path
       @user = user
       @settings = settings
       @status = status
+      @sudo = sudo
     end
 
     def call
       path = @path.respond_to?(:call) ? @path.call : @path
-      html = path ? PageRenderer.new(controller).render(path, user: @user, settings: @settings, status: @status) : MISSING_TEST_DATA
+      html = path ? PageRenderer.new(controller).render(path, user: @user, settings: @settings, status: @status, sudo: @sudo) : MISSING_TEST_DATA
       html.html_safe # rubocop:disable Rails/OutputSafety -- Redmine's own HTML
     end
   end

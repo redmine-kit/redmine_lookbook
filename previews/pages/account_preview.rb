@@ -40,7 +40,7 @@ module Pages
 
     # @label Confirm password (sudo mode)
     def api_key
-      render_page("/my/api_key", user: :admin)
+      render_page("/my/api_key", user: :admin, sudo: false)
     end
 
     # @label Sign in without registration

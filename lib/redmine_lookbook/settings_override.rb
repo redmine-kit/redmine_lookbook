@@ -32,8 +32,12 @@ module RedmineLookbook
       Thread.current[KEY]&.fetch(name.to_sym, nil)
     end
 
+    # A name that is not one of Redmine's settings raises an error, so that a
+    # mistyped name is not ignored.
     def normalize(values)
       values.to_h.to_h do |name, value|
+        raise ArgumentError, "Unknown Redmine setting #{name.inspect}." unless Setting.available_settings.key?(name.to_s)
+
         value = "1" if value == true
         value = "0" if value == false
         [name.to_sym, value]

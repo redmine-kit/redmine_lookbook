@@ -18,9 +18,9 @@ module Pages
       render_page("/settings?tab=authentication", user: :admin)
     end
 
-    # @label Settings: API
-    def api
-      render_page("/settings?tab=api", user: :admin)
+    # @label Settings: Integrations
+    def integrations
+      render_page("/settings?tab=integrations", user: :admin)
     end
 
     # @label Settings: Projects

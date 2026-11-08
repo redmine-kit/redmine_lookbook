@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # Opens every preview with a few toolbar settings and reports any that do
-# not render. Usage: bin/check-previews [http://127.0.0.1:3000]
+# not render, whose page returns another HTTP status than the preview
+# expects, or that show a missing translation.
+# Usage: bin/check-previews [http://127.0.0.1:3000]
 require "json"
 require "net/http"
 require "uri"
@@ -27,6 +29,8 @@ paths.each do |path|
       failures << "#{response.code} #{path} #{display.to_json}"
     elsif unexpected
       failures << "#{path} #{display.to_json}: the page returned #{unexpected}"
+    elsif response.body.to_s.match?(/translation[ _]missing/i)
+      failures << "#{path} #{display.to_json}: a translation is missing"
     end
   end
 end

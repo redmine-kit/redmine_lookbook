@@ -25,7 +25,10 @@ module RedmineLookbook
     # user: :admin (the first active administrator), :anonymous, or a login.
     # settings: Redmine settings for this request (see SettingsOverride).
     # status: the HTTP status the page is expected to return.
-    def render(path, user: :admin, settings: {}, status: 200)
+    # sudo: false shows the password form of Redmine's sudo mode where a page
+    # asks for it; true (the default) counts the password as confirmed.
+    def render(path, user: :admin, settings: {}, status: 200, sudo: true)
+      @sudo = sudo
       got, html = SettingsOverride.with(settings) { fetch(path, user) }
       @controller.response.headers[STATUS_HEADER] = "#{got} #{path}" if got != status
       Display.component_only?(@params) ? strip_layout(html) : html
@@ -34,36 +37,55 @@ module RedmineLookbook
     # The HTML of a part of a page that Redmine loads with JavaScript (for
     # example the context menu), as the given user, for component previews.
     def fragment(path, user: :admin)
-      _status, html = fetch(path, user)
-      html.html_safe
+      @sudo = true
+      status, html = fetch(path, user)
+      @controller.response.headers[STATUS_HEADER] = "#{status} #{path}" if status != 200
+      html.html_safe # rubocop:disable Rails/OutputSafety -- Redmine's own HTML
     end
 
     private
 
     MAX_REDIRECTS = 3
 
-    # Returns the final status and HTML, following redirects on this host.
+    # Returns the final status and HTML, following redirects on this server.
     def fetch(path, user, redirects = 0)
       status, headers, html = request(path, user)
       location = headers["location"] || headers["Location"]
       if status.between?(300, 399) && location && redirects < MAX_REDIRECTS
-        uri = URI.parse(location)
-        return fetch(uri.request_uri, user, redirects + 1) if uri.host.nil? || uri.host == @request.host
+        target = same_server_path(location)
+        return fetch(target, user, redirects + 1) if target
       end
       [status, html]
     end
 
+    # The path and query of a redirect's location when it is on this server
+    # (the same scheme, host and port), or nil.
+    def same_server_path(location)
+      uri = URI.join(@request.base_url + "/", encode(location))
+      return unless uri.scheme == @request.scheme && uri.host == @request.host && uri.port == @request.port
+
+      uri.request_uri
+    rescue URI::Error
+      nil
+    end
+
+    # Percent-encodes characters outside ASCII, such as wiki page titles in
+    # Japanese, and leaves the rest of the path as it is.
+    def encode(path)
+      path.to_s.gsub(/[^\x00-\x7F]+/) { |text| URI.encode_www_form_component(text).gsub("+", "%20") }
+    end
+
     def request(path, user)
       env = Rack::MockRequest.env_for(
-        path,
+        encode(path),
         "HTTP_HOST" => @request.host_with_port,
         "rack.url_scheme" => @request.scheme,
         "REMOTE_ADDR" => @request.remote_ip,
         "HTTP_ACCEPT" => "text/html"
       )
       env[ApplicationControllerPatch::ENV_USER] = user_id(user)
-      env[ApplicationControllerPatch::ENV_THEME] = Display.theme_id(@params)
       env[ApplicationControllerPatch::ENV_LOCALE] = Display.locale(@params)
+      env[ApplicationControllerPatch::ENV_SUDO] = @sudo
 
       with_preserved_state do
         status, headers, body = ReloadGuard.internal_request { Rails.application.call(env) }
@@ -71,12 +93,15 @@ module RedmineLookbook
       end
     end
 
+    # A user that is not found raises an error, so that a mistyped login is
+    # not rendered as an anonymous user.
     def user_id(user)
-      case user
-      when :anonymous then :anonymous
-      when :admin then User.active.where(admin: true).order(:id).first&.id
-      else User.find_by_login(user.to_s)&.id
-      end
+      found = case user
+              when :anonymous then return :anonymous
+              when :admin then RedmineLookbook.first_admin
+              else User.active.find_by(login: user.to_s)
+              end
+      found&.id or raise ArgumentError, "No active user #{user.inspect} for a page preview."
     end
 
     # Redmine keeps the current user and language per thread; the internal
