@@ -12,13 +12,13 @@
           the first two issues and shows the menu next to the first row. %>
       <% menu = RedmineLookbook::PageRenderer.new(controller).fragment(issues_context_menu_path(ids: issues.first(2).map(&:id))) %>
       <%= javascript_tag <<~JS
-        $(window).on('load', function() {
+        $(function() { setTimeout(function() {
           var rows = $('tr.hascontextmenu').slice(0, 2);
           rows.each(function() { contextMenuAddSelection($(this)); });
           var button = rows.first().find('.js-contextmenu');
           var offset = button.offset();
           $('#context-menu').html(#{menu.to_json}).css({ top: offset.top + button.outerHeight(), left: offset.left - 150 }).show();
-        });
+        }, 300); });
       JS
       %>
     <% else %>

@@ -28,5 +28,6 @@
 </div>
 <%= render partial: 'components/layout_preview/parts/footer' %>
 <% if variant == :flyout %>
-  <%= javascript_tag "$(window).on('load', function() { $('.js-flyout-menu-toggle-button:visible').trigger('click'); });" %>
+  <%# After responsive.js has set up the button; the button shows only on narrow screens. %>
+  <%= javascript_tag "$(function() { setTimeout(function() { $('.js-flyout-menu-toggle-button:visible').trigger('click'); }, 300); });" %>
 <% end %>
