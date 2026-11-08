@@ -52,7 +52,15 @@ module RedmineLookbook
     Lookbook.config.project_name = "Redmine Lookbook"
     Lookbook.config.preview_paths |= paths
     Lookbook.config.preview_controller = controller
-    Lookbook.config.preview_display_options = Display.options
+    # Redmine's translations are loaded only after Rails has booted, and the
+    # language names come from them, so the toolbar options are built then.
+    if Rails.application.initialized?
+      Lookbook.config.preview_display_options = Display.options
+    else
+      Rails.application.config.after_initialize do
+        Lookbook.config.preview_display_options = Display.options
+      end
+    end
 
     ApplicationController.prepend(ApplicationControllerPatch) unless ApplicationController < ApplicationControllerPatch
     Setting.singleton_class.prepend(SettingsOverride::SettingMethods) unless Setting.singleton_class < SettingsOverride::SettingMethods

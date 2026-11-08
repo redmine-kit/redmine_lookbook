@@ -18,11 +18,10 @@ module RedmineLookbook
       [["Default", ""]] + Redmine::Themes.themes.map { |theme| [theme.name, theme.id] }
     end
 
+    # The same names and order as the language list in Redmine's settings.
     def language_choices
       helper = Object.new.extend(Redmine::I18n)
-      languages = helper.valid_languages.map(&:to_s).sort
-      [["Default (Redmine's default language)", ""]] +
-        languages.map { |lang| [helper.ll(lang, :general_lang_name), lang] }
+      [["Default (Redmine's default language)", ""]] + helper.languages_options(cache: false)
     end
 
     # Other Redmine servers that run this plugin, from REDMINE_LOOKBOOK_SERVERS
