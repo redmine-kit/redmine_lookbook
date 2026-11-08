@@ -1,0 +1,5 @@
+<ul>
+  <% User.active.sorted.limit(5).each do |user| %>
+    <li><%= avatar(user, size: "24") %> <%= link_to_user(user) %> <%= "(#{l(:field_admin)})" if user.admin? %></li>
+  <% end %>
+</ul>

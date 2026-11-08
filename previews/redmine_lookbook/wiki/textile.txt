@@ -1,0 +1,93 @@
+{{toc}}
+
+h1. Wiki formatting (Textile)
+
+This text uses the formatting that Redmine's wiki supports, so that a theme can be checked against all of it.
+
+h2. Text
+
+*Bold*, _italic_, *_bold and italic_*, -strikethrough-, +underline+, @inline code@, ^superscript^, ~subscript~, and a "link to redmine.org":https://www.redmine.org/. URLs become links: https://www.redmine.org/projects/redmine
+
+A line with a footnote.[1]
+
+fn1. The footnote text.
+
+bq. A blockquote.
+
+p(wiki-class-example). A paragraph with a class.
+
+p>. A right-aligned paragraph.
+
+h2. Lists
+
+* An item
+** A nested item
+*** A deeper item
+* Another item
+
+# First
+# Second
+## Nested
+# Third
+
+h2. Table
+
+|_. Tracker |_. Status |_. Assignee |_. Done |
+| Bug |=. New | John Smith |>. 0% |
+| Feature |=. In progress | Dave Lopper |>. 60% |
+| Support |=. Closed | Redmine Admin |>. 100% |
+
+h2. Code
+
+<pre><code class="ruby">
+def hello(name)
+  puts "Hello, #{name}"
+end
+</code></pre>
+
+<pre>
+Plain text without a language.
+</pre>
+
+h2. Links to Redmine objects
+
+* Issues: #1, ##2 (with the subject), #1-1 (a note), and an escaped !#1
+* Wiki pages: [[CookBook documentation]], [[Another_page|another page]], [[CookBook documentation#Text|a section]], [[A page that does not exist]]
+* A wiki page of another project: [[onlinestore:Start page]]
+* Versions: version#2, version:"1.0"
+* Projects: project:ecookbook, project:onlinestore
+* Documents, news and forums: document#1, news#1, forum#1, message#1
+* Users: user#2, user:jsmith, @jsmith
+* Attachments: attachment:picture.jpg
+
+h2. Macros
+
+{{issue(1)}}
+
+{{issue(2, project=true)}}
+
+{{collapse(Show more)
+Text inside a collapsible block.
+}}
+
+{{child_pages(Another_page)}}
+
+{{thumbnail(picture.jpg, size=200, title=A thumbnail)}}
+
+h2. Images
+
+!picture.jpg!
+
+h2. Headings
+
+h3. Heading 3
+
+h4. Heading 4
+
+h5. Heading 5
+
+h6. Heading 6
+
+---
+
+Text after a horizontal rule.

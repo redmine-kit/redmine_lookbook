@@ -5,5 +5,20 @@ module Components
     def list
       render_with_template
     end
+
+    # @label History
+    def history
+      render_with_template
+    end
+
+    # @label Attachments
+    def attachments
+      render_with_template
+    end
+
+    # @label Watchers
+    def watchers
+      render_with_template
+    end
   end
 end

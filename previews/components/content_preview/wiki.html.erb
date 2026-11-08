@@ -1,0 +1,8 @@
+<% issue = Issue.joins(:attachments).where(attachments: { filename: 'picture.jpg' }).order(:id).first || RedmineLookbook::TestData.issue %>
+<%# Some macros (child_pages, recent_pages) read @project. %>
+<% @project = issue&.project %>
+<div class="wiki">
+<%= RedmineLookbook::TextFormatting.with(format) {
+      textilizable(RedmineLookbook::TextFormatting.sample(format), object: issue, project: issue&.project, headings: true)
+    } %>
+</div>

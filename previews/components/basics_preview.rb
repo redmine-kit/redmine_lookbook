@@ -13,8 +13,18 @@ module Components
       render_with_template
     end
 
-    # @label Buttons and form fields
-    def form
+    # @label Buttons and icon links
+    def buttons
+      render_with_template
+    end
+
+    # @label Badges
+    def badges
+      render_with_template
+    end
+
+    # @label Avatars and user links
+    def users
       render_with_template
     end
 
@@ -29,11 +39,6 @@ module Components
     # @param page number
     def pagination(page: 3)
       render_with_template(locals: { page: page.to_i })
-    end
-
-    # @label Wiki formatting
-    def wiki
-      render_with_template
     end
   end
 end

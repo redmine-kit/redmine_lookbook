@@ -1,0 +1,4 @@
+<% project = RedmineLookbook::TestData.project %>
+<% calendar = Redmine::Helpers::Calendar.new(Date.today, current_language, :month) %>
+<% calendar.events = project ? project.issues.visible.where.not(start_date: nil).to_a : [] %>
+<%= render partial: 'common/calendar', locals: { calendar: calendar } %>

@@ -11,8 +11,9 @@ Redmine Lookbook previews Redmine's components and pages in [Lookbook](https://l
 ## Features
 
 - **Real Redmine output:** components are rendered with Redmine's own helpers and partials, and pages are rendered by Redmine's own controllers. Nothing is copied by hand.
-- **Many screens:** 58 previews, including issues, the Gantt chart, the calendar, the wiki, news, documents, files, forums, spent time, personal pages, administration and error pages.
+- **Many screens:** 72 previews: 21 components (buttons, badges, forms, filters, the issue list and history, tabs, the calendar, diffs and more) and 51 pages, including issues, the Gantt chart, the calendar, the wiki, news, documents, files, forums, spent time, personal pages, administration and error pages.
 - **Toolbar options:** switch the theme, the language and the layout while you look at a preview. The defaults follow Redmine's own settings.
+- **Wiki formatting:** a sample text in CommonMark and in Textile covers Redmine's formatting, links to Redmine objects (issues, wiki pages, versions, users, attachments) and macros (`toc`, `collapse`, `child_pages`, `thumbnail`). Choose the formatting in the preview's parameters; Redmine's setting is not changed.
 - **Test data:** Redmine's own test data (`test/fixtures`) fills the screens with projects, issues, wiki pages and more.
 - **Your own previews:** add previews for your theme or plugin from another directory.
 

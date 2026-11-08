@@ -1,0 +1,5 @@
+<% version = RedmineLookbook::TestData.version %>
+<% if version %>
+  <h3><%= link_to_version version %></h3>
+  <%= render partial: 'versions/overview', locals: { version: version } %>
+<% end %>

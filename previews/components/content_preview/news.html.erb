@@ -1,0 +1,6 @@
+<% project = RedmineLookbook::TestData.project %>
+<div id="news">
+  <% (project ? project.news.order(created_on: :desc).limit(3) : []).each do |news| %>
+    <%= render partial: 'news/news', locals: { news: news } %>
+  <% end %>
+</div>

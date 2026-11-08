@@ -1,0 +1,17 @@
+<div class="contextual">
+  <%= link_to sprite_icon('add', l(:label_issue_new)), '#', class: 'icon icon-add' %>
+  <%= link_to sprite_icon('edit', l(:button_edit)), '#', class: 'icon icon-edit' %>
+  <%= link_to sprite_icon('copy', l(:button_copy)), '#', class: 'icon icon-copy' %>
+  <%= link_to sprite_icon('del', l(:button_delete)), '#', class: 'icon icon-del' %>
+</div>
+<h2><%= l(:label_issue_plural) %></h2>
+<p>
+  <%= submit_tag l(:button_save) %>
+  <%= submit_tag l(:button_create_and_continue) %>
+  <%= link_to l(:button_cancel), '#' %>
+</p>
+<p>
+  <%= link_to sprite_icon('edit', l(:button_edit), icon_only: true), '#', class: 'icon-only icon-edit', title: l(:button_edit) %>
+  <%= link_to sprite_icon('del', l(:button_delete), icon_only: true), '#', class: 'icon-only icon-del', title: l(:button_delete) %>
+  <%= link_to sprite_icon('fav', l(:button_watch)), '#', class: 'icon icon-fav-off' %>
+</p>

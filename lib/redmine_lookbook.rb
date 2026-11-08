@@ -39,6 +39,13 @@ module RedmineLookbook
     paths = preview_paths
     controller = "RedmineLookbook::PreviewsController"
 
+    # Reload when the previews or the preview controller change. Rails reads
+    # these directories when it builds its file watcher, which happens after
+    # the first to_prepare run, so the first setup call is in time.
+    [*paths, File.join(root, "lookbook")].each do |dir|
+      Rails.application.config.watchable_dirs[dir] = [:rb, :erb]
+    end
+
     Rails.application.config.view_component.previews.paths |= paths
     Rails.application.config.view_component.previews.controller = controller
 
@@ -48,6 +55,7 @@ module RedmineLookbook
     Lookbook.config.preview_display_options = Display.options
 
     ApplicationController.prepend(ApplicationControllerPatch) unless ApplicationController < ApplicationControllerPatch
+    Setting.singleton_class.prepend(TextFormatting::SettingOverride) unless Setting.singleton_class < TextFormatting::SettingOverride
     load File.join(root, "lookbook", "previews_controller.rb")
     load_previews(paths)
   end

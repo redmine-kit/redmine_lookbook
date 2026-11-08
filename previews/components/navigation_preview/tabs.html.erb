@@ -1,0 +1,6 @@
+<%= render_tabs [
+  { name: 'general', partial: 'redmine_lookbook/tab', label: :label_general, locals: { text: 'General settings' } },
+  { name: 'members', partial: 'redmine_lookbook/tab', label: :label_member_plural, locals: { text: 'Members' } },
+  { name: 'versions', partial: 'redmine_lookbook/tab', label: :label_version_plural, locals: { text: 'Versions' } },
+  { name: 'categories', partial: 'redmine_lookbook/tab', label: :label_issue_category_plural, locals: { text: 'Issue categories' } }
+] %>

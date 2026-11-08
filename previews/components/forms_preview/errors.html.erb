@@ -1,0 +1,3 @@
+<% issue = Issue.new(project: RedmineLookbook::TestData.project) %>
+<% issue.valid? %>
+<%= error_messages_for issue %>

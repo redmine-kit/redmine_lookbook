@@ -1,0 +1,4 @@
+<% issue = Issue.joins(:attachments).order(:id).first %>
+<% if issue %>
+  <%= render partial: 'attachments/links', locals: { attachments: issue.attachments, container: issue, options: { deletable: true, thumbnails: true } } %>
+<% end %>

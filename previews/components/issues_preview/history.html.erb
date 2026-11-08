@@ -1,0 +1,8 @@
+<% @issue = Issue.joins(:journals).order(:id).first %>
+<% if @issue %>
+  <% @project = @issue.project %>
+  <% @journals = @issue.visible_journals_with_index %>
+  <div id="history">
+    <%= render_tabs issue_history_tabs, issue_history_default_tab %>
+  </div>
+<% end %>

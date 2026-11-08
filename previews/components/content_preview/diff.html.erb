@@ -1,0 +1,15 @@
+<% diff = <<~DIFF
+  --- a/stylesheets/application.css
+  +++ b/stylesheets/application.css
+  @@ -1,6 +1,7 @@
+   body {
+  -  color: #333;
+  +  color: #222;
+  +  line-height: 1.6;
+     background: #fff;
+   }
+
+   a { color: #169; }
+DIFF
+%>
+<%= render partial: 'common/diff', locals: { diff: diff, diff_type: style, diff_style: nil } %>
