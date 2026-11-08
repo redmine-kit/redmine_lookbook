@@ -45,11 +45,13 @@ Then open <http://127.0.0.1:3000/lookbook>. To check that every preview renders,
 
 1. Clone this repository into `plugins/redmine_lookbook` of a Redmine 7.0 that runs in development mode.
 2. Run `bundle install`. Lookbook is in the `development` group of the plugin's `Gemfile`.
-3. Load Redmine's test data. **This replaces the rows in the Redmine database**, so do it only in a Redmine that is used for previews:
+3. Load Redmine's test data into the new, empty database of that Redmine (after `bin/rails db:migrate`, without `redmine:load_default_data`):
 
    ```sh
-   bin/rails redmine_lookbook:load_test_data CONFIRM=yes
+   bin/rails redmine_lookbook:load_test_data
    ```
+
+   The task refuses to run when the database already has data, such as projects, issues, trackers or users other than `admin`.
 
 4. Start Redmine in development mode and open `/lookbook`.
 
@@ -130,7 +132,7 @@ To keep previews outside this repository (for example, in your theme), list thei
 
 - **Development only.** Never enable Redmine Lookbook on a production server. Anyone who can open `/lookbook` can see pages rendered as an administrator, and Lookbook has no sign-in of its own.
 - **Keep it private.** The Docker setup listens only on `127.0.0.1` by default. Open it to your local network only when everyone on that network may see the data.
-- **Test data replaces data.** `redmine_lookbook:load_test_data` replaces the rows of the tables in Redmine's test data. It refuses to run in production and runs only with `CONFIRM=yes`.
+- **Test data only in a new Redmine.** `redmine_lookbook:load_test_data` loads Redmine's test data only into a new, empty database. It refuses to run in production, or when the database already has projects, issues, trackers or users other than `admin`.
 
 See [SECURITY.md](SECURITY.md) to report a vulnerability.
 

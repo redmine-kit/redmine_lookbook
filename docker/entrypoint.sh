@@ -5,7 +5,7 @@ rm -f tmp/pids/server.pid
 
 bin/rails db:migrate
 if [ ! -f /data/.test-data-loaded ]; then
-  bin/rails redmine_lookbook:load_test_data CONFIRM=yes
+  bin/rails redmine_lookbook:load_test_data
   touch /data/.test-data-loaded
 fi
 

@@ -8,6 +8,12 @@ module RedmineLookbook
   module TestData
     PROJECT = "ecookbook".freeze
 
+    class ExistingDataError < StandardError
+      def message
+        "The Redmine database already has data. Redmine's test data is loaded only into a new, empty Redmine."
+      end
+    end
+
     module_function
 
     def fixtures_path
@@ -18,8 +24,17 @@ module RedmineLookbook
       fixtures_path.join("projects.yml").exist?
     end
 
+    # True when the database holds anything beyond what a new Redmine has
+    # after "db:migrate" (the first administrator and the built-in anonymous
+    # user and groups), including Redmine's default data.
+    def existing_data?
+      Project.exists? || Issue.exists? || Tracker.exists? ||
+        User.where(type: "User").where.not(login: "admin").exists?
+    end
+
     def load!
       raise "Redmine's test data was not found in #{fixtures_path}." unless available?
+      raise ExistingDataError if existing_data?
 
       names = Dir[fixtures_path.join("*.yml")].map { |file| File.basename(file, ".yml") }
       ActiveRecord::FixtureSet.reset_cache

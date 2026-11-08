@@ -45,11 +45,13 @@ docker compose -f docker/compose.yml up --build
 
 1. 開発モードで動かす Redmine 7.0 の `plugins/redmine_lookbook` に、このリポジトリを配置します。
 2. `bundle install` を実行します。Lookbook は、プラグインの `Gemfile` の `development` のグループにあります。
-3. Redmine のテストデータを読み込みます。**Redmine のデータベースの行が置き換わる**ので、プレビューを見るために用意した Redmine でだけ実行してください。
+3. その Redmine の新しい空のデータベース(`bin/rails db:migrate` のあと。`redmine:load_default_data` は実行しない)に、Redmine のテストデータを読み込みます。
 
    ```sh
-   bin/rails redmine_lookbook:load_test_data CONFIRM=yes
+   bin/rails redmine_lookbook:load_test_data
    ```
+
+   データベースにすでにデータ(プロジェクト、チケット、トラッカー、`admin` 以外のユーザーなど)があるときは、このタスクは実行されません。
 
 4. Redmine を開発モードで起動し、`/lookbook` を開きます。
 
@@ -130,7 +132,7 @@ end
 
 - **開発環境専用:** 本番のサーバーでは、決して有効にしないでください。`/lookbook` を開ける人は、管理者としてレンダリングした画面を見られます。Lookbook には、ログインの仕組みがありません。
 - **外部に公開しない:** Docker の設定は、既定では `127.0.0.1` でだけ待ち受けます。ローカルネットワークに開くのは、そのネットワークのだれにデータを見られてもよいときだけにしてください。
-- **テストデータは既存のデータを置き換える:** `redmine_lookbook:load_test_data` は、Redmine のテストデータに含まれるテーブルの行を置き換えます。本番では動かず、`CONFIRM=yes` を付けたときだけ動きます。
+- **テストデータは新しい Redmine にだけ:** `redmine_lookbook:load_test_data` は、新しい空のデータベースにだけ Redmine のテストデータを読み込みます。本番のときと、データベースにプロジェクト、チケット、トラッカー、`admin` 以外のユーザーがあるときは実行されません。
 
 脆弱性の報告の方法は、[SECURITY.md](../../SECURITY.md) を参照してください。
 
