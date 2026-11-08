@@ -1,0 +1,27 @@
+<%# The flyout menu of Redmine's base layout. responsive.js fills it from the
+    menus and the sidebar on narrow screens. %>
+<div class="flyout-menu js-flyout-menu">
+  <% if User.current.logged? || !Setting.login_required? %>
+    <div class="flyout-menu__search">
+      <%= form_tag(search_path(id: @project), method: :get) do %>
+        <%= label_tag 'flyout-search', sprite_icon('search', l(:label_search), icon_only: true), class: 'search-magnifier search-magnifier--flyout' %>
+        <%= text_field_tag 'q', nil, id: 'flyout-search', class: 'small js-search-input', placeholder: l(:label_search) %>
+      <% end %>
+    </div>
+  <% end %>
+  <% if User.current.logged? %>
+    <div class="flyout-menu__avatar">
+      <%= link_to(avatar(User.current, size: "40"), user_path(User.current)) %>
+      <%= link_to_user(User.current, format: :username) %>
+    </div>
+  <% end %>
+  <% if display_main_menu?(@project) %>
+    <h3><%= l(:label_project) %></h3>
+    <span class="js-project-menu"></span>
+  <% end %>
+  <h3><%= l(:label_general) %></h3>
+  <span class="js-general-menu"></span>
+  <span class="js-sidebar flyout-menu__sidebar"></span>
+  <h3><%= l(:label_profile) %></h3>
+  <span class="js-profile-menu"></span>
+</div>

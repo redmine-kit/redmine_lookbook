@@ -1,0 +1,10 @@
+<div id="main" class="nosidebar">
+  <div id="content">
+    <% labels = %i[label_general label_display label_authentication label_api label_project_plural label_user_plural
+                   label_issue_tracking label_time_tracking label_attachment_plural label_email_notification
+                   label_incoming_emails label_repository_plural] %>
+    <%= render_tabs labels.each_with_index.map { |label, i|
+          { name: "tab#{i}", partial: 'redmine_lookbook/tab', label: label, locals: { text: l(label) } }
+        } %>
+  </div>
+</div>

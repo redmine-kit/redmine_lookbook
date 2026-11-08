@@ -20,5 +20,10 @@ module Components
     def filters
       render_with_template
     end
+
+    # @label File upload field
+    def attachments_field
+      render_with_template
+    end
   end
 end

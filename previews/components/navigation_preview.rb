@@ -11,11 +11,6 @@ module Components
       render_with_template
     end
 
-    # @label Top menu and account menu
-    def top_menu
-      render_with_template
-    end
-
     # @label Administration menu
     def admin_menu
       render_with_template

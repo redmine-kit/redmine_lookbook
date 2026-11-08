@@ -37,5 +37,10 @@ module Components
     def members
       render_with_template
     end
+
+    # @label Source file with syntax highlighting
+    def source_file
+      render_with_template
+    end
   end
 end

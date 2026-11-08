@@ -1,0 +1,16 @@
+<div id="main" class="nosidebar">
+  <div id="content">
+    <div class="contextual">
+      <%= link_to sprite_icon('edit', l(:button_edit)), '#', class: 'icon icon-edit' %>
+      <%= link_to sprite_icon('time-add', l(:button_log_time)), '#', class: 'icon icon-time-add' %>
+      <%= link_to sprite_icon('fav', l(:button_watch)), '#', class: 'icon icon-fav-off' %>
+      <%= actions_dropdown do %>
+        <%= link_to sprite_icon('copy-link', l(:button_copy_link)), '#', class: 'icon icon-copy-link' %>
+        <%= link_to sprite_icon('copy', l(:button_copy)), '#', class: 'icon icon-copy' %>
+        <%= link_to sprite_icon('del', l(:button_delete_object, object_name: l(:label_issue).downcase)), '#', class: 'icon icon-del' %>
+      <% end %>
+    </div>
+    <h2><%= l(:label_issue) %> #1</h2>
+  </div>
+</div>
+<%= javascript_tag "$(function() { $('.contextual .drdn-trigger').trigger('click'); });" %>

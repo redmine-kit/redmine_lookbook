@@ -1,0 +1,32 @@
+<%# Redmine's base layout with sample content. variant: :project, :global,
+    :anonymous, :sidebar_hidden, :flyout or :closed. %>
+<% User.current = User.anonymous if variant == :anonymous %>
+<% @project = RedmineLookbook::TestData.project unless variant == :global %>
+<%# A closed project, without saving the change. %>
+<% @project.status = Project::STATUS_CLOSED if variant == :closed && @project %>
+<% content_for :sidebar do %>
+  <%= render partial: 'components/layout_preview/parts/sidebar_content' %>
+<% end %>
+<%= render partial: 'components/layout_preview/parts/flyout' %>
+<%= render partial: 'components/layout_preview/parts/top_menu' %>
+<%= render partial: 'components/layout_preview/parts/header' %>
+<div id="main" class="collapsiblesidebar<%= ' collapsedsidebar' if variant == :sidebar_hidden %>">
+  <%= javascript_tag "$('#main.collapsiblesidebar').collapsibleSidebar();" unless variant == :sidebar_hidden %>
+  <div id="sidebar">
+    <div id="sidebar-switch-panel">
+      <a id="sidebar-switch-button" href="#"><%= sprite_icon("chevrons-right", size: 20, rtl: true) %></a>
+    </div>
+    <div id="sidebar-wrapper"><%= yield :sidebar %></div>
+  </div>
+  <div id="content">
+    <% if @project && !@project.active? %>
+      <p class="warning"><span class="icon icon-lock"><%= sprite_icon('lock', l(:text_project_closed)) %></span></p>
+    <% end %>
+    <%= render partial: 'components/layout_preview/parts/content' %>
+    <div style="clear:both;"></div>
+  </div>
+</div>
+<%= render partial: 'components/layout_preview/parts/footer' %>
+<% if variant == :flyout %>
+  <%= javascript_tag "$(window).on('load', function() { $('.js-flyout-menu-toggle-button:visible').trigger('click'); });" %>
+<% end %>

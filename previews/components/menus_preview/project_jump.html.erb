@@ -1,0 +1,3 @@
+<% @project = RedmineLookbook::TestData.project %>
+<%= render partial: 'components/layout_preview/parts/header' %>
+<%= javascript_tag "$(function() { $('#project-jump .drdn-trigger').trigger('click'); });" %>

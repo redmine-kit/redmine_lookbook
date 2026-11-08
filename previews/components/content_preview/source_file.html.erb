@@ -1,0 +1,13 @@
+<%# Redmine's source file view (common/_file), used by the repository browser
+    and by text attachments, with code in a few languages. %>
+<% samples = {
+     'example.rb' => "# A Ruby file\nclass Issue < ApplicationRecord\n  belongs_to :project\n\n  def closed?\n    status.is_closed?\n  end\nend\n",
+     'example.js' => "// A JavaScript file\nfunction toggleAll(checked) {\n  document.querySelectorAll('input[type=checkbox]').forEach((box) => { box.checked = checked; });\n}\n",
+     'example.css' => "/* A stylesheet */\n#header {\n  background: var(--color-header-background);\n  padding: 4px 8px;\n}\n",
+     'example.sql' => "SELECT issues.id, issues.subject\nFROM issues\nWHERE issues.project_id = 1\nORDER BY issues.id DESC;\n",
+     'example.diff' => "--- a/README\n+++ b/README\n@@ -1,2 +1,2 @@\n-Old line\n+New line\n Same line\n"
+   } %>
+<% samples.each do |filename, content| %>
+  <h3><%= filename %></h3>
+  <%= render partial: 'common/file', locals: { filename: filename, content: content } %>
+<% end %>

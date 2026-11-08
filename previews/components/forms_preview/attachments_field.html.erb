@@ -1,0 +1,8 @@
+<% project = RedmineLookbook::TestData.project %>
+<% if project %>
+  <div class="box tabular">
+    <p id="attachments_form"><label><%= l(:label_attachment_plural) %></label>
+      <%= render partial: 'attachments/form', locals: { container: Issue.new(project: project) } %>
+    </p>
+  </div>
+<% end %>

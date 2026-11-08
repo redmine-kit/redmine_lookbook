@@ -1,0 +1,19 @@
+<%# Sample sidebar content in the style of Redmine's sidebars. %>
+<h3><%= l(:label_issue_plural) %></h3>
+<ul>
+  <li><%= link_to l(:label_issue_view_all), issues_path, class: 'selected' %></li>
+  <li><%= link_to l(:field_summary), '#' %></li>
+  <li><%= link_to l(:label_gantt), '#' %></li>
+</ul>
+<h3><%= l(:label_query_plural) %></h3>
+<ul class="queries">
+  <% IssueQuery.visible.global_or_on_project(@project).sorted.limit(4).each do |query| %>
+    <li><%= link_to query.name, issues_path(query_id: query.id), class: 'query' %></li>
+  <% end %>
+</ul>
+<h3><%= l(:label_wiki) %></h3>
+<ul>
+  <li><%= link_to l(:field_start_page), '#' %></li>
+  <li><%= link_to l(:label_index_by_title), '#' %></li>
+  <li><%= link_to l(:label_index_by_date), '#' %></li>
+</ul>

@@ -1,0 +1,22 @@
+<%# Text outside wiki content, as Redmine's pages use it. %>
+<h2><%= l(:label_overview) %></h2>
+<h3><%= l(:label_issue_tracking) %></h3>
+<h4><%= l(:label_history) %></h4>
+<p>
+  <%= l(:text_issues_ref_in_commit_messages) %>
+  <%= link_to l(:label_issue_view_all), issues_path %>,
+  <strong>strong</strong>, <em>emphasis</em>, <code>code</code>, <abbr title="Redmine">abbr</abbr>,
+  <small>small</small>, <del>deleted</del>.
+</p>
+<p class="author"><%= authoring Time.now - 2.days, User.find_by_login('jsmith') %></p>
+<ul>
+  <li><%= l(:label_project_plural) %></li>
+  <li><%= l(:label_issue_plural) %>
+    <ul><li><%= l(:label_subtask_plural) %></li></ul>
+  </li>
+</ul>
+<ol><li><%= l(:label_version_plural) %></li><li><%= l(:label_roadmap) %></li></ol>
+<pre>bin/rails redmine_lookbook:load_test_data</pre>
+<hr>
+<p class="small"><%= l(:text_tip_issue_begin_day) %></p>
+<em class="info"><%= l(:text_comma_separated) %></em>

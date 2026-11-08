@@ -1,0 +1,5 @@
+<% @project = RedmineLookbook::TestData.project %>
+<%# The "+" menu is shown when the "Display the "New object" menu" setting is
+    a dropdown (new_item_menu_tab = 2). %>
+<%= RedmineLookbook::SettingsOverride.with(new_item_menu_tab: "2") { render partial: 'components/layout_preview/parts/header' } %>
+<%= javascript_tag "$(function() { toggleNewObjectDropdown(); });" %>

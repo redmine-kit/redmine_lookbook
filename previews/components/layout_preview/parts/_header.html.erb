@@ -1,0 +1,27 @@
+<%# The header of Redmine's base layout: quick search, "Jump to a project",
+    the title and the project menu. %>
+<div id="header">
+  <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+  <% if User.current.logged? || !Setting.login_required? %>
+    <div id="quick-search">
+      <%= form_tag(search_path(id: @project), method: :get) do %>
+        <%= hidden_field_tag 'scope', default_search_project_scope, id: nil %>
+        <label for='q'>
+          <%= link_to l(:label_search), search_path(id: @project, scope: default_search_project_scope) %>:
+        </label>
+        <%= text_field_tag 'q', nil, size: 20, class: 'small', data: { auto_complete: true } %>
+      <% end %>
+      <%= render_project_jump_box %>
+    </div>
+  <% end %>
+  <h1><%= page_header_title %></h1>
+  <% if display_main_menu?(@project) %>
+    <div id="main-menu" class="tabs">
+      <%= render_main_menu(@project) %>
+      <div class="tabs-buttons" style="display:none;">
+        <button class="tab-left icon-only" onclick="moveTabLeft(this); return false;"><%= sprite_icon("angle-left", rtl: true) %></button>
+        <button class="tab-right icon-only" onclick="moveTabRight(this); return false;"><%= sprite_icon("angle-right", rtl: true) %></button>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+<%# Messages that Redmine shows in its pages besides flash messages. %>
+<p class="warning"><%= l(:text_project_closed) %></p>
+<p class="warning"><span class="icon icon-lock"><%= sprite_icon('lock', l(:text_project_closed)) %></span></p>
+<div class="conflict">
+  <%= l(:notice_issue_update_conflict) %>
+  <div class="conflict-details">
+    <p><%= l(:text_journal_changed, label: l(:field_status), old: 'New', new: 'Assigned') %></p>
+  </div>
+</div>
+<p class="nodata"><%= l(:label_no_data) %></p>
+<p class="info"><%= l(:text_load_default_configuration) %></p>
+<div class="flash warning"><%= sprite_icon('warning', l(:text_issue_conflict_resolution_overwrite)) %></div>

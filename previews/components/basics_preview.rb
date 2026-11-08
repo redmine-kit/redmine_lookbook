@@ -55,5 +55,15 @@ module Components
     def modal
       render_with_template
     end
+
+    # @label Headings and text
+    def typography
+      render_with_template
+    end
+
+    # @label Notices and empty states
+    def notices
+      render_with_template
+    end
   end
 end

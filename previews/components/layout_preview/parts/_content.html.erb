@@ -1,0 +1,26 @@
+<%# Sample page content: contextual links, a title, a flash message, text and boxes. %>
+<div class="contextual">
+  <%= link_to sprite_icon('add', l(:label_issue_new)), '#', class: 'icon icon-add' %>
+  <%= link_to sprite_icon('edit', l(:button_edit)), '#', class: 'icon icon-edit' %>
+  <%= actions_dropdown do %>
+    <%= link_to sprite_icon('copy', l(:button_copy)), '#', class: 'icon icon-copy' %>
+    <%= link_to sprite_icon('del', l(:button_delete)), '#', class: 'icon icon-del' %>
+  <% end %>
+</div>
+<h2><%= l(:label_overview) %></h2>
+<div class="flash notice"><%= sprite_icon('checked', l(:notice_successful_update)) %></div>
+<div class="splitcontent">
+  <div class="splitcontentleft">
+    <div class="box">
+      <h3><%= sprite_icon('issue', l(:label_issue_tracking)) %></h3>
+      <p><%= l(:text_issues_ref_in_commit_messages) %></p>
+    </div>
+  </div>
+  <div class="splitcontentright">
+    <div class="box">
+      <h3><%= sprite_icon('group', l(:label_member_plural)) %></h3>
+      <p><%= l(:label_role_plural) %>: <%= Role.givable.sorted.limit(3).map(&:name).join(', ') %></p>
+    </div>
+  </div>
+</div>
+<p class="other-formats"><%= l(:label_export_to) %> <span><%= link_to 'Atom', '#', class: 'atom' %></span></p>

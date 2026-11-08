@@ -1,0 +1,28 @@
+<% @project = project = RedmineLookbook::TestData.project %>
+<div id="main" class="nosidebar">
+  <div id="content">
+    <% if project %>
+      <% query = IssueQuery.new(name: '_', column_names: [:tracker, :status, :priority, :subject, :assigned_to]) %>
+      <% query.project = project %>
+      <% issues = query.issues(limit: 8) %>
+      <%= render partial: 'issues/list', locals: { issues: issues, query: query } %>
+      <%= context_menu %>
+      <%# Redmine loads the menu with JavaScript as the browser's user. Here it
+          is rendered by Redmine as the administrator, and the script selects
+          the first two issues and shows the menu next to the first row. %>
+      <% menu = RedmineLookbook::PageRenderer.new(controller).fragment(issues_context_menu_path(ids: issues.first(2).map(&:id))) %>
+      <%= javascript_tag <<~JS
+        $(window).on('load', function() {
+          var rows = $('tr.hascontextmenu').slice(0, 2);
+          rows.each(function() { contextMenuAddSelection($(this)); });
+          var button = rows.first().find('.js-contextmenu');
+          var offset = button.offset();
+          $('#context-menu').html(#{menu.to_json}).css({ top: offset.top + button.outerHeight(), left: offset.left - 150 }).show();
+        });
+      JS
+      %>
+    <% else %>
+      <p class="nodata">Load Redmine's test data first: <code>bin/rails redmine_lookbook:load_test_data</code></p>
+    <% end %>
+  </div>
+</div>
