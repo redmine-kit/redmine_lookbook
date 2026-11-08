@@ -1,0 +1,6 @@
+<% sprite = File.read(Rails.root.join('app/assets/images/icons.svg')) %>
+<% names = sprite.scan(/<symbol[^>]*id="icon--([^"]+)"/).flatten.sort %>
+<p><%= names.size %> icons</p>
+<ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;list-style:none;padding:0">
+  <% names.each do |name| %><li><%= sprite_icon(name, name) %></li><% end %>
+</ul>

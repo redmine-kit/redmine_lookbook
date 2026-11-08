@@ -1,0 +1,2 @@
+# Redmine lists Puma only for tests; the development server needs it too.
+gem "puma"

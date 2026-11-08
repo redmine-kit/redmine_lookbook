@@ -1,0 +1,9 @@
+<div class="contextual"><%= link_to sprite_icon('add', l(:label_issue_new)), '#', class: 'icon icon-add' %></div>
+<h2><%= l(:label_issue_new) %></h2>
+<div class="box tabular">
+  <p><label for="lookbook_subject"><%= l(:field_subject) %> <span class="required">*</span></label><input type="text" id="lookbook_subject" size="60" value="Example subject"></p>
+  <p><label for="lookbook_status"><%= l(:field_status) %></label><select id="lookbook_status"><% IssueStatus.sorted.each do |status| %><option><%= status.name %></option><% end %></select></p>
+  <p><label for="lookbook_description"><%= l(:field_description) %></label><textarea id="lookbook_description" rows="5" class="wiki-edit">Some *bold* text.</textarea></p>
+  <p><label for="lookbook_private"><%= l(:field_is_private) %></label><input type="checkbox" id="lookbook_private" checked></p>
+</div>
+<p><input type="submit" value="<%= l(:button_create) %>"> <input type="submit" value="<%= l(:button_create_and_continue) %>"> <%= link_to l(:button_cancel), '#' %></p>

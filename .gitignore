@@ -1,0 +1,3 @@
+.DS_Store
+/docker/themes/*
+!/docker/themes/.gitkeep

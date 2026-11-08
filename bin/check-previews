@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+# Opens every preview with a few toolbar settings and reports any that do
+# not render. Usage: bin/check-previews [http://127.0.0.1:3000]
+require "json"
+require "net/http"
+require "uri"
+
+base = (ARGV[0] || "http://127.0.0.1:3000").chomp("/")
+mount = ENV.fetch("REDMINE_LOOKBOOK_PATH", "/lookbook")
+index = Net::HTTP.get(URI("#{base}#{mount}"))
+paths = index.scan(%r{#{Regexp.escape(mount)}/inspect/([a-z0-9_/]+)}).flatten.uniq.sort
+abort "No previews found at #{base}#{mount}." if paths.empty?
+
+displays = [
+  { theme: "", locale: "", layout: "none" },
+  { theme: "", locale: "ja", layout: "page" },
+  { theme: "", locale: "ar", layout: "none" }
+]
+
+failures = []
+paths.each do |path|
+  displays.each do |display|
+    uri = URI("#{base}#{mount}/preview/#{path}?_display=#{URI.encode_www_form_component(display.to_json)}")
+    response = Net::HTTP.get_response(uri)
+    failures << "#{response.code} #{path} #{display.to_json}" unless response.is_a?(Net::HTTPSuccess)
+  end
+end
+
+puts "Checked #{paths.size} previews with #{displays.size} toolbar settings each."
+if failures.empty?
+  puts "All previews rendered."
+else
+  puts "Failed:", failures
+  exit 1
+end

@@ -1,0 +1,8 @@
+<% project = RedmineLookbook::TestData.project %>
+<% if project %>
+  <% query = IssueQuery.new(name: '_', column_names: [:tracker, :status, :priority, :subject, :assigned_to, :done_ratio]) %>
+  <% query.project = project %>
+  <%= render partial: 'issues/list', locals: { issues: query.issues(limit: 25), query: query } %>
+<% else %>
+  <p class="nodata">Load Redmine's test data first: <code>bin/rails redmine_lookbook:load_test_data CONFIRM=yes</code></p>
+<% end %>

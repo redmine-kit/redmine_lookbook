@@ -1,0 +1,24 @@
+# Starts a development Redmine with Redmine Lookbook:
+#   docker compose -f docker/compose.yml up --build
+# Then open http://127.0.0.1:3000/lookbook (sign in as admin / admin).
+services:
+  redmine:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      # Only this computer by default. Set REDMINE_LOOKBOOK_BIND=0.0.0.0 to
+      # open it to other devices on your local network.
+      - "${REDMINE_LOOKBOOK_BIND:-127.0.0.1}:${REDMINE_LOOKBOOK_PORT:-3000}:3000"
+    environment:
+      REDMINE_LOOKBOOK_SERVERS: "${REDMINE_LOOKBOOK_SERVERS:-}"
+    volumes:
+      # The plugin itself, so changes to previews show up without a rebuild.
+      - ..:/redmine/plugins/redmine_lookbook
+      # Themes to preview. Put each theme in its own directory here.
+      - "${REDMINE_LOOKBOOK_THEMES:-./themes}:/redmine/themes"
+      - data:/data
+      - files:/redmine/files
+volumes:
+  data:
+  files:
