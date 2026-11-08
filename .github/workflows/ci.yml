@@ -31,8 +31,13 @@ jobs:
       - name: Check every preview
         run: docker compose -f docker/compose.yml exec -T redmine ruby plugins/redmine_lookbook/bin/check-previews
 
-      - name: Check loading with the plugin off
-        run: docker compose -f docker/compose.yml exec -T -e REDMINE_LOOKBOOK=0 redmine bin/rails zeitwerk:check
+      # In production, Rails does not require the development group, so
+      # Lookbook is not loaded, as on a production server.
+      - name: Check loading in production, without Lookbook
+        run: >-
+          docker compose -f docker/compose.yml exec -T
+          -e RAILS_ENV=production -e SECRET_KEY_BASE=check -e DATABASE_URL=sqlite3:/tmp/check.sqlite3
+          redmine bin/rails zeitwerk:check
 
       - name: Show the Redmine log
         if: failure()
