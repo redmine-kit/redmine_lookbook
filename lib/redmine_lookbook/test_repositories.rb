@@ -1,4 +1,5 @@
 require "fileutils"
+require "tmpdir"
 require "open3"
 
 module RedmineLookbook
@@ -81,23 +82,38 @@ module RedmineLookbook
     end
 
     def create_subversion
-      path = root.join("subversion_repository")
-      return true if path.exist?
-
-      dump = fixtures.join("subversion_repository.dump.gz")
-      run("svnadmin", "create", path.to_s) &&
-        run_with_input(Zlib::GzipReader.open(dump.to_s, &:read), "svnadmin", "load", "--quiet", path.to_s)
+      build("subversion_repository") do |path|
+        dump = fixtures.join("subversion_repository.dump.gz")
+        run("svnadmin", "create", path) &&
+          run_with_input(Zlib::GzipReader.open(dump.to_s, &:read), "svnadmin", "load", "--quiet", path)
+      end
     end
 
     def create(dir)
+      build(dir) do |path|
+        case dir
+        when "mercurial_repository"
+          run("hg", "init", path) && run("hg", "-R", path, "pull", "--quiet", fixtures.join("mercurial_repository.hg").to_s)
+        else
+          # The archive holds the directory dir.
+          run("tar", "-xzf", fixtures.join("#{dir}.tar.gz").to_s, "-C", File.dirname(path))
+        end
+      end
+    end
+
+    # Builds the repository tmp/test/<dir> in a temporary directory and moves
+    # it into place only when the block succeeds, so that a failed attempt
+    # does not leave a broken repository behind. True when it is there.
+    def build(dir)
       path = root.join(dir)
       return true if path.exist?
 
-      case dir
-      when "mercurial_repository"
-        run("hg", "init", path.to_s) && run("hg", "-R", path.to_s, "pull", "--quiet", fixtures.join("mercurial_repository.hg").to_s)
-      else
-        run("tar", "-xzf", fixtures.join("#{dir}.tar.gz").to_s, "-C", root.to_s)
+      Dir.mktmpdir("redmine_lookbook-", root) do |tmp|
+        built = File.join(tmp, dir)
+        next false unless yield(built) && File.directory?(built)
+
+        File.rename(built, path)
+        true
       end
     end
 

@@ -33,6 +33,7 @@ module RedmineLookbook
     end
 
     def load!
+      raise "Refusing to load test data in production." if Rails.env.production?
       raise "Redmine's test data was not found in #{fixtures_path}." unless available?
       raise ExistingDataError if existing_data?
 
@@ -50,16 +51,18 @@ module RedmineLookbook
     end
 
     # Adds what the previews need beyond Redmine's test data, when it is
-    # missing: attachment files, a subtask, a webhook and the test
+    # missing: attachment files, a subtask, a webhook, an email address and the test
     # repositories. It runs only on Redmine's test data and can run again.
     # Returns the identifiers of the test repositories that are ready.
     def update!
+      raise "Refusing to change data in production." if Rails.env.production?
       return [] unless loaded?
 
       copy_attachment_files
       fill_missing_images
       add_subtask
       add_webhook
+      add_email_address
       TestRepositories.setup!
     end
 
@@ -121,6 +124,14 @@ module RedmineLookbook
       webhook.projects = [project]
       webhook.events = %w[issue.created issue.updated]
       webhook.save!(validate: false)
+    end
+
+    # Redmine's test data has no additional email addresses, so jsmith gets
+    # one for the email address page.
+    def add_email_address
+      return if EmailAddress.where(is_default: false).exists?
+
+      EmailAddress.create!(user: user, address: "john.smith@example.net", is_default: false, notify: false)
     end
 
     def project
