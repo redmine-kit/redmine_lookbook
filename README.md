@@ -6,6 +6,8 @@ Redmine Lookbook is a Redmine 7 plugin that previews Redmine's components and pa
 
 [日本語](README.ja.md)
 
+![The Lookbook screen with the project overview of Redmine's test data](docs/img/lookbook.png)
+
 > **Status:** early development (0.1.0). It supports Redmine 7.0 and has been checked with Redmine 7.0.3.
 
 ## Documentation

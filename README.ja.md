@@ -6,6 +6,8 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 
 [English](README.md)
 
+![Redmine のテストデータのプロジェクトの概要を表示した Lookbook の画面](docs/img/ja/lookbook.png)
+
 > **状態:** 開発の初期段階です(0.1.0)。Redmine 7.0 に対応し、Redmine 7.0.3 で動作を確認しています。
 
 ## ドキュメント

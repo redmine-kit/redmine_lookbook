@@ -2,6 +2,8 @@
 
 Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](https://lookbook.build/) でプレビューする Redmine 7 のプラグインです。テーマの作者は、Redmine の画面を一つずつ開かなくても、多くの画面、言語、レイアウトでテーマを確認できます。
 
+![Redmine のテストデータのプロジェクトの概要を表示した Lookbook の画面](../img/ja/lookbook.png)
+
 - [インストール](installation.md): Docker での環境、または既存の Redmine へのインストールと、Redmine のテストデータ
 - [プレビューの使い方](usage.md): ツールバー、テーマの確認、狭い画面と印刷
 - [プレビューの一覧](previews.md): すべてのコンポーネントと画面のプレビューと、それぞれがレンダリングする Redmine の画面

@@ -35,6 +35,10 @@ Check each item with the toolbar's defaults first, then with:
 
 ## Navigation
 
+The "Menus" previews show menus open, for example the context menu of the issue list:
+
+![The context menu of the issue list, open](img/context-menu.png)
+
 | Item | What to check | Previews |
 | --- | --- | --- |
 | Tabs | Selected, many tabs (scroll buttons) | Tabs; Menus » Tabs with scroll buttons; Pages » Settings |
@@ -106,6 +110,10 @@ Check each item with the toolbar's defaults first, then with:
 | Help | The wiki syntax help (its own stylesheet, see [Redmine 7 themes](themes.md#other-stylesheets)) | Pages » Help |
 
 ## Repositories
+
+The repository previews use the test repositories of Redmine's own tests:
+
+![The revisions of the Git test repository with the revision graph](img/repository.png)
 
 | Item | What to check | Previews |
 | --- | --- | --- |

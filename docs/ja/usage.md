@@ -11,7 +11,9 @@
 
 ## ツールバーの切り替え
 
-ツールバーの表示オプションは、すべてのプレビューに適用されます。
+ツールバーの表示オプション(歯車のボタン)は、すべてのプレビューに適用されます。
+
+![表示オプション: テーマ、言語、レイアウト](../img/ja/toolbar.png)
 
 | 切り替え | 選択肢 | 既定 |
 | --- | --- | --- |
@@ -34,11 +36,19 @@
 
 テーマが対応する必要のある項目は、[テーマのチェックリスト](theme-checklist.md)で順に確認できます。
 
+同じチケットの画面を、Redmine の既定のスタイルと、Redmine に付属するテーマ Alternate と Classic で表示したものです。
+
+| 既定 | Alternate | Classic |
+| --- | --- | --- |
+| ![テーマのないチケットの画面](../img/ja/theme-default.png) | ![Alternate のテーマのチケットの画面](../img/ja/theme-alternate.png) | ![Classic のテーマのチケットの画面](../img/ja/theme-classic.png) |
+
 <a id="right-to-left-languages"></a>
 
 ## 右から左に書く言語
 
 言語の切り替えでアラビア語、ペルシア語、ヘブライ語を選ぶと、右から左の表示でテーマを確認できます。これらの言語では、Redmine は `<html>` に `dir="rtl"` を付けます。
+
+![アラビア語のチケットの画面](../img/rtl.png)
 
 <a id="narrow-screens"></a>
 
@@ -49,7 +59,9 @@ Redmine の `responsive.css` は、幅が 900 ピクセルより狭いときの�
 - Lookbook のプレビュー欄の、大きさを変えるハンドルをドラッグします。
 - プレビューを単独で開き(プレビューの URL は `/lookbook/preview/` で始まります)、ブラウザーの開発者ツールのレスポンシブのモードを使います。
 
-狭い画面のメニューとサイドバーは、「Redmine layout」で確認します。
+狭い画面のメニューとサイドバーは、「Redmine layout」で確認します。「Whole layout with the flyout menu open」のコンポーネントでは、ヘッダーのボタンで開くメニューを確認できます。
+
+![狭い画面のフライアウトメニュー](../img/ja/narrow.png)
 
 <a id="printing"></a>
 
@@ -62,6 +74,8 @@ Redmine の `application.css` には、印刷用のスタイル(`@media print`)�
 ## wiki の書式
 
 「Wiki formatting」のコンポーネントには、`format` のパラメーターがあります。CommonMark(Redmine 7 の既定)か Textile を、プレビューの Params のパネルで選びます。Redmine のテキストの書式の設定は変わりません。
+
+![CommonMark の wiki の書式のテスト用の文章の冒頭](../img/wiki.png)
 
 テスト用の文章には、文字の書式、引用、リスト、テーブル、シンタックスハイライトのあるコードブロック、画像、すべての段階の見出しがあり、CommonMark では脚注、タスクリスト、アラートもあります。Redmine のオブジェクト(チケット、注記、wiki のページ、バージョン、プロジェクト、文書、ニュース、フォーラム、ユーザー、添付ファイル)へのリンクと、マクロ `toc`、`issue`、`collapse`、`child_pages`、`thumbnail` もあります。
 

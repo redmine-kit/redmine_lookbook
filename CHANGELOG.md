@@ -12,3 +12,5 @@
 - Fixed: the scripts and stylesheets that Redmine's helpers add to `<head>` (the context menu and the wiki toolbar) were missing in component previews.
 - Fixed: page previews could fail right after a code change in development.
 - Fixed: the "Import issues" preview used a path that Redmine 7 does not have.
+- Screenshots in the documentation and README, in English and Japanese, taken with `bin/capture-screenshots`.
+- Fixed: the open context menu and flyout menu previews did not always open.

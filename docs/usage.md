@@ -9,7 +9,9 @@ See the [preview list](previews.md) for all previews.
 
 ## Toolbar options
 
-The display options in the toolbar apply to every preview.
+The display options in the toolbar (the gear button) apply to every preview.
+
+![The display options: theme, language and layout](img/toolbar.png)
 
 | Option | Choices | Default |
 | --- | --- | --- |
@@ -30,9 +32,17 @@ The display options in the toolbar apply to every preview.
 
 Work through the [theme checklist](theme-checklist.md) to cover what a theme has to handle.
 
+The same issue page with Redmine's default styles and with the themes that come with Redmine, Alternate and Classic:
+
+| Default | Alternate | Classic |
+| --- | --- | --- |
+| ![The issue page without a theme](img/theme-default.png) | ![The issue page with the Alternate theme](img/theme-alternate.png) | ![The issue page with the Classic theme](img/theme-classic.png) |
+
 ## Right-to-left languages
 
 Choose Arabic, Persian or Hebrew in the language option to check a theme in right-to-left layout. Redmine sets `dir="rtl"` on `<html>` for these languages.
+
+![The issue page in Arabic](img/rtl.png)
 
 ## Narrow screens
 
@@ -41,7 +51,9 @@ Redmine's `responsive.css` changes the layout below 900 pixels wide. To check it
 - drag the resize handles of the preview pane in Lookbook, or
 - open the preview on its own (the preview's URL starts with `/lookbook/preview/`) and use the responsive mode of your browser's developer tools.
 
-Use the "Redmine layout" option to see the menus and the sidebar on narrow screens.
+Use the "Redmine layout" option to see the menus and the sidebar on narrow screens. The "Whole layout with the flyout menu open" component shows the menu that the button in the header opens:
+
+![The flyout menu on a narrow screen](img/narrow.png)
 
 ## Printing
 
@@ -50,6 +62,8 @@ Redmine's `application.css` has print styles (`@media print`). Open a page previ
 ## Wiki formatting
 
 The "Wiki formatting" component has a `format` parameter: CommonMark (Redmine 7's default) or Textile. Change it in the preview's Params panel. Redmine's text formatting setting is not changed.
+
+![The beginning of the wiki formatting sample in CommonMark](img/wiki.png)
 
 The sample texts cover text styles, quotes, lists, tables, code blocks with syntax highlighting, images, headings of every level and, in CommonMark, footnotes, task lists and alerts. They also cover links to Redmine objects (issues, notes, wiki pages, versions, projects, documents, news, forums, users and attachments) and the macros `toc`, `issue`, `collapse`, `child_pages` and `thumbnail`.
 

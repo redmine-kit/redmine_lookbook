@@ -2,6 +2,8 @@
 
 Redmine Lookbook is a Redmine 7 plugin that previews Redmine's components and pages in [Lookbook](https://lookbook.build/). Theme authors can check a theme across many screens, languages and layouts without clicking through Redmine.
 
+![The Lookbook screen with the project overview of Redmine's test data](img/lookbook.png)
+
 - [Installation](installation.md): the Docker setup, or an existing Redmine, and Redmine's test data
 - [Using the previews](usage.md): the toolbar, checking a theme, narrow screens and printing
 - [Preview list](previews.md): every component and page preview, with the Redmine page it renders
