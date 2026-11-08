@@ -6,7 +6,7 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 
 > **状態:** 作り始めの段階です(0.1.0)。Redmine 7.0 に対応し、Redmine 7.0.3 で動作を確認しています。
 
-## できること
+## 機能
 
 - **Redmine がレンダリングしたもの:** コンポーネントは Redmine のヘルパーと部分テンプレートで、画面は Redmine のコントローラーでレンダリングします。手で写した HTML は使いません。
 - **多くの画面:** 58 のプレビューがあります。チケット、ガントチャート、カレンダー、wiki、ニュース、文書、ファイル、フォーラム、作業時間、個人のページ、管理の画面、エラーの画面などです。
@@ -14,7 +14,7 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 - **テストのデータ:** Redmine 自身のテストのデータ(`test/fixtures`)で、プロジェクト、チケット、wiki のページなどを画面に出します。
 - **自分のプレビュー:** テーマやプラグインのプレビューを、別のディレクトリから足せます。
 
-## 必要なもの
+## 動作環境
 
 - Redmine 7.0
 - Redmine 7.0 が対応する Ruby
@@ -22,7 +22,7 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 
 Redmine Lookbook は、プレビューを見るために用意した Redmine でだけ使ってください(下の「セキュリティ」)。
 
-## Docker ですぐに試す
+## Docker でのクイックスタート
 
 ```sh
 git clone https://github.com/redmine-theme/redmine_lookbook.git
@@ -38,7 +38,7 @@ docker compose -f docker/compose.yml up --build
 | `REDMINE_LOOKBOOK_PORT` | `3000` | 手元の端末のポート。 |
 | `REDMINE_LOOKBOOK_THEMES` | `./themes`(`docker/` の下) | プレビューで使うテーマのディレクトリ。テーマごとにディレクトリを分けて置きます。 |
 
-## 今ある Redmine に入れる
+## 既存の Redmine へのインストール
 
 1. 開発のモードで動かす Redmine 7.0 の `plugins/redmine_lookbook` に、このリポジトリを置きます。
 2. `bundle install` を実行します。Lookbook は、プラグインの `Gemfile` の `development` のグループにあります。
@@ -61,7 +61,7 @@ docker compose -f docker/compose.yml up --build
 - **レイアウト:** 「None」は、Redmine の CSS、JavaScript、テーマを読み込み、ヘッダー、メニュー、サイドバー、フッターを外します。「Redmine layout」は、画面の全体を出します。
 - **右から左に書く言語:** アラビア語やヘブライ語を選ぶと、右から左の表示でテーマを確認できます。
 
-## 自分のテーマを見る
+## 自作のテーマのプレビュー
 
 1. テーマを、Redmine の `themes/` のディレクトリに置きます(Docker では `docker/themes/` か、`REDMINE_LOOKBOOK_THEMES` のディレクトリ)。
 2. 新しいテーマを Redmine に見つけさせるため、Redmine を起動し直し、ツールバーでそのテーマを選びます。
