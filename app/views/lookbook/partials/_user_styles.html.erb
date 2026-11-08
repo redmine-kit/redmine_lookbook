@@ -1,0 +1,17 @@
+<%# Replaces Lookbook's partial of the same name, which Lookbook's layout
+    renders inside the app. Lookbook sizes its UI with 100vh; Safari on iPad
+    and iPhone counts the area behind its toolbars in 100vh, so the bottom
+    of the UI was cut off. 100dvh is the height that is visible. %>
+<style media="all" id="redmine-lookbook-styles">
+  @supports (height: 100dvh) {
+    #app.h-screen { height: 100dvh; }
+    .h-\[calc\(100vh_-_2\.5rem\)\] { height: calc(100dvh - 2.5rem); }
+    .h-\[calc\(100vh_-_40px\)\] { height: calc(100dvh - 40px); }
+    #app-sidebar [style*="100vh"] { height: calc(100dvh - 2.5rem) !important; }
+  }
+</style>
+<% if content_for? :user_styles %>
+  <style media="all" id="user-styles">
+    <%= content_for :user_styles -%>
+  </style>
+<% end %>
