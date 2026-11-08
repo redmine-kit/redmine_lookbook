@@ -1,0 +1,3 @@
+<% issue = RedmineLookbook::TestData.issue %>
+<%= title [l(:label_issue_plural), project_issues_path(issue.project)], "#{issue.tracker} ##{issue.id}" if issue %>
+<%= title [l(:label_administration), '/admin'], [l(:label_user_plural), users_path], 'John Smith' %>

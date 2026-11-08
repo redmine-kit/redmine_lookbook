@@ -1,0 +1,8 @@
+<% issue = RedmineLookbook::TestData.issue %>
+<% if issue %>
+  <div class="box tabular">
+    <% issue.editable_custom_field_values.each do |value| %>
+      <p><%= custom_field_tag_with_label :issue, value, required: value.custom_field.is_required? %></p>
+    <% end %>
+  </div>
+<% end %>

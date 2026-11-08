@@ -20,5 +20,25 @@ module Components
     def watchers
       render_with_template
     end
+
+    # @label Related issues
+    def relations
+      render_with_template
+    end
+
+    # @label Custom fields
+    def custom_fields
+      render_with_template
+    end
+
+    # @label Issue tooltip
+    def tooltip
+      render_with_template
+    end
+
+    # @label Subtasks
+    def subtasks
+      render_with_template
+    end
   end
 end

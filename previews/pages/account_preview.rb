@@ -28,9 +28,14 @@ module Pages
       render_page("/my/account", user: :admin)
     end
 
+    # @label Change password
+    def my_password
+      render_page("/my/password", user: "jsmith")
+    end
+
     # @label User profile
     def user
-      render_page(user: :admin) { "/users/#{RedmineLookbook::TestData.user&.id}" if RedmineLookbook::TestData.user }
+      render_page("/users/2", user: :admin)
     end
   end
 end

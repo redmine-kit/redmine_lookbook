@@ -1,0 +1,9 @@
+<% issue = Issue.where(id: Issue.where.not(parent_id: nil).select(:parent_id)).order(:id).first %>
+<% if issue %>
+  <div id="issue_tree">
+    <p><strong><%= l(:label_subtask_plural) %></strong></p>
+    <%= render_descendants_tree(issue) %>
+  </div>
+<% else %>
+  <p class="nodata">Load Redmine's test data first: <code>bin/rails redmine_lookbook:load_test_data</code></p>
+<% end %>

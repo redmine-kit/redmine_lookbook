@@ -40,5 +40,20 @@ module Components
     def pagination(page: 3)
       render_with_template(locals: { page: page.to_i })
     end
+
+    # @label Tables
+    def tables
+      render_with_template
+    end
+
+    # @label Boxes and fieldsets
+    def boxes
+      render_with_template
+    end
+
+    # @label Modal dialog
+    def modal
+      render_with_template
+    end
   end
 end

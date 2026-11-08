@@ -1,0 +1,12 @@
+<div id="lookbook-modal" style="display:none">
+  <h3 class="title"><%= l(:permission_add_issue_watchers) %></h3>
+  <p><label for="lookbook_watcher_search"><%= l(:label_search) %></label> <%= text_field_tag 'q', nil, id: 'lookbook_watcher_search', size: 30 %></p>
+  <div id="users_for_watcher">
+    <% User.active.sorted.limit(4).each do |user| %>
+      <label><%= check_box_tag 'watcher[user_ids][]', user.id, false, id: nil %> <%= user %></label>
+    <% end %>
+  </div>
+  <p class="buttons"><%= submit_tag l(:button_add) %> <%= link_to_function l(:button_cancel), "hideModal(this);" %></p>
+</div>
+<p><%= link_to_function l(:permission_add_issue_watchers), "showModal('lookbook-modal', '400px');" %></p>
+<%= javascript_tag "$(function() { showModal('lookbook-modal', '400px'); });" %>

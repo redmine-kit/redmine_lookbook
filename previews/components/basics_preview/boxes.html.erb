@@ -1,0 +1,17 @@
+<div class="box">
+  <p>A box.</p>
+</div>
+<div class="box tabular">
+  <p><label><%= l(:field_name) %></label>Redmine</p>
+  <p><label><%= l(:field_description) %></label>A tabular box with labels.</p>
+</div>
+<fieldset class="collapsible">
+  <legend onclick="toggleFieldset(this);" class="icon icon-expanded"><%= sprite_icon("angle-down", rtl: true) %><%= l(:label_options) %></legend>
+  <div><p>A collapsible fieldset.</p></div>
+</fieldset>
+<fieldset class="box">
+  <legend><%= l(:label_information_plural) %></legend>
+  <p>A fieldset in a box.</p>
+</fieldset>
+<p class="nodata"><%= l(:label_no_data) %></p>
+<p class="warning">A warning paragraph.</p>

@@ -1,0 +1,6 @@
+<% issue = RedmineLookbook::TestData.issue %>
+<% if issue %>
+  <div class="tooltip" style="display:inline-block">
+    <span class="tip" style="display:block;position:static"><%= render_issue_tooltip(issue) %></span>
+  </div>
+<% end %>

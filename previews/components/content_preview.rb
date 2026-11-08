@@ -27,5 +27,15 @@ module Components
     def news
       render_with_template
     end
+
+    # @label Activity
+    def activity
+      render_with_template
+    end
+
+    # @label Members
+    def members
+      render_with_template
+    end
   end
 end

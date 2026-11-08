@@ -1,0 +1,10 @@
+<%# Issue 2 of Redmine's test data is related to issue 3. Redmine's partial reads instance variables. %>
+<% @issue = Issue.find_by(id: 2) %>
+<% if @issue %>
+  <% @project = @issue.project %>
+  <% @relations = @issue.relations.select { |r| r.other_issue(@issue)&.visible? } %>
+  <% @relation = IssueRelation.new %>
+  <div id="relations">
+    <%= render partial: 'issues/relations' %>
+  </div>
+<% end %>

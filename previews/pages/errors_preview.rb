@@ -12,5 +12,10 @@ module Pages
     def forbidden
       render_page("/admin", user: "dlopper")
     end
+
+    # @label Sign-in required
+    def sign_in_required
+      render_page("/projects/private-child", user: :anonymous)
+    end
   end
 end

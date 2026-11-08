@@ -26,6 +26,7 @@ module RedmineLookbook
       ActiveRecord::FixtureSet.create_fixtures(fixtures_path, names)
       copy_attachment_files
       fill_missing_images
+      add_subtask
       names.size
     end
 
@@ -65,6 +66,17 @@ module RedmineLookbook
       else
         FileUtils.cp(source, target)
       end
+    end
+
+    # Redmine's test data has no parent and child issues, so one subtask is
+    # added to issue 1 for the subtask previews.
+    def add_subtask
+      parent = Issue.find_by(id: 1)
+      return if parent.nil? || parent.children.any?
+
+      Issue.create!(project: parent.project, tracker: parent.tracker, parent_issue_id: parent.id,
+                    subject: "Check the print layout", author: User.find_by_login("jsmith") || parent.author,
+                    status: IssueStatus.sorted.first, priority: IssuePriority.default || IssuePriority.first)
     end
 
     def project

@@ -1,0 +1,5 @@
+<% @project = RedmineLookbook::TestData.project %>
+<% @principals_by_role = @project ? @project.principals_by_role : {} %>
+<div class="splitcontentright">
+  <%= render partial: 'projects/members_box' %>
+</div>

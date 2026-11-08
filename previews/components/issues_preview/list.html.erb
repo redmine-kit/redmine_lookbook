@@ -4,5 +4,5 @@
   <% query.project = project %>
   <%= render partial: 'issues/list', locals: { issues: query.issues(limit: 25), query: query } %>
 <% else %>
-  <p class="nodata">Load Redmine's test data first: <code>bin/rails redmine_lookbook:load_test_data CONFIRM=yes</code></p>
+  <p class="nodata">Load Redmine's test data first: <code>bin/rails redmine_lookbook:load_test_data</code></p>
 <% end %>

@@ -23,14 +23,29 @@ module Pages
       render_page("/users/new", user: :admin)
     end
 
+    # @label Edit user
+    def edit_user
+      render_page("/users/2/edit", user: :admin)
+    end
+
     # @label Groups
     def groups
       render_page("/groups", user: :admin)
     end
 
+    # @label Edit group
+    def edit_group
+      render_page("/groups/10/edit", user: :admin)
+    end
+
     # @label Roles and permissions
     def roles
       render_page("/roles", user: :admin)
+    end
+
+    # @label Edit role
+    def edit_role
+      render_page("/roles/1/edit", user: :admin)
     end
 
     # @label Permissions report
@@ -43,6 +58,11 @@ module Pages
       render_page("/trackers", user: :admin)
     end
 
+    # @label Edit tracker
+    def edit_tracker
+      render_page("/trackers/1/edit", user: :admin)
+    end
+
     # @label Issue statuses
     def statuses
       render_page("/issue_statuses", user: :admin)
@@ -53,9 +73,24 @@ module Pages
       render_page("/workflows/edit", user: :admin)
     end
 
+    # @label Workflow: field permissions
+    def workflow_permissions
+      render_page("/workflows/permissions", user: :admin)
+    end
+
     # @label Custom fields
     def custom_fields
       render_page("/custom_fields", user: :admin)
+    end
+
+    # @label New custom field
+    def new_custom_field
+      render_page("/custom_fields/new?type=IssueCustomField", user: :admin)
+    end
+
+    # @label Edit custom field
+    def edit_custom_field
+      render_page("/custom_fields/1/edit", user: :admin)
     end
 
     # @label Enumerations
@@ -63,9 +98,9 @@ module Pages
       render_page("/enumerations", user: :admin)
     end
 
-    # @label Settings
-    def settings
-      render_page("/settings", user: :admin)
+    # @label LDAP authentication
+    def auth_sources
+      render_page("/auth_sources", user: :admin)
     end
 
     # @label Plugins

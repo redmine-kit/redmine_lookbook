@@ -1,0 +1,22 @@
+<div class="autoscroll">
+<table class="list">
+  <thead>
+    <tr>
+      <th><%= l(:field_name) %></th>
+      <th><%= l(:field_status) %></th>
+      <th><%= l(:field_assigned_to) %></th>
+      <th><%= l(:field_done_ratio) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [['Login page', 'New', 'John Smith', 0], ['Theme', 'Assigned', 'Dave Lopper', 60], ['Icons', 'Resolved', 'Redmine Admin', 100]].each_with_index do |(name, status, user, done), i| %>
+      <tr class="<%= i.even? ? 'odd' : 'even' %>">
+        <td class="name"><%= link_to name, '#' %></td>
+        <td><%= status %></td>
+        <td><%= user %></td>
+        <td><%= progress_bar(done) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
