@@ -1,4 +1,6 @@
+<%# The sample text follows Redmine's text formatting setting. %>
+<% text = Setting.text_formatting == 'textile' ? "h2. Heading\n\nSome *bold* text." : "## Heading\n\nSome **bold** text." %>
 <div class="box">
-  <%= text_area_tag 'text', "h2. Heading\n\nSome *bold* text.", id: 'lookbook_wiki_text', rows: 8, class: 'wiki-edit' %>
+  <%= text_area_tag 'text', text, id: 'lookbook_wiki_text', rows: 8, class: 'wiki-edit' %>
   <%= wikitoolbar_for 'lookbook_wiki_text' %>
 </div>

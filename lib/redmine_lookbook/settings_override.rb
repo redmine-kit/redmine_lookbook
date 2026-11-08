@@ -1,23 +1,19 @@
 module RedmineLookbook
-  # Overrides a few Redmine settings while a preview renders, without
-  # changing Redmine's settings in the database.
+  # Overrides Redmine settings while a preview renders, without changing
+  # Redmine's settings in the database.
+  #
+  #   SettingsOverride.with(thumbnails_enabled: true, ui_theme: "alternate") { ... }
+  #
+  # Redmine reads every setting through Setting[] (Setting.ui_theme and
+  # Setting.thumbnails_enabled? are defined on top of it), so overriding it
+  # covers all settings. true and false become Redmine's "1" and "0".
   module SettingsOverride
     KEY = :redmine_lookbook_settings
 
     # Prepended to Setting's singleton class while the plugin is enabled.
     module SettingMethods
-      def text_formatting
-        SettingsOverride.value(:text_formatting) || super
-      end
-
-      # Redmine reads the theme from this setting in several places (the
-      # stylesheets, icons and favicon, and the "theme-*" class on <body>).
-      def ui_theme
-        SettingsOverride.value(:ui_theme) || super
-      end
-
-      def thumbnails_enabled?
-        value = SettingsOverride.value(:thumbnails_enabled)
+      def [](name)
+        value = SettingsOverride.value(name)
         value.nil? ? super : value
       end
     end
@@ -26,14 +22,22 @@ module RedmineLookbook
 
     def with(values)
       previous = Thread.current[KEY]
-      Thread.current[KEY] = (previous || {}).merge(values)
+      Thread.current[KEY] = (previous || {}).merge(normalize(values))
       yield
     ensure
       Thread.current[KEY] = previous
     end
 
     def value(name)
-      Thread.current[KEY]&.fetch(name, nil)
+      Thread.current[KEY]&.fetch(name.to_sym, nil)
+    end
+
+    def normalize(values)
+      values.to_h.to_h do |name, value|
+        value = "1" if value == true
+        value = "0" if value == false
+        [name.to_sym, value]
+      end
     end
   end
 end

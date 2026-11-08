@@ -18,16 +18,31 @@ module RedmineLookbook
       @params = controller.params
     end
 
+    # The header that tells bin/check-previews that a page preview got
+    # another HTTP status than it expects (for example an error page).
+    STATUS_HEADER = "X-Redmine-Lookbook-Unexpected-Status".freeze
+
     # user: :admin (the first active administrator), :anonymous, or a login.
-    def render(path, user: :admin)
-      html = fetch(path, user)
+    # settings: Redmine settings for this request (see SettingsOverride).
+    # status: the HTTP status the page is expected to return.
+    def render(path, user: :admin, settings: {}, status: 200)
+      got, html = SettingsOverride.with(settings) { fetch(path, user) }
+      @controller.response.headers[STATUS_HEADER] = "#{got} #{path}" if got != status
       Display.component_only?(@params) ? strip_layout(html) : html
+    end
+
+    # The HTML of a part of a page that Redmine loads with JavaScript (for
+    # example the context menu), as the given user, for component previews.
+    def fragment(path, user: :admin)
+      _status, html = fetch(path, user)
+      html.html_safe
     end
 
     private
 
     MAX_REDIRECTS = 3
 
+    # Returns the final status and HTML, following redirects on this host.
     def fetch(path, user, redirects = 0)
       status, headers, html = request(path, user)
       location = headers["location"] || headers["Location"]
@@ -35,7 +50,7 @@ module RedmineLookbook
         uri = URI.parse(location)
         return fetch(uri.request_uri, user, redirects + 1) if uri.host.nil? || uri.host == @request.host
       end
-      html
+      [status, html]
     end
 
     def request(path, user)
@@ -51,7 +66,7 @@ module RedmineLookbook
       env[ApplicationControllerPatch::ENV_LOCALE] = Display.locale(@params)
 
       with_preserved_state do
-        status, headers, body = Rails.application.call(env)
+        status, headers, body = ReloadGuard.internal_request { Rails.application.call(env) }
         [status, headers, read(body)]
       end
     end

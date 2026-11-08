@@ -52,6 +52,10 @@ module RedmineLookbook
     Lookbook.config.project_name = "Redmine Lookbook"
     Lookbook.config.preview_paths |= paths
     Lookbook.config.preview_controller = controller
+    # Render each preview and its layout in one pass, so that content_for
+    # :header_tags from Redmine's helpers (the scripts and stylesheets of the
+    # context menu and the wiki toolbar) reaches the layout's <head>.
+    Lookbook.config.preview_single_pass_rendering = true
     # Redmine's translations are loaded only after Rails has booted, and the
     # language names come from them, so the toolbar options are built then.
     if Rails.application.initialized?
@@ -64,6 +68,11 @@ module RedmineLookbook
 
     ApplicationController.prepend(ApplicationControllerPatch) unless ApplicationController < ApplicationControllerPatch
     Setting.singleton_class.prepend(SettingsOverride::SettingMethods) unless Setting.singleton_class < SettingsOverride::SettingMethods
+    # The reloader is not reloaded itself, so the guard is prepended only once.
+    reloader = Rails.application.reloader.singleton_class
+    unless reloader.ancestors.any? { |mod| mod.name == ReloadGuard::ReloaderMethods.name }
+      reloader.prepend(ReloadGuard::ReloaderMethods)
+    end
     load File.join(root, "lookbook", "previews_controller.rb")
     load_previews(paths)
   end
