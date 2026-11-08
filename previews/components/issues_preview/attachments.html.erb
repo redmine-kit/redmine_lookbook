@@ -1,4 +1,6 @@
-<% issue = Issue.joins(:attachments).order(:id).first %>
+<%# Issue 2 of Redmine's test data has an image, so thumbnails show too. %>
+<% issue = Issue.joins(:attachments).where(attachments: { filename: 'picture.jpg' }).order(:id).first ||
+           Issue.joins(:attachments).order(:id).first %>
 <% if issue %>
   <%= render partial: 'attachments/links', locals: { attachments: issue.attachments, container: issue, options: { deletable: true, thumbnails: true } } %>
 <% end %>
