@@ -61,6 +61,7 @@ const preview = (path, o) => `${BASE}/preview/${path}?_display=${display(o)}`;
 const inspect = (path, o) => `${BASE}/inspect/${path}?_display=${display(o)}`;
 
 const page = await launch(profile);
+try {
 async function rectOf(selector, pad = 0) {
   return page.eval(`(() => { const r = document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect();
     return { x: Math.max(0, r.x - ${pad}), y: Math.max(0, r.y - ${pad}), width: r.width + ${pad * 2}, height: r.height + ${pad * 2} }; })()`);
@@ -125,6 +126,8 @@ await page.viewport(1200, 900);
 await page.goto(preview("components/content/wiki", {}), 3000);
 await page.shot(`${out}/wiki.png`);
 
-page.close();
-rmSync(profile, { recursive: true, force: true });
 console.log(`Saved the images in ${out}`);
+} finally {
+  page.close();
+  rmSync(profile, { recursive: true, force: true });
+}

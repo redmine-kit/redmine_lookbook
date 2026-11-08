@@ -6,8 +6,6 @@ module Pages
   class RepositoryPreview < Lookbook::Preview
     include RedmineLookbook::PagePreview
 
-    GIT_REVISION = "deff712f05a90d96edbd70facc47d944be5897e3".freeze
-
     # @label Repository
     def subversion
       render_page("/projects/ecookbook/repository", user: :admin)
@@ -85,12 +83,12 @@ module Pages
 
     # @label Git revision with every kind of change
     def git_revision
-      render_page("/projects/ecookbook/repository/git/revisions/#{GIT_REVISION}", user: :admin)
+      render_page("/projects/ecookbook/repository/git/revisions/deff712f05a90d96edbd70facc47d944be5897e3", user: :admin)
     end
 
     # @label Git revision diff
     def git_diff
-      render_page("/projects/ecookbook/repository/git/revisions/#{GIT_REVISION}/diff", user: :admin)
+      render_page("/projects/ecookbook/repository/git/revisions/deff712f05a90d96edbd70facc47d944be5897e3/diff", user: :admin)
     end
 
     # @label Mercurial revisions with branches
