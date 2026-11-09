@@ -60,7 +60,7 @@ Redmine Lookbook は開発用のツールです。本番のサーバーでは決
 
 ## ライセンス
 
-Redmine Lookbook は、GNU General Public License バージョン 2 またはそれ以降のバージョンで公開しています。[LICENSE](LICENSE) を参照してください。Redmine projectとは関係ありません。
+Redmine Lookbook は、GNU General Public License バージョン 2 またはそれ以降のバージョンで公開しています。[LICENSE](LICENSE) を参照してください。Redmine の非公式のプラグインです。
 
 - Redmine は Jean-Philippe Lang の著作物で、GPL で公開されています。
 - Lookbook は MIT License で公開されています。
