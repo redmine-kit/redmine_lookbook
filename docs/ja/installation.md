@@ -45,15 +45,34 @@ Redmine そのものには、`admin` / `admin`(管理者)か `jsmith` / `jsmith`
 REDMINE_LOOKBOOK_THEMES=~/themes REDMINE_LOOKBOOK_BIND=0.0.0.0 docker compose -f docker/compose.yml up
 ```
 
-データベースとアップロードしたファイルは、Docker のボリュームに残ります。新しいテストデータからやり直すときは、ボリュームを削除します: `docker compose -f docker/compose.yml down -v`
+データベースとアップロードしたファイルは、Docker のボリュームに残ります。新しいテストデータからやり直すときは、ボリュームを削除します。
+
+```sh
+docker compose -f docker/compose.yml down -v
+```
 
 <a id="an-existing-redmine"></a>
 
 ## 既存の Redmine
 
-1. プレビュー用の新しい Redmine 7.0 を、新しい空のデータベースで用意します。`bin/rails db:migrate` は実行し、`redmine:load_default_data` は実行しません。
-2. このリポジトリを `plugins/redmine_lookbook` に配置します。
-3. `bundle install` を実行します。Lookbook は、プラグインの `Gemfile` の `development` のグループにあります。
+1. プレビュー用の新しい Redmine 7.0 を、新しい空のデータベースで用意します。表を作り、Redmine の既定のデータ(`redmine:load_default_data`)は読み込みません。
+
+   ```sh
+   bin/rails db:migrate
+   ```
+
+2. このリポジトリを `plugins/redmine_lookbook` にクローンします。
+
+   ```sh
+   git clone https://github.com/redmine-kit/redmine_lookbook.git plugins/redmine_lookbook
+   ```
+
+3. gem をインストールします。Lookbook は、プラグインの `Gemfile` の `development` のグループにあります。
+
+   ```sh
+   bundle install
+   ```
+
 4. Redmine のテストデータを読み込みます。
 
    ```sh

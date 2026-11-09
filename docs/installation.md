@@ -41,13 +41,32 @@ For example, to preview the themes in `~/themes` from a tablet on the same netwo
 REDMINE_LOOKBOOK_THEMES=~/themes REDMINE_LOOKBOOK_BIND=0.0.0.0 docker compose -f docker/compose.yml up
 ```
 
-The database and the uploaded files are kept in Docker volumes. To start again from new test data, remove the volumes: `docker compose -f docker/compose.yml down -v`.
+The database and the uploaded files are kept in Docker volumes. To start again from new test data, remove the volumes:
+
+```sh
+docker compose -f docker/compose.yml down -v
+```
 
 ## An existing Redmine
 
-1. Set up a new Redmine 7.0 for previews, with a new, empty database. Run `bin/rails db:migrate`, but not `redmine:load_default_data`.
-2. Clone this repository into `plugins/redmine_lookbook`.
-3. Run `bundle install`. Lookbook is in the `development` group of the plugin's `Gemfile`.
+1. Set up a new Redmine 7.0 for previews, with a new, empty database. Create the tables, but don't load Redmine's default data (`redmine:load_default_data`):
+
+   ```sh
+   bin/rails db:migrate
+   ```
+
+2. Clone this repository into `plugins/redmine_lookbook`:
+
+   ```sh
+   git clone https://github.com/redmine-kit/redmine_lookbook.git plugins/redmine_lookbook
+   ```
+
+3. Install the gems. Lookbook is in the `development` group of the plugin's `Gemfile`.
+
+   ```sh
+   bundle install
+   ```
+
 4. Load Redmine's test data:
 
    ```sh
