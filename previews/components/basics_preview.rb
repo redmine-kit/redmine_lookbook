@@ -65,5 +65,10 @@ module Components
     def notices
       render_with_template
     end
+
+    # @label Color palette
+    def colors
+      render_with_template
+    end
   end
 end

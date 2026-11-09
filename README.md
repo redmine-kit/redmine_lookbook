@@ -21,7 +21,7 @@ The documentation covers [installation](docs/installation.md), [the toolbar](doc
 ## Features
 
 - **Rendered by Redmine:** components with Redmine's own helpers and partials, and pages with Redmine's own controllers.
-- **265 previews:** 56 components and 209 pages, from the header, the menus (shown open) and the issue list to the repository browser and every administration page.
+- **266 previews:** 57 components and 209 pages, from the header, the menus (shown open) and the issue list to the repository browser and every administration page.
 - **Toolbar options:** switch the theme, the language and the layout. The defaults follow Redmine's own settings.
 - **Test data:** Redmine's own test data and test repositories (Subversion, Git and Mercurial) fill the screens.
 

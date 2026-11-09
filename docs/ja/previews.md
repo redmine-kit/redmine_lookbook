@@ -1,6 +1,6 @@
 # プレビューの一覧
 
-Redmine Lookbook には 265 のプレビューがあります。コンポーネントが 56、画面が 209 です。「名前」は Lookbook のナビゲーションに表示される名前で、「パス」はプレビューの URL の `/lookbook/inspect/` のあとの部分です。
+Redmine Lookbook には 266 のプレビューがあります。コンポーネントが 57、画面が 209 です。「名前」は Lookbook のナビゲーションに表示される名前で、「パス」はプレビューの URL の `/lookbook/inspect/` のあとの部分です。
 
 - **コンポーネント**は、Redmine のヘルパーと部分テンプレートで Redmine の部品をレンダリングします。「Layout」と「Menus」のグループは、Redmine がヘッダー、メニュー、フッターを置く `#wrapper` の直下にレンダリングするので、ツールバーの「Layout」の切り替えは適用されません。メニューは開いた状態で表示します。
 - **画面**は、「画面」の列の Redmine の画面を、「ユーザー」の列のユーザーとしてレンダリングします。ユーザーは、`admin`(管理者)、`jsmith` と `dlopper`(プロジェクトのメンバー)、匿名ユーザー(ログインしていない状態)のいずれかです。「備考」には、プレビューがその画面のためだけに変える設定、エラーの画面の HTTP のステータス、Redmine の sudo モードのパスワードのフォームを表示する画面の `sudo: false` を書いています。
@@ -74,6 +74,7 @@ Redmine Lookbook には 265 のプレビューがあります。コンポーネ�
 | Modal dialog | `components/basics/modal` |
 | Headings and text | `components/basics/typography` |
 | Notices and empty states | `components/basics/notices` |
+| Color palette | `components/basics/colors` |
 
 <a id="forms"></a>
 

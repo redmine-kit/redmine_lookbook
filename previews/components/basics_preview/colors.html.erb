@@ -1,0 +1,124 @@
+<%# The colors of Redmine's stylesheets, read from the page: the CSS variables
+    on :root (Open Color and Redmine's own) and the colors that core's markup
+    gets for common roles. A theme's overrides show up here. %>
+<div id="lookbook-colors">
+  <style>
+    #lookbook-colors .lb-palette { display: grid; grid-template-columns: 7em repeat(10, 1fr); gap: 4px; align-items: center; margin-block-end: 12px; }
+    #lookbook-colors .lb-swatch { block-size: 2.2em; border: 1px solid rgba(0, 0, 0, 0.12); border-radius: 3px; }
+    #lookbook-colors .lb-name { font-size: 0.75rem; }
+    #lookbook-colors .lb-value { font-family: Consolas, Menlo, monospace; font-size: 0.6875rem; color: var(--oc-gray-7); }
+    #lookbook-colors .lb-roles td { vertical-align: middle; }
+  </style>
+
+  <h3>Open Color</h3>
+  <div class="lb-palette" data-palette></div>
+
+  <h3>Redmine</h3>
+  <table class="list lb-roles">
+    <thead><tr><th>Variable</th><th></th><th>Value</th></tr></thead>
+    <tbody data-redmine-variables></tbody>
+  </table>
+  <br />
+
+  <h3>Roles</h3>
+  <table class="list lb-roles">
+    <thead><tr><th>Role</th><th>Sample</th><th>Computed colors</th></tr></thead>
+    <tbody>
+      <tr data-role data-props="color"><td class="name">Text</td><td><span data-sample>Body text</span></td><td class="lb-value" data-out></td></tr>
+      <tr data-role data-props="color"><td class="name">Heading</td><td><h3 data-sample style="margin:0">Heading</h3></td><td class="lb-value" data-out></td></tr>
+      <tr data-role data-props="color"><td class="name">Link</td><td><a href="#" data-sample>A link</a></td><td class="lb-value" data-out></td></tr>
+      <tr data-role data-props="color"><td class="name">Closed issue</td><td><a href="#" class="issue closed" data-sample>Bug #1</a></td><td class="lb-value" data-out></td></tr>
+      <tr data-role data-props="color background-color border-top-color"><td class="name">Notice</td><td><div class="flash notice" data-sample style="margin:0"><%= sprite_icon('checked', 'Successful update.') %></div></td><td class="lb-value" data-out></td></tr>
+      <tr data-role data-props="color background-color border-top-color"><td class="name">Error</td><td><div class="flash error" data-sample style="margin:0"><%= sprite_icon('warning', 'An error occurred.') %></div></td><td class="lb-value" data-out></td></tr>
+      <tr data-role data-props="color background-color border-top-color"><td class="name">Warning</td><td><div class="flash warning" data-sample style="margin:0"><%= sprite_icon('warning', 'Check the settings.') %></div></td><td class="lb-value" data-out></td></tr>
+      <tr data-role data-props="color background-color border-top-color"><td class="name">No data</td><td><p class="nodata" data-sample style="margin:0"><%= l(:label_no_data) %></p></td><td class="lb-value" data-out></td></tr>
+      <tr data-role data-props="background-color border-bottom-color"><td class="name">Box</td><td><div class="box" data-sample style="margin:0">.box</div></td><td class="lb-value" data-out></td></tr>
+      <tr data-role data-props="background-color color"><td class="name">Badge</td><td><span class="badge badge-private" data-sample><%= l(:field_is_private) %></span></td><td class="lb-value" data-out></td></tr>
+    </tbody>
+  </table>
+  <br />
+
+  <h3>table.list</h3>
+  <table class="list" data-list>
+    <thead><tr><th>Header</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Odd row</td></tr>
+      <tr><td class="name">Even row</td></tr>
+    </tbody>
+  </table>
+  <p class="lb-value" data-list-out></p>
+
+  <h3><%= l(:field_done_ratio) %></h3>
+  <%= progress_bar([30, 60], :legend => '60%') %>
+  <p class="lb-value" data-progress-out></p>
+</div>
+
+<%= javascript_tag do %>
+  (function () {
+    var root = getComputedStyle(document.documentElement);
+    var hues = ['gray', 'red', 'pink', 'grape', 'violet', 'indigo', 'blue', 'cyan', 'teal', 'green', 'lime', 'yellow', 'orange'];
+    var palette = document.querySelector('#lookbook-colors [data-palette]');
+    var cell = function (cls, text) { var el = document.createElement('div'); el.className = cls; el.textContent = text; return el; };
+    hues.forEach(function (hue) {
+      palette.appendChild(cell('lb-name', hue));
+      for (var i = 0; i <= 9; i++) {
+        var name = '--oc-' + hue + '-' + i;
+        var value = root.getPropertyValue(name).trim();
+        var box = document.createElement('div');
+        var swatch = cell('lb-swatch', '');
+        swatch.style.background = 'var(' + name + ')';
+        swatch.title = name + ' ' + value;
+        box.appendChild(swatch);
+        box.appendChild(cell('lb-value', i + ' ' + value));
+        palette.appendChild(box);
+      }
+    });
+
+    // Redmine's own variables: every custom property on :root that is not Open Color
+    var own = [];
+    Array.prototype.forEach.call(document.styleSheets, function (sheet) {
+      var rules;
+      try { rules = sheet.cssRules; } catch (e) { return; }
+      Array.prototype.forEach.call(rules || [], function (rule) {
+        if (rule.selectorText !== ':root') return;
+        Array.prototype.forEach.call(rule.style, function (prop) {
+          if (prop.indexOf('--') === 0 && prop.indexOf('--oc-') !== 0 && own.indexOf(prop) < 0) own.push(prop);
+        });
+      });
+    });
+    var body = document.querySelector('#lookbook-colors [data-redmine-variables]');
+    own.forEach(function (name) {
+      var value = root.getPropertyValue(name).trim();
+      var row = document.createElement('tr');
+      row.innerHTML = '<td class="name"></td><td></td><td class="lb-value"></td>';
+      row.children[0].textContent = name;
+      if (name.indexOf('color') >= 0) {
+        var swatch = cell('lb-swatch', '');
+        swatch.style.background = 'var(' + name + ')';
+        swatch.style.inlineSize = '4em';
+        row.children[1].appendChild(swatch);
+      }
+      row.children[2].textContent = value;
+      body.appendChild(row);
+    });
+
+    document.querySelectorAll('#lookbook-colors [data-role]').forEach(function (row) {
+      var style = getComputedStyle(row.querySelector('[data-sample]'));
+      row.querySelector('[data-out]').textContent = row.dataset.props.split(' ').map(function (prop) {
+        return prop + ': ' + style.getPropertyValue(prop);
+      }).join('; ');
+    });
+
+    var rows = document.querySelectorAll('#lookbook-colors [data-list] tr');
+    document.querySelector('#lookbook-colors [data-list-out]').textContent = [
+      'th: ' + getComputedStyle(rows[0].children[0]).backgroundColor,
+      'odd: ' + getComputedStyle(rows[1]).backgroundColor,
+      'even: ' + getComputedStyle(rows[2]).backgroundColor
+    ].join('; ');
+
+    var progress = document.querySelectorAll('#lookbook-colors table.progress td');
+    document.querySelector('#lookbook-colors [data-progress-out]').textContent = Array.prototype.map.call(progress, function (td) {
+      return td.className + ': ' + getComputedStyle(td).backgroundColor;
+    }).join('; ');
+  })();
+<% end %>

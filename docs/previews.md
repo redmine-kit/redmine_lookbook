@@ -1,6 +1,6 @@
 # Preview list
 
-Redmine Lookbook has 265 previews: 56 components and 209 pages. The name is the label in Lookbook's navigation, and the path is the part of the preview's URL after `/lookbook/inspect/`.
+Redmine Lookbook has 266 previews: 57 components and 209 pages. The name is the label in Lookbook's navigation, and the path is the part of the preview's URL after `/lookbook/inspect/`.
 
 - **Components** render parts of Redmine with Redmine's helpers and partials. The "Layout" and "Menus" groups render directly in Redmine's `#wrapper`, where Redmine puts its header, menus and footer, so the "Layout" toolbar option does not apply to them. Menus are shown open.
 - **Pages** render the Redmine page in the "Page" column as the user in the "User" column: `admin` (an administrator), `jsmith` and `dlopper` (project members) or `anonymous` (not signed in). "Notes" lists the settings that the preview changes for that page only, the HTTP status of error pages, and `sudo: false` where the page shows the password form of Redmine's sudo mode.
@@ -64,6 +64,7 @@ This list is generated from the files in `previews/`.
 | Modal dialog | `components/basics/modal` |
 | Headings and text | `components/basics/typography` |
 | Notices and empty states | `components/basics/notices` |
+| Color palette | `components/basics/colors` |
 
 ### Forms
 
