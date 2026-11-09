@@ -38,3 +38,7 @@ Then open <http://127.0.0.1:3000/lookbook>. See [Installation](installation.md) 
 ## License
 
 Redmine Lookbook is released under the GNU General Public License, version 2 or (at your option) any later version. See [LICENSE](../LICENSE).
+
+## Sponsors
+
+<Sponsors><a href="https://localstack.cloud">LocalStack</a></Sponsors>
