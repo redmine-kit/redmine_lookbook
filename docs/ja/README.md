@@ -39,12 +39,6 @@ docker compose -f docker/compose.yml up --build
 
 起動したら <http://127.0.0.1:3000/lookbook> を開きます。詳しくは[インストール](installation.md)を参照してください。
 
-<a id="sponsors"></a>
-
-## スポンサー
-
-<Sponsors><a href="https://localstack.cloud">LocalStack</a></Sponsors>
-
 <a id="license"></a>
 
 ## ライセンス

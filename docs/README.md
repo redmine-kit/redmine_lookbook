@@ -35,10 +35,6 @@ docker compose -f docker/compose.yml up --build
 
 Then open <http://127.0.0.1:3000/lookbook>. See [Installation](installation.md) for the details.
 
-## Sponsors
-
-<Sponsors><a href="https://localstack.cloud">LocalStack</a></Sponsors>
-
 ## License
 
 Redmine Lookbook is released under the GNU General Public License, version 2 or (at your option) any later version. See [LICENSE](../LICENSE). An unofficial Redmine plugin.
