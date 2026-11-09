@@ -1,6 +1,7 @@
 # Redmine Lookbook
 
 [![CI](https://github.com/redmine-kit/redmine_lookbook/actions/workflows/ci.yml/badge.svg)](https://github.com/redmine-kit/redmine_lookbook/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/redmine-kit/redmine_lookbook?label=License)](LICENSE)
 
 Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](https://lookbook.build/) でプレビューする Redmine 7 のプラグインです。テーマの作者は、Redmine の画面を一つずつ開かなくても、多くの画面、言語、レイアウトでテーマを確認できます。
 
@@ -44,9 +45,22 @@ docker compose -f docker/compose.yml up --build
 
 Redmine Lookbook は開発用のツールです。本番のサーバーでは決して有効にしないでください。`/lookbook` を開ける人は、管理者としてレンダリングした画面を見られます。Redmine のテストデータだけがある Redmine で使ってください。[セキュリティ](docs/ja/security.md)を参照してください。脆弱性の報告の方法は [SECURITY.md](SECURITY.md) にあります。
 
+<a id="sponsors"></a>
+
+## スポンサー
+
+<a href="https://localstack.cloud">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/localstack-logo-dark.svg">
+    <img alt="LocalStack" src=".github/assets/localstack-logo.svg" width="120" height="28">
+  </picture>
+</a>
+
+<a id="license"></a>
+
 ## ライセンス
 
-Redmine Lookbook は、GNU General Public License バージョン 2 またはそれ以降のバージョンで公開しています。[LICENSE](LICENSE) を参照してください。
+Redmine Lookbook は、GNU General Public License バージョン 2 またはそれ以降のバージョンで公開しています。[LICENSE](LICENSE) を参照してください。Redmine projectとは関係ありません。
 
 - Redmine は Jean-Philippe Lang の著作物で、GPL で公開されています。
 - Lookbook は MIT License で公開されています。
