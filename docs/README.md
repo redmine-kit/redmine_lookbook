@@ -7,12 +7,12 @@ Redmine Lookbook is a Redmine 7 plugin that previews Redmine's components and pa
 - [Installation](installation.md): the Docker setup, or an existing Redmine, and Redmine's test data
 - [Using the previews](usage.md): the toolbar, checking a theme, narrow screens and printing
 - [Preview list](previews.md): every component and page preview, with the Redmine page it renders
-- [Theme checklist](theme-checklist.md): what a Redmine 7 theme has to handle, the preview for each item, and what the previews do not cover
-- [Redmine 7 themes](themes.md): how Redmine 7 finds, loads and applies a theme
 - [Writing previews](writing-previews.md): previews for your own theme or plugin
 - [Configuration](configuration.md): environment variables
 - [How it works](how-it-works.md): how components and pages are rendered
 - [Security](security.md): where to run it, and what it shows
+
+How Redmine 7 applies a theme, and a checklist of what a theme has to handle with the preview for each item, are in the [Redmine Design Guide](https://redmine-kit.github.io/design-guide/) ([themes](https://redmine-kit.github.io/design-guide/themes.html), [theme checklist](https://redmine-kit.github.io/design-guide/theme-checklist.html)).
 
 Redmine Lookbook is in early development (0.1.0). It supports Redmine 7.0 only and has been checked with Redmine 7.0.3 and Lookbook 2.3.15.
 

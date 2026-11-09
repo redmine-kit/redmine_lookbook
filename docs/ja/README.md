@@ -7,12 +7,12 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 - [インストール](installation.md): Docker での環境、または既存の Redmine へのインストールと、Redmine のテストデータ
 - [プレビューの使い方](usage.md): ツールバー、テーマの確認、狭い画面と印刷
 - [プレビューの一覧](previews.md): すべてのコンポーネントと画面のプレビューと、それぞれがレンダリングする Redmine の画面
-- [テーマのチェックリスト](theme-checklist.md): Redmine 7 のテーマが対応する必要のある項目、項目ごとのプレビュー、プレビューで確認できない項目
-- [Redmine 7 のテーマ](themes.md): Redmine 7 がテーマを見つけ、読み込み、適用する仕組み
 - [プレビューを書く](writing-previews.md): 自作のテーマやプラグインのプレビュー
 - [設定](configuration.md): 環境変数
 - [仕組み](how-it-works.md): コンポーネントと画面をレンダリングする仕組み
 - [セキュリティ](security.md): 動かす場所と、表示される内容
+
+Redmine 7 がテーマを適用する仕組みと、テーマが対応する必要のある項目を項目ごとのプレビューと一緒にまとめたチェックリストは、[Redmine Design Guide](https://redmine-kit.github.io/design-guide/ja/)にあります([テーマ](https://redmine-kit.github.io/design-guide/ja/themes.html)、[テーマのチェックリスト](https://redmine-kit.github.io/design-guide/ja/theme-checklist.html))。
 
 Redmine Lookbook は開発の初期段階です(0.1.0)。対応するのは Redmine 7.0 だけで、Redmine 7.0.3 と Lookbook 2.3.15 で動作を確認しています。
 

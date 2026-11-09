@@ -16,7 +16,7 @@ Redmine Lookbook is a Redmine 7 plugin that previews Redmine's components and pa
 - Website: https://redmine-kit.github.io/redmine_lookbook/ (日本語: https://redmine-kit.github.io/redmine_lookbook/ja/)
 - Markdown: [docs/README.md](docs/README.md) (日本語: [docs/ja/README.md](docs/ja/README.md)) and the pages it links
 
-The documentation covers [installation](docs/installation.md), [the toolbar](docs/usage.md), [every preview](docs/previews.md), a [checklist for theme authors](docs/theme-checklist.md), [how Redmine 7 applies themes](docs/themes.md) and [writing your own previews](docs/writing-previews.md).
+The documentation covers [installation](docs/installation.md), [the toolbar](docs/usage.md), [every preview](docs/previews.md), and [writing your own previews](docs/writing-previews.md). How Redmine 7 applies themes and a checklist for theme authors are in the [Redmine Design Guide](https://redmine-kit.github.io/design-guide/) ([themes](https://redmine-kit.github.io/design-guide/themes.html), [theme checklist](https://redmine-kit.github.io/design-guide/theme-checklist.html)).
 
 ## Features
 

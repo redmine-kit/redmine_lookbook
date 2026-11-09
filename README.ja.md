@@ -16,7 +16,7 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 - Web サイト: https://redmine-kit.github.io/redmine_lookbook/ja/ (English: https://redmine-kit.github.io/redmine_lookbook/)
 - Markdown: [docs/ja/README.md](docs/ja/README.md) (English: [docs/README.md](docs/README.md)) と、そこからリンクしているページ
 
-ドキュメントには、[インストール](docs/ja/installation.md)、[ツールバー](docs/ja/usage.md)、[すべてのプレビュー](docs/ja/previews.md)、[テーマの作者のためのチェックリスト](docs/ja/theme-checklist.md)、[Redmine 7 がテーマを適用する仕組み](docs/ja/themes.md)、[独自のプレビューの書き方](docs/ja/writing-previews.md)があります。
+ドキュメントには、[インストール](docs/ja/installation.md)、[ツールバー](docs/ja/usage.md)、[すべてのプレビュー](docs/ja/previews.md)、[独自のプレビューの書き方](docs/ja/writing-previews.md)があります。Redmine 7 がテーマを適用する仕組みと、テーマの作者のためのチェックリストは、[Redmine Design Guide](https://redmine-kit.github.io/design-guide/ja/)にあります([テーマ](https://redmine-kit.github.io/design-guide/ja/themes.html)、[テーマのチェックリスト](https://redmine-kit.github.io/design-guide/ja/theme-checklist.html))。
 
 ## 機能
 

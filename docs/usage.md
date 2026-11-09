@@ -26,11 +26,11 @@ The display options in the toolbar (the gear button) apply to every preview.
 ## Checking a theme
 
 1. Put the theme in Redmine's `themes/` directory (with Docker, in `docker/themes/` or the directory in `REDMINE_LOOKBOOK_THEMES`).
-2. Restart Redmine. Redmine registers the files of themes when it starts, so a new theme needs a restart (see [Redmine 7 themes](themes.md#restart-and-reload)).
+2. Restart Redmine. Redmine registers the files of themes when it starts, so a new theme needs a restart (see [Redmine 7 themes](https://redmine-kit.github.io/design-guide/themes.html#restart-and-reload) in the Redmine Design Guide).
 3. Choose the theme in the toolbar.
 4. Edit the theme and reload the preview.
 
-Work through the [theme checklist](theme-checklist.md) to cover what a theme has to handle.
+Work through the [theme checklist](https://redmine-kit.github.io/design-guide/theme-checklist.html) of the Redmine Design Guide to cover what a theme has to handle.
 
 The same issue page with Redmine's default styles and with the themes that come with Redmine, Alternate and Classic:
 

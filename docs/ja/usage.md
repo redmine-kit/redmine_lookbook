@@ -30,11 +30,11 @@
 ## テーマの確認
 
 1. テーマを、Redmine の `themes/` のディレクトリに置きます(Docker では `docker/themes/` か、`REDMINE_LOOKBOOK_THEMES` のディレクトリ)。
-2. Redmine を再起動します。Redmine はテーマのファイルを起動のときに登録するので、新しいテーマには再起動が必要です([Redmine 7 のテーマ](themes.md#restart-and-reload))。
+2. Redmine を再起動します。Redmine はテーマのファイルを起動のときに登録するので、新しいテーマには再起動が必要です(Redmine Design Guide の [Redmine 7 のテーマ](https://redmine-kit.github.io/design-guide/ja/themes.html#restart-and-reload))。
 3. ツールバーでそのテーマを選びます。
 4. テーマを編集し、プレビューを再読み込みします。
 
-テーマが対応する必要のある項目は、[テーマのチェックリスト](theme-checklist.md)で順に確認できます。
+テーマが対応する必要のある項目は、Redmine Design Guide の[テーマのチェックリスト](https://redmine-kit.github.io/design-guide/ja/theme-checklist.html)で順に確認できます。
 
 同じチケットの画面を、Redmine の既定のスタイルと、Redmine に付属するテーマ Alternate と Classic で表示したものです。
 

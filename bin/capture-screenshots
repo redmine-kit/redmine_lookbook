@@ -105,15 +105,6 @@ for (const lang of ["en", "ja"]) {
   await page.goto(preview("components/layout/whole_flyout_open", { language }), 3000);
   await page.shot(`${dir}/narrow.png`);
 
-  // Menus shown open
-  await page.viewport(1200, 520);
-  await page.goto(preview("components/menus/context_menu", { language }), 3000);
-  await page.shot(`${dir}/context-menu.png`);
-
-  // Repository pages
-  await page.viewport(1200, 760);
-  await page.goto(preview("pages/repository/git_revisions", { language, layout: "page" }), 3000);
-  await page.shot(`${dir}/repository.png`);
 }
 
 // Right-to-left (the same image for both languages)
