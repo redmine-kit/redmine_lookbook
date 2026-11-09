@@ -55,6 +55,17 @@ module RedmineLookbook
     Rails.application.config.view_component.previews.controller = controller
 
     Lookbook.config.project_name = "Redmine Lookbook"
+    # Lookbook's own interface in the Redmine Kit style: neutral colors, the
+    # red header of the Redmine Kit sites (docs-skeleton) and the white Redmine
+    # Kit mark (redmine-kit/brand) before the project name.
+    Lookbook.config.ui_theme = "zinc"
+    Lookbook.config.ui_theme_overrides do |theme|
+      theme.header_bg = "#a30d0d"
+      theme.header_border = "#7f0000"
+      theme.header_text = "#ffffff"
+      theme.favicon = "#a30d0d"
+    end
+    Lookbook.config.project_logo = File.read(File.join(root, "lookbook", "redmine-kit-mark.svg"))
     Lookbook.config.preview_paths |= paths
     Lookbook.config.preview_controller = controller
     # Render each preview and its layout in one pass, so that content_for

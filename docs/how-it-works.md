@@ -8,6 +8,7 @@ Redmine Lookbook connects Lookbook to Redmine in three places: the controller th
 | --- | --- |
 | Enabled check | The plugin is enabled when the Lookbook gem is installed and `REDMINE_LOOKBOOK` is `1` (the default in development) |
 | Setup | Redmine runs the plugin's `init.rb` in a `to_prepare` callback, after Rails' autoloader is set up, and again on every code reload in development. The plugin then loads its previews and the preview controller itself, because Lookbook expects them to be autoloaded |
+| Lookbook's appearance | Lookbook's own interface uses Lookbook's neutral `zinc` theme with the red header of the Redmine Kit sites and the Redmine Kit mark before the project name (`ui_theme`, `ui_theme_overrides` and `project_logo` in the setup; the mark is `lookbook/redmine-kit-mark.svg`). Redmine's pages in the previews are not affected |
 | Off means off | The preview controller and the page component refer to Lookbook and ViewComponent, so they are kept in `lookbook/`, outside the directories that Redmine autoloads. With the plugin disabled, nothing refers to Lookbook, and Redmine eager loads without it in production |
 
 ## Components
