@@ -45,6 +45,15 @@ Then open <http://127.0.0.1:3000/lookbook>. To install into an existing Redmine,
 
 Redmine Lookbook is a development tool. Never enable it on a production server: anyone who can open `/lookbook` sees pages rendered as an administrator. Use it only in a Redmine with Redmine's test data. See [Security](docs/security.md), and [SECURITY.md](SECURITY.md) to report a vulnerability.
 
+## Sponsors
+
+<a href="https://www.keyselect.co.jp/">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/keyselect-logo-dark.svg">
+    <img alt="KEY SELECT" src=".github/assets/keyselect-logo.svg" width="136" height="29">
+  </picture>
+</a>
+
 ## License
 
 Redmine Lookbook is released under the GNU General Public License, version 2 or (at your option) any later version. See [LICENSE](LICENSE). An unofficial Redmine plugin.

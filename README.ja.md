@@ -45,6 +45,17 @@ docker compose -f docker/compose.yml up --build
 
 Redmine Lookbook は開発用のツールです。本番のサーバーでは決して有効にしないでください。`/lookbook` を開ける人は、管理者としてレンダリングした画面を見られます。Redmine のテストデータだけがある Redmine で使ってください。[セキュリティ](docs/ja/security.md)を参照してください。脆弱性の報告の方法は [SECURITY.md](SECURITY.md) にあります。
 
+<a id="sponsors"></a>
+
+## スポンサー
+
+<a href="https://www.keyselect.co.jp/">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/keyselect-logo-dark.svg">
+    <img alt="KEY SELECT" src=".github/assets/keyselect-logo.svg" width="136" height="29">
+  </picture>
+</a>
+
 <a id="license"></a>
 
 ## ライセンス
