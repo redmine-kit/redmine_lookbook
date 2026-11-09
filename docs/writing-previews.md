@@ -93,13 +93,15 @@ module Pages
 end
 ```
 
-- **Path:** a string, or a block that returns the path when the preview renders (to look up the test data).
-- **User:** `:admin` (the default: the first active administrator), `:anonymous` (not signed in) or a login such as `"jsmith"`. A login that is not an active user raises an error.
-- **Redirects:** up to three redirects on the same host are followed.
-- **Settings:** `settings:` changes Redmine settings for this page only, for example `render_page("/admin/webhooks", settings: { webhooks_enabled: true })` (see [Settings for one preview](#settings-for-one-preview)).
-- **Status:** `status:` is the HTTP status that the page returns, 200 by default. Give it for error pages, for example `render_page("/issues/0", status: 404)`. When the page returns another status, `bin/check-previews` reports the preview.
-- **Sudo mode:** Redmine's password confirmation (sudo mode) counts as done, so pages such as Administration » Settings show their content. `sudo: false` shows the password form instead, for example `render_page("/my/api_key", sudo: false)`.
-- **Toolbar:** the theme and language options apply to the page. With the "None" layout option, Redmine's header, menus, sidebar and footer are removed from the page.
+| Argument or behavior | Description |
+| --- | --- |
+| Path | A string, or a block that returns the path when the preview renders (to look up the test data) |
+| User | `:admin` (the default: the first active administrator), `:anonymous` (not signed in) or a login such as `"jsmith"`. A login that is not an active user raises an error |
+| `settings:` | Changes Redmine settings for this page only, for example `render_page("/admin/webhooks", settings: { webhooks_enabled: true })` ([Settings for one preview](#settings-for-one-preview)) |
+| `status:` | The HTTP status that the page returns, 200 by default. Give it for error pages, for example `render_page("/issues/0", status: 404)`. When the page returns another status, `bin/check-previews` reports the preview |
+| `sudo:` | Redmine's password confirmation (sudo mode) counts as done, so pages such as Administration » Settings show their content. `sudo: false` shows the password form instead, for example `render_page("/my/api_key", sudo: false)` |
+| Redirects | Up to three redirects on the same host are followed |
+| Toolbar | The theme and language options apply to the page. With the "None" layout option, Redmine's header, menus, sidebar and footer are removed from the page |
 
 A page preview sends a GET request, so it shows the page as it first appears (see [How it works](how-it-works.md#pages)).
 
