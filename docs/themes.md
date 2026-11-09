@@ -194,7 +194,7 @@ The main elements of Redmine's layout (`base.html.erb`):
 | `#header` | `#quick-search`, `#project-jump`, the title and `#main-menu` (the project menu) |
 | `#main` | `#sidebar` and `#content`. `#main` has the class `collapsiblesidebar`, or `nosidebar` when the page has no sidebar |
 | `#footer` | "Powered by Redmine" |
-| `#ajax-indicator`, `#ajax-modal` | The loading indicator and the dialog |
+| `#ajax-indicator`<br>`#ajax-modal` | The loading indicator and the dialog |
 
 ## Right-to-left languages
 

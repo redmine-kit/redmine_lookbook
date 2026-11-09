@@ -113,7 +113,7 @@ A page preview sends a GET request, so it shows the page as it first appears (se
 | `TestData.issue` | An issue of that project |
 | `TestData.version` | A version of that project |
 | `TestData.wiki_page` | A wiki page of that project |
-| `TestData.news`, `TestData.document`, `TestData.board`, `TestData.topic` | A news item, a document, a forum and a forum topic |
+| `TestData.news`<br>`TestData.document`<br>`TestData.board`<br>`TestData.topic` | A news item, a document, a forum and a forum topic |
 | `TestData.user` | The user `jsmith` |
 
 The test repositories are the repositories of eCookbook: `TestData.project.repository` (Subversion, the default) and `TestData.project.repositories.find_by(identifier: "git")` (also `"mercurial"`).

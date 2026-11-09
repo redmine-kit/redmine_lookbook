@@ -224,7 +224,7 @@ Redmine のレイアウト(`base.html.erb`)の主な要素です。
 | `#header` | `#quick-search`、`#project-jump`、タイトル、`#main-menu`(プロジェクトのメニュー) |
 | `#main` | `#sidebar` と `#content`。`#main` には `collapsiblesidebar` のクラスが付き、サイドバーのない画面では `nosidebar` が付きます |
 | `#footer` | 「Powered by Redmine」 |
-| `#ajax-indicator`、`#ajax-modal` | 読み込み中の表示とダイアログ |
+| `#ajax-indicator`<br>`#ajax-modal` | 読み込み中の表示とダイアログ |
 
 <a id="right-to-left-languages"></a>
 

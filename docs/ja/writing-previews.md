@@ -125,7 +125,7 @@ end
 | `TestData.issue` | そのプロジェクトのチケット |
 | `TestData.version` | そのプロジェクトのバージョン |
 | `TestData.wiki_page` | そのプロジェクトの wiki のページ |
-| `TestData.news`、`TestData.document`、`TestData.board`、`TestData.topic` | ニュース、文書、フォーラム、フォーラムのトピック |
+| `TestData.news`<br>`TestData.document`<br>`TestData.board`<br>`TestData.topic` | ニュース、文書、フォーラム、フォーラムのトピック |
 | `TestData.user` | ユーザー `jsmith` |
 
 テスト用のリポジトリは eCookbook のリポジトリです。`TestData.project.repository`(Subversion、既定のリポジトリ)と `TestData.project.repositories.find_by(identifier: "git")`(ほかに `"mercurial"`)で取得できます。
