@@ -14,7 +14,7 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 
 Redmine 7 がテーマを適用する仕組みと、テーマが対応する必要のある項目を項目ごとのプレビューと一緒にまとめたチェックリストは、[Redmine Design Guide](https://redmine-kit.github.io/design-guide/ja/)にあります([テーマ](https://redmine-kit.github.io/design-guide/ja/themes.html)、[テーマのチェックリスト](https://redmine-kit.github.io/design-guide/ja/theme-checklist.html))。
 
-Redmine Lookbook は開発の初期段階です(0.1.0)。対応するのは Redmine 7.0 だけで、Redmine 7.0.3 と Lookbook 2.3.15 で動作を確認しています。
+Redmine Lookbook は開発の初期です。対応するのは Redmine 7.0 だけで、Redmine 7.0.3 と Lookbook 2.3.15 で動作を確認しています。
 
 <a id="features"></a>
 
