@@ -33,7 +33,7 @@ docker compose -f docker/compose.yml up --build
 
 Redmine そのものには、`admin` / `admin`(管理者)か `jsmith` / `jsmith`(プロジェクトのメンバー)でログインできます。
 
-| 変数 | 既定値 | 内容 |
+| 変数 | デフォルト値 | 内容 |
 | --- | --- | --- |
 | `REDMINE_LOOKBOOK_BIND` | `127.0.0.1` | 待ち受けるアドレス。ローカルネットワークの他の端末から見るときは `0.0.0.0` にします。 |
 | `REDMINE_LOOKBOOK_PORT` | `3000` | ホスト側のポート。 |
@@ -55,7 +55,7 @@ docker compose -f docker/compose.yml down -v
 
 ## 既存の Redmine
 
-1. プレビュー用の新しい Redmine 7.0 を、新しい空のデータベースで用意します。表を作り、Redmine の既定のデータ(`redmine:load_default_data`)は読み込みません。
+1. プレビュー用の新しい Redmine 7.0 を、新しい空のデータベースで用意します。表を作り、Redmine のデフォルトデータ(`redmine:load_default_data`)は読み込みません。
 
    ```sh
    bin/rails db:migrate
@@ -90,7 +90,7 @@ docker compose -f docker/compose.yml down -v
 - **空のデータベースにだけ:** データベースにすでにプロジェクト、チケット、トラッカー、`admin` 以外のユーザーがあるときと、本番のときは、このタスクは実行されません。既存のデータを置き換えることはありません。
 - **画像:** テストデータには、ファイルのない画像の添付ファイルがあります。このタスクは、テスト用の画像を元にそのファイルを作るので、サムネイルとインラインの画像が表示されます。
 - **子チケット:** テストデータには親子のチケットがないので、このタスクはチケット 1 に子チケットを 1 つ追加します。
-- **リポジトリ:** このタスクは、`rake test:scm:setup` と同じように、`test/fixtures/repositories` から Redmine のテストのリポジトリを `tmp/test/` に作ります。テストデータが参照する Subversion のリポジトリ(eCookbook の既定のリポジトリ)と、eCookbook に追加する Git と Mercurial のリポジトリです。リビジョンを読み込み、メッセージが参照するチケットにリビジョンを関連付けます。
+- **リポジトリ:** このタスクは、`rake test:scm:setup` と同じように、`test/fixtures/repositories` から Redmine のテストのリポジトリを `tmp/test/` に作ります。テストデータが参照する Subversion のリポジトリ(eCookbook のメインリポジトリ)と、eCookbook に追加する Git と Mercurial のリポジトリです。リビジョンを読み込み、メッセージが参照するチケットにリビジョンを関連付けます。
 - **Webhook:** Redmine のテストデータには Webhook(Redmine 7 の新機能)がないので、このタスクが 1 つ追加します。
 - **メールアドレス:** Redmine のテストデータには追加のメールアドレスがないので、このタスクは `jsmith` に 1 つ追加します。
 - **ユーザー:** `admin` / `admin` と `jsmith` / `jsmith` でログインできます。画面のプレビューは、プレビューが別のユーザーを指定しない限り `admin` としてレンダリングします。
@@ -105,7 +105,7 @@ bin/rails redmine_lookbook:update_test_data
 
 ## プレビューの確認
 
-`bin/check-previews` は、すべてのプレビューを 3 つのツールバーの設定(既定、日本語と Redmine のレイアウト、アラビア語)でレンダリングし、失敗したプレビューを表示します。画面のプレビューで、Redmine の画面がプレビューの期待と違う HTTP のステータスを返したとき(たとえばエラーの画面)と、翻訳がない文字列を表示した画面も失敗にします。動いている Redmine に対して実行します。
+`bin/check-previews` は、すべてのプレビューを 3 つのツールバーの設定(デフォルト、日本語と Redmine のレイアウト、アラビア語)でレンダリングし、失敗したプレビューを表示します。画面のプレビューで、Redmine の画面がプレビューの期待と違う HTTP のステータスを返したとき(たとえばエラーの画面)と、翻訳がない文字列を表示した画面も失敗にします。動いている Redmine に対して実行します。
 
 ```sh
 bin/check-previews                        # http://127.0.0.1:3000

@@ -106,9 +106,9 @@ end
 | 引数と動き | 説明 |
 | --- | --- |
 | パス | 文字列か、プレビューをレンダリングするときにパスを返すブロック(テストデータを検索するとき) |
-| ユーザー | `:admin`(既定: 最初の有効な管理者)、`:anonymous`(ログインしていない状態)、または `"jsmith"` のようなログイン名。有効なユーザーでないログイン名はエラーになる |
+| ユーザー | `:admin`(デフォルト: 最初の有効な管理者)、`:anonymous`(ログインしていない状態)、または `"jsmith"` のようなログイン名。有効なユーザーでないログイン名はエラーになる |
 | `settings:` | その画面のためだけに Redmine の設定を変える。たとえば `render_page("/admin/webhooks", settings: { webhooks_enabled: true })`([プレビューごとの設定](#settings-for-one-preview)) |
-| `status:` | 画面が返す HTTP のステータス。既定は 200。エラーの画面では、たとえば `render_page("/issues/0", status: 404)` のように指定する。画面がほかのステータスを返すと、`bin/check-previews` がそのプレビューを表示する |
+| `status:` | 画面が返す HTTP のステータス。デフォルトは 200。エラーの画面では、たとえば `render_page("/issues/0", status: 404)` のように指定する。画面がほかのステータスを返すと、`bin/check-previews` がそのプレビューを表示する |
 | `sudo:` | Redmine のパスワードの確認(sudo モード)は済んだものとして扱うので、管理 » 設定などの画面は内容を表示する。`sudo: false` では、たとえば `render_page("/my/api_key", sudo: false)` のように、パスワードのフォームを表示する |
 | リダイレクト | 同じホストへのリダイレクトを、3 回までたどる |
 | ツールバー | テーマと言語の切り替えが、画面に適用される。「None」では、画面から Redmine のヘッダー、メニュー、サイドバー、フッターを取り除く |
@@ -130,7 +130,7 @@ end
 | `TestData.news`<br>`TestData.document`<br>`TestData.board`<br>`TestData.topic` | ニュース、文書、フォーラム、フォーラムのトピック |
 | `TestData.user` | ユーザー `jsmith` |
 
-テスト用のリポジトリは eCookbook のリポジトリです。`TestData.project.repository`(Subversion、既定のリポジトリ)と `TestData.project.repositories.find_by(identifier: "git")`(ほかに `"mercurial"`)で取得できます。
+テスト用のリポジトリは eCookbook のリポジトリです。`TestData.project.repository`(Subversion、メインリポジトリ)と `TestData.project.repositories.find_by(identifier: "git")`(ほかに `"mercurial"`)で取得できます。
 
 テストデータを読み込んでいないときは `nil` を返します。そのときは、組み込みのプレビューと同じように、エラーにせずメッセージを表示してください。
 

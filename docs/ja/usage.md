@@ -15,10 +15,10 @@
 
 ![表示オプション: テーマ、言語、レイアウト](../img/ja/toolbar.png)
 
-| 切り替え | 選択肢 | 既定 |
+| 切り替え | 選択肢 | デフォルト |
 | --- | --- | --- |
 | Theme | Default と、Redmine が見つけたすべてのテーマ | Default: Redmine のテーマの設定 |
-| Language | Default と、Redmine が対応するすべての言語 | Default: 管理画面の設定の、Redmine の既定の言語 |
+| Language | Default と、Redmine が対応するすべての言語 | Default: 管理画面の設定の、Redmine のデフォルトの言語 |
 | Layout | None(コンポーネントだけ)、Redmine layout | None |
 
 - **テーマ:** 選んだテーマは、そのプレビューのリクエストにだけ使います。データベースの中の Redmine の設定は変わりません。
@@ -36,9 +36,9 @@
 
 テーマが対応する必要のある項目は、Redmine Design Guide の[テーマのチェックリスト](https://redmine-kit.github.io/design-guide/ja/theme-checklist.html)で順に確認できます。
 
-同じチケットの画面を、Redmine の既定のスタイルと、Redmine に付属するテーマ Alternate と Classic で表示したものです。
+同じチケットの画面を、Redmine のデフォルトのスタイルと、Redmine に付属するテーマ Alternate と Classic で表示したものです。
 
-| 既定 | Alternate | Classic |
+| デフォルト | Alternate | Classic |
 | --- | --- | --- |
 | ![テーマのないチケットの画面](../img/ja/theme-default.png) | ![Alternate のテーマのチケットの画面](../img/ja/theme-alternate.png) | ![Classic のテーマのチケットの画面](../img/ja/theme-classic.png) |
 
@@ -73,7 +73,7 @@ Redmine の `application.css` には、印刷用のスタイル(`@media print`)�
 
 ## wiki の書式
 
-「Wiki formatting」のコンポーネントには、`format` のパラメーターがあります。CommonMark(Redmine 7 の既定)か Textile を、プレビューの Params のパネルで選びます。Redmine のテキストの書式の設定は変わりません。
+「Wiki formatting」のコンポーネントには、`format` のパラメーターがあります。CommonMark(Redmine 7 のデフォルト)か Textile を、プレビューの Params のパネルで選びます。Redmine のテキストの書式の設定は変わりません。
 
 ![CommonMark の wiki の書式のテスト用の文章の冒頭](../img/wiki.png)
 

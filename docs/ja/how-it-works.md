@@ -8,7 +8,7 @@ Redmine Lookbook は、3 か所で Lookbook と Redmine をつなぎます。プ
 
 | 項目 | しくみ |
 | --- | --- |
-| 有効かどうか | Lookbook の gem がインストールされ、`REDMINE_LOOKBOOK` が `1`(開発モードの既定)のとき、このプラグインは有効です |
+| 有効かどうか | Lookbook の gem がインストールされ、`REDMINE_LOOKBOOK` が `1`(開発モードのデフォルト)のとき、このプラグインは有効です |
 | 準備 | Redmine は、プラグインの `init.rb` を、Rails のオートローダーの準備のあとの `to_prepare` のコールバックで実行し、開発モードではコードを読み込み直すたびに再び実行します。Lookbook はプレビューがオートロードされることを前提にしているので、このプラグインは、プレビューとプレビューのコントローラーを自身で読み込みます |
 | Lookbook の見た目 | Lookbook 自体の画面は、Lookbook の中立の `zinc` のテーマに、Redmine Kit のサイトと同じ赤いヘッダーと、プロジェクト名の前の Redmine Kit のマークを付けています(準備の中の `ui_theme`、`ui_theme_overrides`、`project_logo`。マークは `lookbook/redmine-kit-mark.svg`)。プレビューの中の Redmine の画面には影響しません |
 | 無効のときは何もしない | プレビューのコントローラーと画面のコンポーネントは Lookbook と ViewComponent を参照するので、Redmine がオートロードするディレクトリの外の `lookbook/` に置いています。プラグインが無効のときは何も Lookbook を参照しないので、本番の Redmine は Lookbook なしで eager load できます |
