@@ -1,6 +1,6 @@
 Redmine::Plugin.register :redmine_kit_lookbook do
   name "Redmine Kit Lookbook"
-  author "Tsuyoshi Tsurushima"
+  author "Redmine Kit"
   description "Preview Redmine components and pages with Lookbook, switching themes, languages and layouts."
   version RedmineKit::Lookbook::VERSION
   url "https://github.com/redmine-kit/redmine_lookbook"
