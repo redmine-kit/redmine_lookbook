@@ -30,7 +30,7 @@ Redmine Lookbook is in early development. It supports Redmine 7.0 only and has b
 ```sh
 git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
-docker compose -f docker/compose.yml up --build
+bin/dev
 ```
 
 Then open <http://127.0.0.1:3000/lookbook>. See [Installation](installation.md) for the details.

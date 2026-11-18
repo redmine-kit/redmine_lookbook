@@ -7,14 +7,16 @@ Thank you for helping with Redmine Lookbook. Issues and pull requests are welcom
 1. Start the development Redmine:
 
    ```sh
-   docker compose -f docker/compose.yml up --build
+   bin/dev
    ```
+
+   It uses Apple container when it is installed and running, else Docker Compose (`CONTAINER_CLI=container` or `CONTAINER_CLI=docker` chooses).
 
 2. Open <http://127.0.0.1:3000/lookbook>. The plugin directory is mounted into the container, so changes to previews and templates show up when you reload.
 3. Before you send a pull request, check that every preview renders:
 
    ```sh
-   bin/check-previews
+   bin/dev check
    ```
 
 ## Guidelines

@@ -15,12 +15,12 @@ Redmine Lookbook は、プレビューのためだけに用意した、開発モ
 
 ## Docker
 
-Docker の環境は、このプラグインと Redmine のテストデータを入れた Redmine 7.0.3 をビルドします。必要なのは Docker だけです。
+Docker の環境は、このプラグインと Redmine のテストデータを入れた Redmine 7.0.3 をビルドします。必要なのは [Apple container](https://github.com/apple/container) か Docker だけです。`bin/dev` は、Apple container がインストールされていて動いていればそれを、そうでなければ Docker Compose (`docker/compose.yml`) を使います (`CONTAINER_CLI=container` か `CONTAINER_CLI=docker` で選べます)。
 
 ```sh
 git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
-docker compose -f docker/compose.yml up --build
+bin/dev
 ```
 
 起動したら <http://127.0.0.1:3000/lookbook> を開きます。初めて起動したときは、次のことを行います。
@@ -42,13 +42,13 @@ Redmine そのものには、`admin` / `admin`(管理者)か `jsmith` / `jsmith`
 たとえば、`~/themes` のテーマを、同じネットワークのタブレットからプレビューするときは、次のように起動します。
 
 ```sh
-REDMINE_LOOKBOOK_THEMES=~/themes REDMINE_LOOKBOOK_BIND=0.0.0.0 docker compose -f docker/compose.yml up
+REDMINE_LOOKBOOK_THEMES=~/themes REDMINE_LOOKBOOK_BIND=0.0.0.0 bin/dev
 ```
 
-データベースとアップロードしたファイルは、Docker のボリュームに残ります。新しいテストデータからやり直すときは、ボリュームを削除します。
+`bin/dev down` で Redmine を止めます。データベースとアップロードしたファイルは、ボリュームに残ります。新しいテストデータからやり直すときは、ボリュームを削除します。
 
 ```sh
-docker compose -f docker/compose.yml down -v
+bin/dev reset
 ```
 
 <a id="an-existing-redmine"></a>

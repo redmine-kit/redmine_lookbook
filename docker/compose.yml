@@ -1,4 +1,5 @@
-# Starts a development Redmine with Redmine Lookbook:
+# Starts a development Redmine with Redmine Lookbook (bin/dev runs it, or the
+# same in Apple container):
 #   docker compose -f docker/compose.yml up --build
 # Then open http://127.0.0.1:3000/lookbook (sign in as admin / admin).
 services:

@@ -30,7 +30,7 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 ```sh
 git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
-docker compose -f docker/compose.yml up --build
+bin/dev
 ```
 
 起動したら <http://127.0.0.1:3000/lookbook> を開きます。既存の Redmine へのインストールは、[インストール](docs/ja/installation.md#an-existing-redmine)を参照してください。

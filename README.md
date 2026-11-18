@@ -30,7 +30,7 @@ The documentation covers [installation](docs/installation.md), [the toolbar](doc
 ```sh
 git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
-docker compose -f docker/compose.yml up --build
+bin/dev
 ```
 
 Then open <http://127.0.0.1:3000/lookbook>. To install into an existing Redmine, see [Installation](docs/installation.md#an-existing-redmine).

@@ -11,12 +11,12 @@ Redmine Lookbook runs in a Redmine 7.0 in development mode that is set up only f
 
 ## Docker
 
-The Docker setup builds a Redmine 7.0.3 with this plugin and Redmine's test data. It needs only Docker.
+The Docker setup builds a Redmine 7.0.3 with this plugin and Redmine's test data. It needs [Apple container](https://github.com/apple/container) or Docker: `bin/dev` uses Apple container when it is installed and running, else Docker Compose (`docker/compose.yml`); `CONTAINER_CLI=container` or `CONTAINER_CLI=docker` chooses.
 
 ```sh
 git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
-docker compose -f docker/compose.yml up --build
+bin/dev
 ```
 
 Then open <http://127.0.0.1:3000/lookbook>. The first start:
@@ -38,13 +38,13 @@ To sign in to Redmine itself, use `admin` / `admin` (an administrator) or `jsmit
 For example, to preview the themes in `~/themes` from a tablet on the same network:
 
 ```sh
-REDMINE_LOOKBOOK_THEMES=~/themes REDMINE_LOOKBOOK_BIND=0.0.0.0 docker compose -f docker/compose.yml up
+REDMINE_LOOKBOOK_THEMES=~/themes REDMINE_LOOKBOOK_BIND=0.0.0.0 bin/dev
 ```
 
-The database and the uploaded files are kept in Docker volumes. To start again from new test data, remove the volumes:
+`bin/dev down` stops Redmine. The database and the uploaded files are kept in volumes. To start again from new test data, remove them:
 
 ```sh
-docker compose -f docker/compose.yml down -v
+bin/dev reset
 ```
 
 ## An existing Redmine

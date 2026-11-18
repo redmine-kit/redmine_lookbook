@@ -34,7 +34,7 @@ Redmine Lookbook は開発の初期です。対応するのは Redmine 7.0 だ�
 ```sh
 git clone https://github.com/redmine-kit/redmine_lookbook.git
 cd redmine_lookbook
-docker compose -f docker/compose.yml up --build
+bin/dev
 ```
 
 起動したら <http://127.0.0.1:3000/lookbook> を開きます。詳しくは[インストール](installation.md)を参照してください。
