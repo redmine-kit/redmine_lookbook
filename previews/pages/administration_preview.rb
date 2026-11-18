@@ -1,7 +1,7 @@
 module Pages
   # Administration, rendered by Redmine's own controllers with Redmine's test data.
   class AdministrationPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label Administration
     def index

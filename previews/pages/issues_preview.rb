@@ -1,7 +1,7 @@
 module Pages
   # Issues and spent time, rendered by Redmine's own controllers with Redmine's test data.
   class IssuesPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label Issues
     def index

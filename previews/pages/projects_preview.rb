@@ -1,7 +1,7 @@
 module Pages
   # Projects, rendered by Redmine's own controllers with Redmine's test data.
   class ProjectsPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label Home
     def home

@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
-# The development Redmine with Redmine Lookbook (docs/installation.md#docker),
+# The development Redmine with Redmine Kit Lookbook (docs/installation.md#docker),
 # in Apple container when it runs, else with Docker Compose (docker/compose.yml;
 # CONTAINER_CLI=container|docker chooses).
 #   bin/dev           # build and start; Lookbook at http://127.0.0.1:3000/lookbook
 #   bin/dev check     # bin/check-previews in the running Redmine
 #   bin/dev down      # stop, keeping the data
 #   bin/dev reset     # stop and delete the data (new test data on the next start)
-# REDMINE_LOOKBOOK_PORT, REDMINE_LOOKBOOK_BIND, REDMINE_LOOKBOOK_THEMES and
-# REDMINE_LOOKBOOK_SERVERS as in docker/compose.yml.
+# REDMINE_KIT_LOOKBOOK_PORT, REDMINE_KIT_LOOKBOOK_BIND, REDMINE_KIT_LOOKBOOK_THEMES and
+# REDMINE_KIT_LOOKBOOK_SERVERS as in docker/compose.yml.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 source bin/container_cli
-port=${REDMINE_LOOKBOOK_PORT:-3000}
-bind=${REDMINE_LOOKBOOK_BIND:-127.0.0.1}
-name=redmine-lookbook-dev
+port=${REDMINE_KIT_LOOKBOOK_PORT:-3000}
+bind=${REDMINE_KIT_LOOKBOOK_BIND:-127.0.0.1}
+name=redmine-kit-lookbook-dev
 compose=(docker compose -f docker/compose.yml)
 
 wait_for_lookbook() {
@@ -43,11 +43,11 @@ up() {
   for volume in data files; do
     container volume inspect "$name-$volume" >/dev/null 2>&1 || container volume create "$name-$volume" >/dev/null
   done
-  themes=$(cd "${REDMINE_LOOKBOOK_THEMES:-docker/themes}" && pwd)
+  themes=$(cd "${REDMINE_KIT_LOOKBOOK_THEMES:-docker/themes}" && pwd)
   container rm -f "$name" >/dev/null 2>&1 || true
   container run -d --name "$name" -m 2G --progress none -p "$bind:$port:3000" \
-    -e REDMINE_LOOKBOOK_SERVERS="${REDMINE_LOOKBOOK_SERVERS:-}" \
-    -v "$PWD:/redmine/plugins/redmine_lookbook" -v "$themes:/redmine/themes" \
+    -e REDMINE_KIT_LOOKBOOK_SERVERS="${REDMINE_KIT_LOOKBOOK_SERVERS:-}" \
+    -v "$PWD:/redmine/plugins/redmine_kit_lookbook" -v "$themes:/redmine/themes" \
     -v "$name-data:/data" -v "$name-files:/redmine/files" "$name" >/dev/null
   wait_for_lookbook "container logs $name"
 }
@@ -56,9 +56,9 @@ case "${1:-up}" in
   up) up ;;
   check)
     if [[ "$cli" == docker ]]; then
-      "${compose[@]}" exec -T redmine ruby plugins/redmine_lookbook/bin/check-previews
+      "${compose[@]}" exec -T redmine ruby plugins/redmine_kit_lookbook/bin/check-previews
     else
-      container exec "$name" ruby plugins/redmine_lookbook/bin/check-previews
+      container exec "$name" ruby plugins/redmine_kit_lookbook/bin/check-previews
     fi
     ;;
   down)

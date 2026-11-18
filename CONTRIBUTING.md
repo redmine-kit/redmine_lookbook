@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for helping with Redmine Lookbook. Issues and pull requests are welcome.
+Thank you for helping with Redmine Kit Lookbook. Issues and pull requests are welcome.
 
 ## Development
 

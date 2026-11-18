@@ -1,10 +1,10 @@
 module Pages
   # Repository pages, rendered by Redmine's own controllers with the test
-  # repositories of Redmine's tests (see RedmineLookbook::TestRepositories):
+  # repositories of Redmine's tests (see RedmineKit::Lookbook::TestRepositories):
   # Subversion is the default repository of eCookbook, Git and Mercurial are
   # further repositories.
   class RepositoryPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label Repository
     def subversion
@@ -114,11 +114,11 @@ module Pages
     private
 
     def subversion_repository
-      RedmineLookbook::TestData.project&.repository
+      RedmineKit::Lookbook::TestData.project&.repository
     end
 
     def git_repository
-      RedmineLookbook::TestData.project&.repositories&.find_by(identifier: "git")
+      RedmineKit::Lookbook::TestData.project&.repositories&.find_by(identifier: "git")
     end
 
     def subversion_path(rest)

@@ -1,7 +1,7 @@
 module Pages
   # Account and personal pages, rendered by Redmine's own controllers with Redmine's test data.
   class AccountPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label Sign in
     def login

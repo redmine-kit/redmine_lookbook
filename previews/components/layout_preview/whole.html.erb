@@ -1,7 +1,7 @@
 <%# Redmine's base layout with sample content. variant: :project, :global,
     :anonymous, :sidebar_hidden, :flyout or :closed. %>
 <% User.current = User.anonymous if variant == :anonymous %>
-<% @project = RedmineLookbook::TestData.project unless variant == :global %>
+<% @project = RedmineKit::Lookbook::TestData.project unless variant == :global %>
 <%# A closed project, without saving the change. %>
 <% @project.status = Project::STATUS_CLOSED if variant == :closed && @project %>
 <% content_for :sidebar do %>

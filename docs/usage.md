@@ -21,11 +21,11 @@ The display options in the toolbar (the gear button) apply to every preview.
 
 - **Theme:** the chosen theme is used for the preview's request only. Redmine's settings in the database are not changed.
 - **Layout:** "None" keeps Redmine's stylesheets, scripts and theme, and leaves out the header, menus, sidebar and footer. "Redmine layout" shows the whole page, as Redmine shows it. The "Layout" and "Menus" groups of components always render as in Redmine's layout, so this option does not change them.
-- **Server:** when `REDMINE_LOOKBOOK_SERVERS` is set, a "Server" option shows the same preview rendered by another Redmine (see [Configuration](configuration.md#several-servers)).
+- **Server:** when `REDMINE_KIT_LOOKBOOK_SERVERS` is set, a "Server" option shows the same preview rendered by another Redmine (see [Configuration](configuration.md#several-servers)).
 
 ## Checking a theme
 
-1. Put the theme in Redmine's `themes/` directory (with Docker, in `docker/themes/` or the directory in `REDMINE_LOOKBOOK_THEMES`).
+1. Put the theme in Redmine's `themes/` directory (with Docker, in `docker/themes/` or the directory in `REDMINE_KIT_LOOKBOOK_THEMES`).
 2. Restart Redmine. Redmine registers the files of themes when it starts, so a new theme needs a restart (see [Redmine 7 themes](https://redmine-kit.github.io/design-guide/themes.html#restart-and-reload) in the Redmine Design Guide).
 3. Choose the theme in the toolbar.
 4. Edit the theme and reload the preview.

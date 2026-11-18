@@ -1,6 +1,6 @@
-# Redmine Lookbook
+# Redmine Kit Lookbook
 
-Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](https://lookbook.build/) でプレビューする Redmine 7 のプラグインです。テーマの作者は、Redmine の画面を一つずつ開かなくても、多くの画面、言語、レイアウトでテーマを確認できます。
+Redmine Kit Lookbook は、Redmine のコンポーネントと画面を [Lookbook](https://lookbook.build/) でプレビューする Redmine 7 のプラグインです。テーマの作者は、Redmine の画面を一つずつ開かなくても、多くの画面、言語、レイアウトでテーマを確認できます。
 
 ![Redmine のテストデータのプロジェクトの概要を表示した Lookbook の画面](../img/ja/lookbook.png)
 
@@ -14,7 +14,7 @@ Redmine Lookbook は、Redmine のコンポーネントと画面を [Lookbook](h
 
 Redmine 7 がテーマを適用する仕組みと、テーマが対応する必要のある項目を項目ごとのプレビューと一緒にまとめたチェックリストは、[Redmine Design Guide](https://redmine-kit.github.io/design-guide/ja/)にあります([テーマ](https://redmine-kit.github.io/design-guide/ja/themes.html)、[テーマのチェックリスト](https://redmine-kit.github.io/design-guide/ja/theme-checklist.html))。
 
-Redmine Lookbook は開発の初期です。対応するのは Redmine 7.0 だけで、Redmine 7.0.3 と Lookbook 2.3.15 で動作を確認しています。
+Redmine Kit Lookbook は開発の初期です。対応するのは Redmine 7.0 だけで、Redmine 7.0.3 と Lookbook 2.3.15 で動作を確認しています。
 
 <a id="features"></a>
 
@@ -33,7 +33,7 @@ Redmine Lookbook は開発の初期です。対応するのは Redmine 7.0 だ�
 
 ```sh
 git clone https://github.com/redmine-kit/redmine_lookbook.git
-cd redmine_lookbook
+cd redmine_kit_lookbook
 bin/dev
 ```
 
@@ -49,4 +49,4 @@ bin/dev
 
 ## ライセンス
 
-Redmine Lookbook は、GNU General Public License バージョン 2 またはそれ以降のバージョンで公開しています。[LICENSE](../../LICENSE) を参照してください。Redmine の非公式のプラグインです。
+Redmine Kit Lookbook は、GNU General Public License バージョン 2 またはそれ以降のバージョンで公開しています。[LICENSE](../../LICENSE) を参照してください。Redmine の非公式のプラグインです。

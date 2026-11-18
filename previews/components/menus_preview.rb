@@ -3,7 +3,7 @@ module Components
   # them in the same way as a click does. They render directly in #wrapper, as
   # in Redmine, so the "Layout" toolbar option does not apply to them.
   class MenusPreview < Lookbook::Preview
-    layout "redmine_lookbook/bare"
+    layout "redmine_kit_lookbook/bare"
 
     # @label Jump to a project, open
     def project_jump

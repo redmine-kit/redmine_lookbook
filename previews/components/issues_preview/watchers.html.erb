@@ -1,4 +1,4 @@
-<% issue = RedmineLookbook::TestData.issue %>
+<% issue = RedmineKit::Lookbook::TestData.issue %>
 <% if issue %>
   <div id="watchers">
     <%= render partial: 'watchers/watchers', locals: { watched: issue } %>

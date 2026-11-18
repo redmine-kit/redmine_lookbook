@@ -1,12 +1,12 @@
 # Installation
 
-Redmine Lookbook runs in a Redmine 7.0 in development mode that is set up only for previews. Do not install it in a Redmine with real data (see [Security](security.md)).
+Redmine Kit Lookbook runs in a Redmine 7.0 in development mode that is set up only for previews. Do not install it in a Redmine with real data (see [Security](security.md)).
 
 ## Requirements
 
 - Redmine 7.0 (checked with Redmine 7.0.3)
 - A Ruby version that Redmine 7.0 supports
-- [Lookbook](https://github.com/lookbook-hq/lookbook) 2.3 (checked with 2.3.15). Lookbook installs [ViewComponent](https://viewcomponent.org/) as a dependency; Redmine Lookbook does not use ViewComponent components.
+- [Lookbook](https://github.com/lookbook-hq/lookbook) 2.3 (checked with 2.3.15). Lookbook installs [ViewComponent](https://viewcomponent.org/) as a dependency; Redmine Kit Lookbook does not use ViewComponent components.
 - For the repository previews: `svnadmin`, `git` and `hg` (Mercurial), which create and read the test repositories. Without them, those previews show Redmine's error pages. The Docker image has them.
 
 ## Docker
@@ -15,7 +15,7 @@ The Docker setup builds a Redmine 7.0.3 with this plugin and Redmine's test data
 
 ```sh
 git clone https://github.com/redmine-kit/redmine_lookbook.git
-cd redmine_lookbook
+cd redmine_kit_lookbook
 bin/dev
 ```
 
@@ -25,20 +25,20 @@ Then open <http://127.0.0.1:3000/lookbook>. The first start:
 2. creates a new database and loads Redmine's test data into it, with the test repositories,
 3. starts Redmine in development mode.
 
-Later starts run `redmine_lookbook:update_test_data`, which creates the test repositories again in a new container (they are kept in the container's `tmp/`).
+Later starts run `redmine_kit_lookbook:update_test_data`, which creates the test repositories again in a new container (they are kept in the container's `tmp/`).
 
 To sign in to Redmine itself, use `admin` / `admin` (an administrator) or `jsmith` / `jsmith` (a project member).
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `REDMINE_LOOKBOOK_BIND` | `127.0.0.1` | The address to listen on. Use `0.0.0.0` to open it to other devices on your local network. |
-| `REDMINE_LOOKBOOK_PORT` | `3000` | The port on your computer. |
-| `REDMINE_LOOKBOOK_THEMES` | `./themes` (under `docker/`) | A directory of themes to preview. Each theme goes in its own subdirectory. |
+| `REDMINE_KIT_LOOKBOOK_BIND` | `127.0.0.1` | The address to listen on. Use `0.0.0.0` to open it to other devices on your local network. |
+| `REDMINE_KIT_LOOKBOOK_PORT` | `3000` | The port on your computer. |
+| `REDMINE_KIT_LOOKBOOK_THEMES` | `./themes` (under `docker/`) | A directory of themes to preview. Each theme goes in its own subdirectory. |
 
 For example, to preview the themes in `~/themes` from a tablet on the same network:
 
 ```sh
-REDMINE_LOOKBOOK_THEMES=~/themes REDMINE_LOOKBOOK_BIND=0.0.0.0 bin/dev
+REDMINE_KIT_LOOKBOOK_THEMES=~/themes REDMINE_KIT_LOOKBOOK_BIND=0.0.0.0 bin/dev
 ```
 
 `bin/dev down` stops Redmine. The database and the uploaded files are kept in volumes. To start again from new test data, remove them:
@@ -55,10 +55,10 @@ bin/dev reset
    bin/rails db:migrate
    ```
 
-2. Clone this repository into `plugins/redmine_lookbook`:
+2. Clone this repository into `plugins/redmine_kit_lookbook`:
 
    ```sh
-   git clone https://github.com/redmine-kit/redmine_lookbook.git plugins/redmine_lookbook
+   git clone https://github.com/redmine-kit/redmine_lookbook.git plugins/redmine_kit_lookbook
    ```
 
 3. Install the gems. Lookbook is in the `development` group of the plugin's `Gemfile`.
@@ -70,14 +70,14 @@ bin/dev reset
 4. Load Redmine's test data:
 
    ```sh
-   bin/rails redmine_lookbook:load_test_data
+   bin/rails redmine_kit_lookbook:load_test_data
    ```
 
 5. Start Redmine in development mode and open `/lookbook`.
 
 ## Test data
 
-`redmine_lookbook:load_test_data` loads Redmine's own test data from `test/fixtures` of the Redmine source: 43 tables with projects, issues, versions, wiki pages, news, documents, forums, users and groups.
+`redmine_kit_lookbook:load_test_data` loads Redmine's own test data from `test/fixtures` of the Redmine source: 43 tables with projects, issues, versions, wiki pages, news, documents, forums, users and groups.
 
 - **Only into an empty database.** The task refuses to run when the database already has projects, issues, trackers or users other than `admin`, and it refuses to run in production. It never replaces data.
 - **Images.** Some image attachments in the test data have no file. The task creates their files from a test image, so thumbnails and inline images show.
@@ -87,10 +87,10 @@ bin/dev reset
 - **Email address.** Redmine's test data has no additional email addresses, so the task adds one to `jsmith`.
 - **Users.** `admin` / `admin` and `jsmith` / `jsmith` can sign in. The page previews render as `admin` unless a preview chooses another user.
 
-`redmine_lookbook:update_test_data` adds the files, the subtask, the webhook, the email address and the test repositories when they are missing. It runs only on a Redmine with Redmine's test data, never in production, and can run any number of times. Run it after updating Redmine Lookbook, or after the test repositories in `tmp/test/` were removed:
+`redmine_kit_lookbook:update_test_data` adds the files, the subtask, the webhook, the email address and the test repositories when they are missing. It runs only on a Redmine with Redmine's test data, never in production, and can run any number of times. Run it after updating Redmine Kit Lookbook, or after the test repositories in `tmp/test/` were removed:
 
 ```sh
-bin/rails redmine_lookbook:update_test_data
+bin/rails redmine_kit_lookbook:update_test_data
 ```
 
 ## Checking the previews

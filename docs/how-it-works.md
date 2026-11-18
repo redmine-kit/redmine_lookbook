@@ -1,19 +1,19 @@
 # How it works
 
-Redmine Lookbook connects Lookbook to Redmine in three places: the controller that renders previews, internal requests for page previews, and settings overrides for the toolbar options.
+Redmine Kit Lookbook connects Lookbook to Redmine in three places: the controller that renders previews, internal requests for page previews, and settings overrides for the toolbar options.
 
 ## Loading
 
 | Item | How it works |
 | --- | --- |
-| Enabled check | The plugin is enabled when the Lookbook gem is installed and `REDMINE_LOOKBOOK` is `1` (the default in development) |
+| Enabled check | The plugin is enabled when the Lookbook gem is installed and `REDMINE_KIT_LOOKBOOK` is `1` (the default in development) |
 | Setup | Redmine runs the plugin's `init.rb` in a `to_prepare` callback, after Rails' autoloader is set up, and again on every code reload in development. The plugin then loads its previews and the preview controller itself, because Lookbook expects them to be autoloaded |
 | Lookbook's appearance | Lookbook's own interface uses Lookbook's neutral `zinc` theme with the red header of the Redmine Kit sites and the Redmine Kit mark before the project name (`ui_theme`, `ui_theme_overrides` and `project_logo` in the setup; the mark is `lookbook/redmine-kit-mark.svg`). Redmine's pages in the previews are not affected |
 | Off means off | The preview controller and the page component refer to Lookbook and ViewComponent, so they are kept in `lookbook/`, outside the directories that Redmine autoloads. With the plugin disabled, nothing refers to Lookbook, and Redmine eager loads without it in production |
 
 ## Components
 
-Lookbook renders previews through `RedmineLookbook::PreviewsController`. It is based on Redmine's `ApplicationController`, so Redmine's helpers, layouts and theme handling work as in Redmine's own pages.
+Lookbook renders previews through `RedmineKit::Lookbook::PreviewsController`. It is based on Redmine's `ApplicationController`, so Redmine's helpers, layouts and theme handling work as in Redmine's own pages.
 
 | Item | How it works |
 | --- | --- |
@@ -21,7 +21,7 @@ Lookbook renders previews through `RedmineLookbook::PreviewsController`. It is b
 | User | Previews render as the first active administrator, whatever the browser's Redmine session is: Redmine's checks for sign-in, password changes, two-factor authentication and session expiry are skipped for previews |
 | Language and theme | The language is set for the duration of the render, and the theme through a settings override (see below) |
 | One pass | Previews are rendered in one pass with their layout (Lookbook's `preview_single_pass_rendering`), so that `content_for :header_tags` from Redmine's helpers reaches the layout's `<head>` |
-| Layout parts | The "Layout" and "Menus" previews use the layout `redmine_lookbook/bare`, which puts the preview directly in `#wrapper`, as Redmine's base layout does with its header and menus |
+| Layout parts | The "Layout" and "Menus" previews use the layout `redmine_kit_lookbook/bare`, which puts the preview directly in `#wrapper`, as Redmine's base layout does with its header and menus |
 
 ## Pages
 
@@ -29,8 +29,8 @@ A page preview sends an internal GET request through the Rails application (`Rai
 
 | Item | How it works |
 | --- | --- |
-| User, theme and language | They are passed in Rack env keys of the request (`redmine_lookbook.user`, `redmine_lookbook.locale`, `redmine_lookbook.sudo`). A patch of Redmine's `ApplicationController` reads them: it signs in the given user, sets the language and, unless the preview says otherwise, counts Redmine's sudo mode as confirmed for that request. The theme needs no key: the internal request runs in the preview's thread, where the settings override (see below) already sets it. Internal requests do not change the user's recently used projects. Only code in the same process can set these keys. HTTP headers become `HTTP_*` keys, so a request from outside cannot set them |
-| Source panel | `render_page` returns a component (`RedmineLookbook::PageComponent`) instead of rendering a template, so Lookbook's Source panel shows the preview method with the page's path, for example `render_page("/issues/1", user: :admin)` |
+| User, theme and language | They are passed in Rack env keys of the request (`redmine_kit_lookbook.user`, `redmine_kit_lookbook.locale`, `redmine_kit_lookbook.sudo`). A patch of Redmine's `ApplicationController` reads them: it signs in the given user, sets the language and, unless the preview says otherwise, counts Redmine's sudo mode as confirmed for that request. The theme needs no key: the internal request runs in the preview's thread, where the settings override (see below) already sets it. Internal requests do not change the user's recently used projects. Only code in the same process can set these keys. HTTP headers become `HTTP_*` keys, so a request from outside cannot set them |
+| Source panel | `render_page` returns a component (`RedmineKit::Lookbook::PageComponent`) instead of rendering a template, so Lookbook's Source panel shows the preview method with the page's path, for example `render_page("/issues/1", user: :admin)` |
 | Redirects | Up to three redirects on the same host are followed |
 | Settings and status | The request runs with the settings that the preview gives (see below). When the final HTTP status is not the one the preview expects, the preview's response gets the header `X-Redmine-Lookbook-Unexpected-Status`, which `bin/check-previews` reports |
 | Code reloading | In development, the internal request does not reload changed code. The preview's own request has already done that, and reloading in the middle of it would unload the constants it is using |
@@ -39,13 +39,13 @@ A page preview sends an internal GET request through the Rails application (`Rai
 
 ## Settings overrides
 
-The toolbar's theme, the wiki formatting parameter and the `settings:` of page previews change Redmine's settings for one render only. `RedmineLookbook::SettingsOverride` is prepended to `Setting` and replaces `Setting[]`, which every setting reader of Redmine uses (`Setting.ui_theme`, `Setting.thumbnails_enabled?` and so on): it returns a value from the current thread when one is set. Redmine's settings in the database are not changed.
+The toolbar's theme, the wiki formatting parameter and the `settings:` of page previews change Redmine's settings for one render only. `RedmineKit::Lookbook::SettingsOverride` is prepended to `Setting` and replaces `Setting[]`, which every setting reader of Redmine uses (`Setting.ui_theme`, `Setting.thumbnails_enabled?` and so on): it returns a value from the current thread when one is set. Redmine's settings in the database are not changed.
 
 Redmine reads the theme from `Setting.ui_theme` in several places (the stylesheets, the icons, the favicon and the `theme-*` class on `<body>`), so overriding the setting applies the theme everywhere, as in Redmine itself.
 
 ## Test repositories
 
-`RedmineLookbook::TestRepositories` creates the repositories of Redmine's own tests in `tmp/test/`, as Redmine's `rake test:scm:setup` does: `svnadmin load` for Subversion, `hg pull` from a bundle for Mercurial and `tar` for Git. The Subversion repository is the one that Redmine's test data refers to. The Git and Mercurial repositories are added to eCookbook with the path encoding ISO-8859-1, as Redmine's repository tests use them. Redmine reads their revisions (`fetch_changesets`) and links them to issues from their messages (`scan_comment_for_issue_ids`).
+`RedmineKit::Lookbook::TestRepositories` creates the repositories of Redmine's own tests in `tmp/test/`, as Redmine's `rake test:scm:setup` does: `svnadmin load` for Subversion, `hg pull` from a bundle for Mercurial and `tar` for Git. The Subversion repository is the one that Redmine's test data refers to. The Git and Mercurial repositories are added to eCookbook with the path encoding ISO-8859-1, as Redmine's repository tests use them. Redmine reads their revisions (`fetch_changesets`) and links them to issues from their messages (`scan_comment_for_issue_ids`).
 
 ## Toolbar options
 

@@ -1,7 +1,7 @@
 module Pages
   # Error pages, rendered by Redmine's own controllers with Redmine's test data.
   class ErrorsPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label Not found (404)
     def not_found

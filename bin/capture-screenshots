@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Captures the images of the documentation (docs/img and docs/img/ja) from a
-// running Redmine with Redmine Lookbook and Redmine's test data, with
+// running Redmine with Redmine Kit Lookbook and Redmine's test data, with
 // headless Chrome. Usage: bin/capture-screenshots [http://127.0.0.1:3000]
 // Set CHROME to the Chrome executable if it is not in the default place.
 // It needs Node.js 22 or later (fetch and WebSocket) and no packages.
@@ -53,9 +53,9 @@ async function launch(profileDir, port = 9333) {
   return page;
 }
 
-const BASE = `${(process.argv[2] || "http://127.0.0.1:3000").replace(/\/$/, "")}${process.env.REDMINE_LOOKBOOK_PATH || "/lookbook"}`;
+const BASE = `${(process.argv[2] || "http://127.0.0.1:3000").replace(/\/$/, "")}${process.env.REDMINE_KIT_LOOKBOOK_PATH || "/lookbook"}`;
 const out = join(dirname(fileURLToPath(import.meta.url)), "..", "docs", "img");
-const profile = mkdtempSync(join(tmpdir(), "redmine-lookbook-chrome-"));
+const profile = mkdtempSync(join(tmpdir(), "redmine-kit-lookbook-chrome-"));
 const display = (o) => encodeURIComponent(JSON.stringify({ theme: "", language: "", layout: "none", ...o }));
 const preview = (path, o) => `${BASE}/preview/${path}?_display=${display(o)}`;
 const inspect = (path, o) => `${BASE}/inspect/${path}?_display=${display(o)}`;

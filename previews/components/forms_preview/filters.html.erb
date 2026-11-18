@@ -1,6 +1,6 @@
 <%# Redmine's partial reads both the local and @query. %>
 <% @query = query = IssueQuery.new(name: '_') %>
-<% @project = query.project = RedmineLookbook::TestData.project %>
+<% @project = query.project = RedmineKit::Lookbook::TestData.project %>
 <fieldset id="filters" class="collapsible">
   <legend onclick="toggleFieldset(this);" class="icon icon-expanded"><%= sprite_icon("angle-down", rtl: true) %><%= l(:label_filter_plural) %></legend>
   <div>

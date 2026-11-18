@@ -1,1 +1,1 @@
-mount Lookbook::Engine, at: RedmineLookbook.mount_path if RedmineLookbook.enabled?
+mount Lookbook::Engine, at: RedmineKit::Lookbook.mount_path if RedmineKit::Lookbook.enabled?

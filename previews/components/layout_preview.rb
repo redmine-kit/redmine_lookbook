@@ -3,7 +3,7 @@ module Components
   # helpers and markup. They render directly in #wrapper, as in Redmine, so
   # the "Layout" toolbar option does not apply to them.
   class LayoutPreview < Lookbook::Preview
-    layout "redmine_lookbook/bare"
+    layout "redmine_kit_lookbook/bare"
 
     # @label Whole layout
     def whole

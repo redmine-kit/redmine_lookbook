@@ -1,4 +1,4 @@
-# A development Redmine with Redmine Lookbook. Not for production use.
+# A development Redmine with Redmine Kit Lookbook. Not for production use.
 FROM ruby:3.4-bookworm
 
 ARG REDMINE_VERSION=7.0.3
@@ -17,12 +17,12 @@ RUN curl -fsSL -o /tmp/redmine.tar.gz "https://www.redmine.org/releases/redmine-
 
 COPY docker/database.yml config/database.yml
 COPY docker/Gemfile.local Gemfile.local
-COPY Gemfile plugins/redmine_lookbook/Gemfile
+COPY Gemfile plugins/redmine_kit_lookbook/Gemfile
 RUN bundle config set --local without test && bundle install --jobs 4
 
-COPY docker/entrypoint.sh /usr/local/bin/redmine-lookbook-entrypoint
-RUN chmod +x /usr/local/bin/redmine-lookbook-entrypoint
+COPY docker/entrypoint.sh /usr/local/bin/redmine-kit-lookbook-entrypoint
+RUN chmod +x /usr/local/bin/redmine-kit-lookbook-entrypoint
 
-ENV RAILS_ENV=development REDMINE_LOOKBOOK=1
+ENV RAILS_ENV=development REDMINE_KIT_LOOKBOOK=1
 EXPOSE 3000
-ENTRYPOINT ["redmine-lookbook-entrypoint"]
+ENTRYPOINT ["redmine-kit-lookbook-entrypoint"]

@@ -8,7 +8,7 @@ require "net/http"
 require "uri"
 
 base = (ARGV[0] || "http://127.0.0.1:3000").chomp("/")
-mount = ENV.fetch("REDMINE_LOOKBOOK_PATH", "/lookbook")
+mount = ENV.fetch("REDMINE_KIT_LOOKBOOK_PATH", "/lookbook")
 index = Net::HTTP.get(URI("#{base}#{mount}"))
 paths = index.scan(%r{#{Regexp.escape(mount)}/inspect/([a-z0-9_/]+)}).flatten.uniq.sort
 abort "No previews found at #{base}#{mount}." if paths.empty?

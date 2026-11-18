@@ -4,7 +4,7 @@
                    label_issue_tracking label_time_tracking label_attachment_plural field_mail_notification
                    label_incoming_emails label_repository_plural] %>
     <%= render_tabs labels.each_with_index.map { |label, i|
-          { name: "tab#{i}", partial: 'redmine_lookbook/tab', label: label, locals: { text: l(label) } }
+          { name: "tab#{i}", partial: 'redmine_kit_lookbook/tab', label: label, locals: { text: l(label) } }
         } %>
   </div>
 </div>

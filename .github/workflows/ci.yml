@@ -23,6 +23,12 @@ jobs:
         with:
           persist-credentials: false
 
+      # RedmineKit is the namespace all of Redmine Kit's plugins share
+      # (Zeitwerk makes it from their lib/redmine_kit/ folders): no plugin
+      # defines it, or another plugin's file of the same name is ignored.
+      - name: The plugin defines no lib/redmine_kit.rb
+        run: test ! -e lib/redmine_kit.rb
+
       - name: Start the development Redmine
         run: docker compose -f docker/compose.yml up -d --build
 
@@ -35,7 +41,7 @@ jobs:
           exit 1
 
       - name: Check every preview
-        run: docker compose -f docker/compose.yml exec -T redmine ruby plugins/redmine_lookbook/bin/check-previews
+        run: docker compose -f docker/compose.yml exec -T redmine ruby plugins/redmine_kit_lookbook/bin/check-previews
 
       # In production, Rails does not require the development group, so
       # Lookbook is not loaded, as on a production server.

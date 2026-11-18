@@ -1,4 +1,4 @@
-<% project = RedmineLookbook::TestData.project %>
+<% project = RedmineKit::Lookbook::TestData.project %>
 <% events = Redmine::Activity::Fetcher.new(User.current, project: project).events(nil, nil, limit: 20) %>
 <% events_by_day = events.group_by { |event| User.current.time_to_date(event.event_datetime) } %>
 <div id="activity">

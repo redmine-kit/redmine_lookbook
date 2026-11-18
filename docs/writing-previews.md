@@ -8,9 +8,9 @@ Previews are [Lookbook previews](https://lookbook.build/guide/previews): Ruby cl
 | --- | --- |
 | `previews/components/` | The built-in component previews (`Components::*Preview`) |
 | `previews/pages/` | The built-in page previews (`Pages::*Preview`) |
-| A directory in `REDMINE_LOOKBOOK_PREVIEW_PATHS` | Your own previews, for example in your theme's repository |
+| A directory in `REDMINE_KIT_LOOKBOOK_PREVIEW_PATHS` | Your own previews, for example in your theme's repository |
 
-To keep previews outside this repository, list their directories in `REDMINE_LOOKBOOK_PREVIEW_PATHS`, separated by `:`. Inside such a directory, use the same layout: a class per file, named after the path (`components/my_theme_preview.rb` defines `Components::MyThemePreview`), and the templates in a directory with the same name.
+To keep previews outside this repository, list their directories in `REDMINE_KIT_LOOKBOOK_PREVIEW_PATHS`, separated by `:`. Inside such a directory, use the same layout: a class per file, named after the path (`components/my_theme_preview.rb` defines `Components::MyThemePreview`), and the templates in a directory with the same name.
 
 Redmine reloads previews in development mode when their files change.
 
@@ -44,12 +44,12 @@ end
 
 ## Layout parts
 
-The header, the top menu, the flyout menu and the footer belong directly in `#wrapper`, not in `#content`. Use the layout `redmine_lookbook/bare`, which has Redmine's stylesheets, scripts and theme and puts the preview directly in `#wrapper`:
+The header, the top menu, the flyout menu and the footer belong directly in `#wrapper`, not in `#content`. Use the layout `redmine_kit_lookbook/bare`, which has Redmine's stylesheets, scripts and theme and puts the preview directly in `#wrapper`:
 
 ```ruby
 module Components
   class MyThemeLayoutPreview < Lookbook::Preview
-    layout "redmine_lookbook/bare"
+    layout "redmine_kit_lookbook/bare"
 
     # @label Header
     def header
@@ -63,22 +63,22 @@ The built-in "Layout" previews have partials for Redmine's layout parts, which y
 
 ## Open menus
 
-To show a menu open, add a script that opens it as a click does, for example `$('.contextual .drdn-trigger').trigger('click')` for an actions menu. Some parts are loaded by Redmine with JavaScript, as the user who is signed in to Redmine in the browser, often nobody (for example the context menu). Render them on the server with `RedmineLookbook::PageRenderer#fragment`, which requests a Redmine path as the given user and returns its HTML:
+To show a menu open, add a script that opens it as a click does, for example `$('.contextual .drdn-trigger').trigger('click')` for an actions menu. Some parts are loaded by Redmine with JavaScript, as the user who is signed in to Redmine in the browser, often nobody (for example the context menu). Render them on the server with `RedmineKit::Lookbook::PageRenderer#fragment`, which requests a Redmine path as the given user and returns its HTML:
 
 ```erb
-<% menu = RedmineLookbook::PageRenderer.new(controller).fragment(issues_context_menu_path(ids: [1, 2])) %>
+<% menu = RedmineKit::Lookbook::PageRenderer.new(controller).fragment(issues_context_menu_path(ids: [1, 2])) %>
 <%= javascript_tag "$(window).on('load', function() { $('#context-menu').html(#{menu.to_json}).show(); });" %>
 ```
 
 ## A page
 
-A page preview renders a Redmine page through Redmine's own controllers. Include `RedmineLookbook::PagePreview` and call `render_page` with the path of the page:
+A page preview renders a Redmine page through Redmine's own controllers. Include `RedmineKit::Lookbook::PagePreview` and call `render_page` with the path of the page:
 
 ```ruby
 # previews/pages/my_plugin_preview.rb
 module Pages
   class MyPluginPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label My plugin settings
     def settings
@@ -87,7 +87,7 @@ module Pages
 
     # @label My plugin, as a project member
     def project_tab
-      render_page(user: "jsmith") { "/projects/#{RedmineLookbook::TestData.project.identifier}/my_plugin" }
+      render_page(user: "jsmith") { "/projects/#{RedmineKit::Lookbook::TestData.project.identifier}/my_plugin" }
     end
   end
 end
@@ -107,7 +107,7 @@ A page preview sends a GET request, so it shows the page as it first appears (se
 
 ## Test data
 
-`RedmineLookbook::TestData` finds records of Redmine's test data:
+`RedmineKit::Lookbook::TestData` finds records of Redmine's test data:
 
 | Method | Record |
 | --- | --- |
@@ -124,10 +124,10 @@ They return `nil` when the test data is not loaded. Show a message in that case 
 
 ## Settings for one preview
 
-`RedmineLookbook::SettingsOverride.with` changes Redmine's settings while a block renders, without changing Redmine's settings in the database. Page previews take the same settings with `settings:`.
+`RedmineKit::Lookbook::SettingsOverride.with` changes Redmine's settings while a block renders, without changing Redmine's settings in the database. Page previews take the same settings with `settings:`.
 
 ```erb
-<%= RedmineLookbook::SettingsOverride.with(thumbnails_enabled: true) {
+<%= RedmineKit::Lookbook::SettingsOverride.with(thumbnails_enabled: true) {
       link_to_attachments(issue, thumbnails: true)
     } %>
 ```
@@ -138,10 +138,10 @@ They return `nil` when the test data is not loaded. Show a message in that case 
 
 ## Wiki text
 
-`RedmineLookbook::TextFormatting` renders wiki text with a chosen formatting:
+`RedmineKit::Lookbook::TextFormatting` renders wiki text with a chosen formatting:
 
 ```erb
-<% RedmineLookbook::TextFormatting.with("textile") do %>
+<% RedmineKit::Lookbook::TextFormatting.with("textile") do %>
   <div class="wiki"><%= textilizable("h2. A heading\n\n*Bold* text") %></div>
 <% end %>
 ```

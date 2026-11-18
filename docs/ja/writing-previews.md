@@ -10,9 +10,9 @@
 | --- | --- |
 | `previews/components/` | 組み込みのコンポーネントのプレビュー(`Components::*Preview`) |
 | `previews/pages/` | 組み込みの画面のプレビュー(`Pages::*Preview`) |
-| `REDMINE_LOOKBOOK_PREVIEW_PATHS` のディレクトリ | 独自のプレビュー(たとえば、テーマのリポジトリの中) |
+| `REDMINE_KIT_LOOKBOOK_PREVIEW_PATHS` のディレクトリ | 独自のプレビュー(たとえば、テーマのリポジトリの中) |
 
-このリポジトリの外にプレビューを置くときは、そのディレクトリを `REDMINE_LOOKBOOK_PREVIEW_PATHS` に `:` で区切って書きます。そのディレクトリの中も同じ構成にします。1 つのファイルに 1 つのクラスを、パスに合わせた名前で書き(`components/my_theme_preview.rb` には `Components::MyThemePreview`)、テンプレートは同じ名前のディレクトリに置きます。
+このリポジトリの外にプレビューを置くときは、そのディレクトリを `REDMINE_KIT_LOOKBOOK_PREVIEW_PATHS` に `:` で区切って書きます。そのディレクトリの中も同じ構成にします。1 つのファイルに 1 つのクラスを、パスに合わせた名前で書き(`components/my_theme_preview.rb` には `Components::MyThemePreview`)、テンプレートは同じ名前のディレクトリに置きます。
 
 開発モードでは、ファイルを変更すると、Redmine がプレビューを読み込み直します。
 
@@ -50,12 +50,12 @@ end
 
 ## レイアウトの部品
 
-ヘッダー、トップメニュー、フライアウトメニュー、フッターは、`#content` ではなく `#wrapper` の直下に置くものです。`redmine_lookbook/bare` のレイアウトを使ってください。このレイアウトは、Redmine の CSS、JavaScript、テーマを読み込み、プレビューを `#wrapper` の直下に置きます。
+ヘッダー、トップメニュー、フライアウトメニュー、フッターは、`#content` ではなく `#wrapper` の直下に置くものです。`redmine_kit_lookbook/bare` のレイアウトを使ってください。このレイアウトは、Redmine の CSS、JavaScript、テーマを読み込み、プレビューを `#wrapper` の直下に置きます。
 
 ```ruby
 module Components
   class MyThemeLayoutPreview < Lookbook::Preview
-    layout "redmine_lookbook/bare"
+    layout "redmine_kit_lookbook/bare"
 
     # @label Header
     def header
@@ -71,10 +71,10 @@ end
 
 ## 開いたメニュー
 
-メニューを開いた状態で表示するには、クリックと同じようにメニューを開くスクリプトを追加します。たとえば、操作のメニューは `$('.contextual .drdn-trigger').trigger('click')` です。Redmine が JavaScript で読み込む部分(たとえばコンテキストメニュー)は、ブラウザーで Redmine にログインしているユーザーとして読み込まれます(多くの場合、だれもログインしていません)。そのような部分は、`RedmineLookbook::PageRenderer#fragment` でサーバー側でレンダリングしてください。指定したユーザーとして Redmine のパスをリクエストし、その HTML を返します。
+メニューを開いた状態で表示するには、クリックと同じようにメニューを開くスクリプトを追加します。たとえば、操作のメニューは `$('.contextual .drdn-trigger').trigger('click')` です。Redmine が JavaScript で読み込む部分(たとえばコンテキストメニュー)は、ブラウザーで Redmine にログインしているユーザーとして読み込まれます(多くの場合、だれもログインしていません)。そのような部分は、`RedmineKit::Lookbook::PageRenderer#fragment` でサーバー側でレンダリングしてください。指定したユーザーとして Redmine のパスをリクエストし、その HTML を返します。
 
 ```erb
-<% menu = RedmineLookbook::PageRenderer.new(controller).fragment(issues_context_menu_path(ids: [1, 2])) %>
+<% menu = RedmineKit::Lookbook::PageRenderer.new(controller).fragment(issues_context_menu_path(ids: [1, 2])) %>
 <%= javascript_tag "$(window).on('load', function() { $('#context-menu').html(#{menu.to_json}).show(); });" %>
 ```
 
@@ -82,13 +82,13 @@ end
 
 ## 画面
 
-画面のプレビューは、Redmine のコントローラーで Redmine の画面をレンダリングします。`RedmineLookbook::PagePreview` を include し、画面のパスを渡して `render_page` を呼びます。
+画面のプレビューは、Redmine のコントローラーで Redmine の画面をレンダリングします。`RedmineKit::Lookbook::PagePreview` を include し、画面のパスを渡して `render_page` を呼びます。
 
 ```ruby
 # previews/pages/my_plugin_preview.rb
 module Pages
   class MyPluginPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label My plugin settings
     def settings
@@ -97,7 +97,7 @@ module Pages
 
     # @label My plugin, as a project member
     def project_tab
-      render_page(user: "jsmith") { "/projects/#{RedmineLookbook::TestData.project.identifier}/my_plugin" }
+      render_page(user: "jsmith") { "/projects/#{RedmineKit::Lookbook::TestData.project.identifier}/my_plugin" }
     end
   end
 end
@@ -119,7 +119,7 @@ end
 
 ## テストデータ
 
-`RedmineLookbook::TestData` は、Redmine のテストデータのレコードを返します。
+`RedmineKit::Lookbook::TestData` は、Redmine のテストデータのレコードを返します。
 
 | メソッド | レコード |
 | --- | --- |
@@ -138,10 +138,10 @@ end
 
 ## プレビューごとの設定
 
-`RedmineLookbook::SettingsOverride.with` は、ブロックをレンダリングするあいだだけ、Redmine の設定を変えます。データベースの中の Redmine の設定は変わりません。画面のプレビューでは、同じ設定を `settings:` で渡せます。
+`RedmineKit::Lookbook::SettingsOverride.with` は、ブロックをレンダリングするあいだだけ、Redmine の設定を変えます。データベースの中の Redmine の設定は変わりません。画面のプレビューでは、同じ設定を `settings:` で渡せます。
 
 ```erb
-<%= RedmineLookbook::SettingsOverride.with(thumbnails_enabled: true) {
+<%= RedmineKit::Lookbook::SettingsOverride.with(thumbnails_enabled: true) {
       link_to_attachments(issue, thumbnails: true)
     } %>
 ```
@@ -154,10 +154,10 @@ end
 
 ## wiki のテキスト
 
-`RedmineLookbook::TextFormatting` は、選んだ書式で wiki のテキストをレンダリングします。
+`RedmineKit::Lookbook::TextFormatting` は、選んだ書式で wiki のテキストをレンダリングします。
 
 ```erb
-<% RedmineLookbook::TextFormatting.with("textile") do %>
+<% RedmineKit::Lookbook::TextFormatting.with("textile") do %>
   <div class="wiki"><%= textilizable("h2. A heading\n\n*Bold* text") %></div>
 <% end %>
 ```

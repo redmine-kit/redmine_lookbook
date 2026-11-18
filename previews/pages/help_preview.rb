@@ -1,7 +1,7 @@
 module Pages
   # Redmine's help pages for wiki formatting.
   class HelpPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label Wiki syntax quick reference
     def wiki_syntax

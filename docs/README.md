@@ -1,6 +1,6 @@
-# Redmine Lookbook
+# Redmine Kit Lookbook
 
-Redmine Lookbook is a Redmine 7 plugin that previews Redmine's components and pages in [Lookbook](https://lookbook.build/). Theme authors can check a theme across many screens, languages and layouts without clicking through Redmine.
+Redmine Kit Lookbook is a Redmine 7 plugin that previews Redmine's components and pages in [Lookbook](https://lookbook.build/). Theme authors can check a theme across many screens, languages and layouts without clicking through Redmine.
 
 ![The Lookbook screen with the project overview of Redmine's test data](img/lookbook.png)
 
@@ -14,7 +14,7 @@ Redmine Lookbook is a Redmine 7 plugin that previews Redmine's components and pa
 
 How Redmine 7 applies a theme, and a checklist of what a theme has to handle with the preview for each item, are in the [Redmine Design Guide](https://redmine-kit.github.io/design-guide/) ([themes](https://redmine-kit.github.io/design-guide/themes.html), [theme checklist](https://redmine-kit.github.io/design-guide/theme-checklist.html)).
 
-Redmine Lookbook is in early development. It supports Redmine 7.0 only and has been checked with Redmine 7.0.3 and Lookbook 2.3.15.
+Redmine Kit Lookbook is in early development. It supports Redmine 7.0 only and has been checked with Redmine 7.0.3 and Lookbook 2.3.15.
 
 ## Features
 
@@ -29,7 +29,7 @@ Redmine Lookbook is in early development. It supports Redmine 7.0 only and has b
 
 ```sh
 git clone https://github.com/redmine-kit/redmine_lookbook.git
-cd redmine_lookbook
+cd redmine_kit_lookbook
 bin/dev
 ```
 
@@ -41,4 +41,4 @@ Then open <http://127.0.0.1:3000/lookbook>. See [Installation](installation.md) 
 
 ## License
 
-Redmine Lookbook is released under the GNU General Public License, version 2 or (at your option) any later version. See [LICENSE](../LICENSE). An unofficial Redmine plugin.
+Redmine Kit Lookbook is released under the GNU General Public License, version 2 or (at your option) any later version. See [LICENSE](../LICENSE). An unofficial Redmine plugin.

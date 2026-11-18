@@ -5,10 +5,10 @@
 # plugins/. Lookbook itself is not a dependency: it belongs in the
 # development group of the Redmine that uses the previews, never in
 # production.
-version = File.read(File.join(__dir__, 'lib/redmine_lookbook.rb'))[/VERSION = "([^"]+)"/, 1]
+version = File.read(File.join(__dir__, 'lib/redmine_kit/lookbook.rb'))[/VERSION = "([^"]+)"/, 1]
 
 Gem::Specification.new do |spec|
-  spec.name = 'redmine_lookbook'
+  spec.name = 'redmine_kit_lookbook'
   spec.version = version
   spec.summary = "Previews Redmine 7's components and pages in Lookbook, for theme authors"
   spec.authors = ['Redmine Kit']

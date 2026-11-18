@@ -1,9 +1,9 @@
-# Redmine Lookbook
+# Redmine Kit Lookbook
 
 [![CI](https://github.com/redmine-kit/redmine_lookbook/actions/workflows/ci.yml/badge.svg)](https://github.com/redmine-kit/redmine_lookbook/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/redmine-kit/redmine_lookbook?label=License)](LICENSE)
 
-Redmine Lookbook is a Redmine 7 plugin that previews Redmine's components and pages in [Lookbook](https://lookbook.build/). Theme authors can check a theme across many screens, languages and layouts without clicking through Redmine.
+Redmine Kit Lookbook is a Redmine 7 plugin that previews Redmine's components and pages in [Lookbook](https://lookbook.build/). Theme authors can check a theme across many screens, languages and layouts without clicking through Redmine.
 
 [日本語](README.ja.md)
 
@@ -29,7 +29,7 @@ The documentation covers [installation](docs/installation.md), [the toolbar](doc
 
 ```sh
 git clone https://github.com/redmine-kit/redmine_lookbook.git
-cd redmine_lookbook
+cd redmine_kit_lookbook
 bin/dev
 ```
 
@@ -43,7 +43,7 @@ Then open <http://127.0.0.1:3000/lookbook>. To install into an existing Redmine,
 
 ## Security
 
-Redmine Lookbook is a development tool. Never enable it on a production server: anyone who can open `/lookbook` sees pages rendered as an administrator. Use it only in a Redmine with Redmine's test data. See [Security](docs/security.md), and [SECURITY.md](SECURITY.md) to report a vulnerability.
+Redmine Kit Lookbook is a development tool. Never enable it on a production server: anyone who can open `/lookbook` sees pages rendered as an administrator. Use it only in a Redmine with Redmine's test data. See [Security](docs/security.md), and [SECURITY.md](SECURITY.md) to report a vulnerability.
 
 ## Sponsors
 
@@ -56,7 +56,7 @@ Redmine Lookbook is a development tool. Never enable it on a production server: 
 
 ## License
 
-Redmine Lookbook is released under the GNU General Public License, version 2 or (at your option) any later version. See [LICENSE](LICENSE). An unofficial Redmine plugin.
+Redmine Kit Lookbook is released under the GNU General Public License, version 2 or (at your option) any later version. See [LICENSE](LICENSE). An unofficial Redmine plugin.
 
 - Redmine is © Jean-Philippe Lang and released under the GPL.
 - Lookbook is released under the MIT License.

@@ -1,7 +1,7 @@
 module Pages
   # Administration settings, one preview per tab, rendered by Redmine's own controllers with Redmine's test data.
   class SettingsPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label Settings: General
     def general

@@ -23,13 +23,13 @@
 
 - **テーマ:** 選んだテーマは、そのプレビューのリクエストにだけ使います。データベースの中の Redmine の設定は変わりません。
 - **レイアウト:** 「None」は、Redmine の CSS、JavaScript、テーマを読み込み、ヘッダー、メニュー、サイドバー、フッターを表示しません。「Redmine layout」は、Redmine と同じように画面の全体を表示します。コンポーネントの「Layout」と「Menus」のグループは、常に Redmine のレイアウトと同じ形でレンダリングするので、この切り替えでは変わりません。
-- **サーバー:** `REDMINE_LOOKBOOK_SERVERS` を設定すると、「Server」の切り替えで、同じプレビューを別の Redmine がレンダリングしたものを表示できます([設定](configuration.md#several-servers))。
+- **サーバー:** `REDMINE_KIT_LOOKBOOK_SERVERS` を設定すると、「Server」の切り替えで、同じプレビューを別の Redmine がレンダリングしたものを表示できます([設定](configuration.md#several-servers))。
 
 <a id="checking-a-theme"></a>
 
 ## テーマの確認
 
-1. テーマを、Redmine の `themes/` のディレクトリに置きます(Docker では `docker/themes/` か、`REDMINE_LOOKBOOK_THEMES` のディレクトリ)。
+1. テーマを、Redmine の `themes/` のディレクトリに置きます(Docker では `docker/themes/` か、`REDMINE_KIT_LOOKBOOK_THEMES` のディレクトリ)。
 2. Redmine を再起動します。Redmine はテーマのファイルを起動のときに登録するので、新しいテーマには再起動が必要です(Redmine Design Guide の [Redmine 7 のテーマ](https://redmine-kit.github.io/design-guide/ja/themes.html#restart-and-reload))。
 3. ツールバーでそのテーマを選びます。
 4. テーマを編集し、プレビューを再読み込みします。

@@ -3,7 +3,7 @@
 <% issue = Issue.joins(:attachments).where(attachments: { filename: 'picture.jpg' }).order(:id).first ||
            Issue.joins(:attachments).order(:id).first %>
 <% if issue %>
-  <%= RedmineLookbook::SettingsOverride.with(thumbnails_enabled: true) {
+  <%= RedmineKit::Lookbook::SettingsOverride.with(thumbnails_enabled: true) {
         link_to_attachments(issue, thumbnails: true)
       } %>
 <% end %>

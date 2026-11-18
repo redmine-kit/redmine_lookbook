@@ -1,7 +1,7 @@
 module Pages
   # Wiki, news, documents, files and forums, rendered by Redmine's own controllers with Redmine's test data.
   class ContentPreview < Lookbook::Preview
-    include RedmineLookbook::PagePreview
+    include RedmineKit::Lookbook::PagePreview
 
     # @label Wiki page
     def wiki
