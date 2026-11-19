@@ -25,7 +25,7 @@ Then open <http://127.0.0.1:3000/lookbook>. The first start:
 2. creates a new database and loads Redmine's test data into it, with the test repositories,
 3. starts Redmine in development mode.
 
-Later starts run `redmine_kit:lookbook:update_test_data`, which creates the test repositories again in a new container (they are kept in the container's `tmp/`).
+Later starts run `redmine_kit:lookbook:add_test_data`, which creates the test repositories again in a new container (they are kept in the container's `tmp/`).
 
 To sign in to Redmine itself, use `admin` / `admin` (an administrator) or `jsmith` / `jsmith` (a project member).
 
@@ -87,10 +87,10 @@ bin/dev reset
 - **Email address.** Redmine's test data has no additional email addresses, so the task adds one to `jsmith`.
 - **Users.** `admin` / `admin` and `jsmith` / `jsmith` can sign in. The page previews render as `admin` unless a preview chooses another user.
 
-`redmine_kit:lookbook:update_test_data` adds the files, the subtask, the webhook, the email address and the test repositories when they are missing. It runs only on a Redmine with Redmine's test data, never in production, and can run any number of times. Run it after updating Redmine Kit Lookbook, or after the test repositories in `tmp/test/` were removed:
+`redmine_kit:lookbook:add_test_data` adds the files, the subtask, the webhook, the email address and the test repositories when they are missing. It runs only on a Redmine with Redmine's test data, never in production, and can run any number of times. Run it after updating Redmine Kit Lookbook, or after the test repositories in `tmp/test/` were removed:
 
 ```sh
-bin/rails redmine_kit:lookbook:update_test_data
+bin/rails redmine_kit:lookbook:add_test_data
 ```
 
 ## Checking the previews

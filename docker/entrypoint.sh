@@ -8,7 +8,7 @@ bin/rails db:migrate
 # add what is missing, such as the test repositories in tmp/, which a new
 # container does not have, or what a first start that stopped did not add.
 if bin/rails runner 'exit(RedmineKit::Lookbook::TestData.loaded? ? 0 : 1)'; then
-  bin/rails redmine_kit:lookbook:update_test_data
+  bin/rails redmine_kit:lookbook:add_test_data
 else
   bin/rails redmine_kit:lookbook:load_test_data
 fi

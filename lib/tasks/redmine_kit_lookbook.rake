@@ -12,7 +12,7 @@ namespace :redmine_kit do
     end
 
     desc "Add what the previews need to a Redmine with Redmine's test data (test repositories and more)"
-    task update_test_data: :environment do
+    task add_test_data: :environment do
       abort "Refusing to change data in production." if Rails.env.production?
       abort "Redmine's test data is not loaded. Run redmine_kit:lookbook:load_test_data first." unless RedmineKit::Lookbook::TestData.loaded?
 

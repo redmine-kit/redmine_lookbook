@@ -7,7 +7,7 @@
 - `redmine_kit:lookbook:load_test_data` loads only into an empty database.
 - The Lookbook UI fits the visible height on iPad and iPhone.
 - 265 previews: Redmine's layout parts and whole layout, menus shown open (the context menu, "Jump to a project", the "+" menu, the actions menu and the account menu), the repository pages, and many more account, project, issue, content and administration pages.
-- Test repositories (Subversion, Git and Mercurial) from Redmine's own tests, linked to issues, and a webhook. `redmine_kit:lookbook:update_test_data` adds them to a Redmine with Redmine's test data.
+- Test repositories (Subversion, Git and Mercurial) from Redmine's own tests, linked to issues, and a webhook. `redmine_kit:lookbook:add_test_data` adds them to a Redmine with Redmine's test data.
 - Page previews can change Redmine settings (`settings:`) and expect an HTTP status (`status:`). `bin/check-previews` reports pages that return another status.
 - Fixed: the scripts and stylesheets that Redmine's helpers add to `<head>` (the context menu and the wiki toolbar) were missing in component previews.
 - Fixed: page previews could fail right after a code change in development.
