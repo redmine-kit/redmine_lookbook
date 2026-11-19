@@ -25,7 +25,7 @@ Then open <http://127.0.0.1:3000/lookbook>. The first start:
 2. creates a new database and loads Redmine's test data into it, with the test repositories,
 3. starts Redmine in development mode.
 
-Later starts run `redmine_kit_lookbook:update_test_data`, which creates the test repositories again in a new container (they are kept in the container's `tmp/`).
+Later starts run `redmine_kit:lookbook:update_test_data`, which creates the test repositories again in a new container (they are kept in the container's `tmp/`).
 
 To sign in to Redmine itself, use `admin` / `admin` (an administrator) or `jsmith` / `jsmith` (a project member).
 
@@ -70,14 +70,14 @@ bin/dev reset
 4. Load Redmine's test data:
 
    ```sh
-   bin/rails redmine_kit_lookbook:load_test_data
+   bin/rails redmine_kit:lookbook:load_test_data
    ```
 
 5. Start Redmine in development mode and open `/lookbook`.
 
 ## Test data
 
-`redmine_kit_lookbook:load_test_data` loads Redmine's own test data from `test/fixtures` of the Redmine source: 43 tables with projects, issues, versions, wiki pages, news, documents, forums, users and groups.
+`redmine_kit:lookbook:load_test_data` loads Redmine's own test data from `test/fixtures` of the Redmine source: 43 tables with projects, issues, versions, wiki pages, news, documents, forums, users and groups.
 
 - **Only into an empty database.** The task refuses to run when the database already has projects, issues, trackers or users other than `admin`, and it refuses to run in production. It never replaces data.
 - **Images.** Some image attachments in the test data have no file. The task creates their files from a test image, so thumbnails and inline images show.
@@ -87,10 +87,10 @@ bin/dev reset
 - **Email address.** Redmine's test data has no additional email addresses, so the task adds one to `jsmith`.
 - **Users.** `admin` / `admin` and `jsmith` / `jsmith` can sign in. The page previews render as `admin` unless a preview chooses another user.
 
-`redmine_kit_lookbook:update_test_data` adds the files, the subtask, the webhook, the email address and the test repositories when they are missing. It runs only on a Redmine with Redmine's test data, never in production, and can run any number of times. Run it after updating Redmine Kit Lookbook, or after the test repositories in `tmp/test/` were removed:
+`redmine_kit:lookbook:update_test_data` adds the files, the subtask, the webhook, the email address and the test repositories when they are missing. It runs only on a Redmine with Redmine's test data, never in production, and can run any number of times. Run it after updating Redmine Kit Lookbook, or after the test repositories in `tmp/test/` were removed:
 
 ```sh
-bin/rails redmine_kit_lookbook:update_test_data
+bin/rails redmine_kit:lookbook:update_test_data
 ```
 
 ## Checking the previews

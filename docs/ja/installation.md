@@ -29,7 +29,7 @@ bin/dev
 2. 新しいデータベースを作り、Redmine のテストデータとテスト用のリポジトリを読み込みます。
 3. Redmine を開発モードで起動します。
 
-2 回目からの起動では `redmine_kit_lookbook:update_test_data` を実行し、新しいコンテナーではテスト用のリポジトリを作り直します(リポジトリはコンテナーの `tmp/` にあるため)。
+2 回目からの起動では `redmine_kit:lookbook:update_test_data` を実行し、新しいコンテナーではテスト用のリポジトリを作り直します(リポジトリはコンテナーの `tmp/` にあるため)。
 
 Redmine そのものには、`admin` / `admin`(管理者)か `jsmith` / `jsmith`(プロジェクトのメンバー)でログインできます。
 
@@ -76,7 +76,7 @@ bin/dev reset
 4. Redmine のテストデータを読み込みます。
 
    ```sh
-   bin/rails redmine_kit_lookbook:load_test_data
+   bin/rails redmine_kit:lookbook:load_test_data
    ```
 
 5. Redmine を開発モードで起動し、`/lookbook` を開きます。
@@ -85,7 +85,7 @@ bin/dev reset
 
 ## テストデータ
 
-`redmine_kit_lookbook:load_test_data` は、Redmine のソースの `test/fixtures` にある、Redmine 自身のテストデータを読み込みます。43 のテーブルに、プロジェクト、チケット、バージョン、wiki のページ、ニュース、文書、フォーラム、ユーザー、グループがあります。
+`redmine_kit:lookbook:load_test_data` は、Redmine のソースの `test/fixtures` にある、Redmine 自身のテストデータを読み込みます。43 のテーブルに、プロジェクト、チケット、バージョン、wiki のページ、ニュース、文書、フォーラム、ユーザー、グループがあります。
 
 - **空のデータベースにだけ:** データベースにすでにプロジェクト、チケット、トラッカー、`admin` 以外のユーザーがあるときと、本番のときは、このタスクは実行されません。既存のデータを置き換えることはありません。
 - **画像:** テストデータには、ファイルのない画像の添付ファイルがあります。このタスクは、テスト用の画像を元にそのファイルを作るので、サムネイルとインラインの画像が表示されます。
@@ -95,10 +95,10 @@ bin/dev reset
 - **メールアドレス:** Redmine のテストデータには追加のメールアドレスがないので、このタスクは `jsmith` に 1 つ追加します。
 - **ユーザー:** `admin` / `admin` と `jsmith` / `jsmith` でログインできます。画面のプレビューは、プレビューが別のユーザーを指定しない限り `admin` としてレンダリングします。
 
-`redmine_kit_lookbook:update_test_data` は、ファイル、子チケット、Webhook、メールアドレス、テスト用のリポジトリのうち、ないものを追加します。Redmine のテストデータがある Redmine でだけ動き、本番では動かず、何度でも実行できます。Redmine Kit Lookbook を更新したあとや、`tmp/test/` のテスト用のリポジトリを消したあとに実行します。
+`redmine_kit:lookbook:update_test_data` は、ファイル、子チケット、Webhook、メールアドレス、テスト用のリポジトリのうち、ないものを追加します。Redmine のテストデータがある Redmine でだけ動き、本番では動かず、何度でも実行できます。Redmine Kit Lookbook を更新したあとや、`tmp/test/` のテスト用のリポジトリを消したあとに実行します。
 
 ```sh
-bin/rails redmine_kit_lookbook:update_test_data
+bin/rails redmine_kit:lookbook:update_test_data
 ```
 
 <a id="checking-the-previews"></a>

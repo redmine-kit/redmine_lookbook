@@ -8,7 +8,7 @@ Redmine Kit Lookbook は開発用のツールです。`/lookbook` を開ける�
 
 - **開発環境専用:** 本番のサーバーでは、決して有効にしないでください。開発モード以外では、プレビューはデフォルトで無効です。本番で `REDMINE_KIT_LOOKBOOK=1` にしないでください。
 - **ログインの仕組みがない:** Lookbook には、ログインの仕組みがありません。`/lookbook` を開ける人は、プレビューがレンダリングする画面を、管理者として見られます。ユーザー、設定、Redmine の環境を表示する情報の画面、すべてのプロジェクトのデータが含まれます。
-- **プレビュー用の Redmine:** Redmine のテストデータだけがある Redmine で使ってください。`redmine_kit_lookbook:load_test_data` は、本番のときと、データベースにプロジェクト、チケット、トラッカー、`admin` 以外のユーザーがあるときは実行されないので、データのある Redmine にテストデータが混ざることはありません。`redmine_kit_lookbook:update_test_data` は、Redmine のテストデータがある Redmine でだけ動き、本番では動きません。
+- **プレビュー用の Redmine:** Redmine のテストデータだけがある Redmine で使ってください。`redmine_kit:lookbook:load_test_data` は、本番のときと、データベースにプロジェクト、チケット、トラッカー、`admin` 以外のユーザーがあるときは実行されないので、データのある Redmine にテストデータが混ざることはありません。`redmine_kit:lookbook:update_test_data` は、Redmine のテストデータがある Redmine でだけ動き、本番では動きません。
 
 <a id="network"></a>
 

@@ -9,7 +9,7 @@ module RedmineKit
     class PageComponent < ViewComponent::Base
       MISSING_TEST_DATA = <<~HTML.freeze
         <!DOCTYPE html>
-        <html><body><p>Load Redmine's test data first: <code>bin/rails redmine_kit_lookbook:load_test_data</code></p></body></html>
+        <html><body><p>Load Redmine's test data first: <code>bin/rails redmine_kit:lookbook:load_test_data</code></p></body></html>
       HTML
 
       def initialize(path:, user:, settings:, status:, sudo:)
