@@ -1,0 +1,4 @@
+ja:
+  # The plugin's name and description (Administration › Plugins; redmine_kit_ui's docs/plugin-names.md)
+  plugin_name_redmine_kit_lookbook: Redmine Kit Lookbook
+  plugin_description_redmine_kit_lookbook: Redmine のコンポーネントと画面のプレビュー

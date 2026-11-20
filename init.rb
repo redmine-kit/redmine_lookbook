@@ -1,7 +1,7 @@
 Redmine::Plugin.register :redmine_kit_lookbook do
   name "Redmine Kit Lookbook"
   author "Redmine Kit"
-  description "Preview Redmine components and pages with Lookbook, switching themes, languages and layouts."
+  description "Previews of Redmine's components and pages"
   version RedmineKit::Lookbook::VERSION
   url "https://github.com/redmine-kit/redmine_lookbook"
   author_url "https://github.com/redmine-kit"
