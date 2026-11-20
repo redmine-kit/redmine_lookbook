@@ -10,7 +10,7 @@ version = File.read(File.join(__dir__, 'lib/redmine_kit/lookbook.rb'))[/VERSION 
 Gem::Specification.new do |spec|
   spec.name = 'redmine_kit_lookbook'
   spec.version = version
-  spec.summary = "Previews Redmine 7's components and pages in Lookbook, for theme authors"
+  spec.summary = "Previews of Redmine's components and pages"
   spec.authors = ['Redmine Kit']
   spec.license = 'GPL-2.0-or-later'
   spec.homepage = 'https://github.com/redmine-kit/redmine_lookbook'
