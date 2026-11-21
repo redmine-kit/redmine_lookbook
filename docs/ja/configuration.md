@@ -8,7 +8,7 @@ Redmine Kit Lookbook は、Redmine のプロセスの環境変数で設定しま
 
 | 環境変数 | デフォルト値 | 内容 |
 | --- | --- | --- |
-| `REDMINE_KIT_LOOKBOOK` | 開発モードでは `1`、ほかは `0` | プレビューを有効(`1`)か無効(`0`)にします。本番では無効のままにしてください([セキュリティ](security.md))。 |
+| `REDMINE_KIT_LOOKBOOK` | 開発モードでは `1`、ほかは `0` | プレビューを有効(`1`)か無効(`0`)にします。本番環境では、`1` でも常に無効です ([セキュリティ](security.md))。 |
 | `REDMINE_KIT_LOOKBOOK_PATH` | `/lookbook` | Lookbook をマウントするパス。 |
 | `REDMINE_KIT_LOOKBOOK_PREVIEW_PATHS` | なし | 追加するプレビューのディレクトリ。`:` で区切ります([プレビューを書く](writing-previews.md#where-previews-go))。 |
 | `REDMINE_KIT_LOOKBOOK_SERVERS` | なし | このプラグインをインストールしたほかの Redmine のサーバー。`名前=URL,名前=URL` の形式で指定します。指定すると、ツールバーに「Server」の切り替えが表示されます([複数のサーバー](#several-servers))。 |

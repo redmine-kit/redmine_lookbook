@@ -9,9 +9,12 @@ module RedmineKit
     module_function
 
     # Lookbook must be installed, and previews are on in development unless
-    # REDMINE_KIT_LOOKBOOK says otherwise. Never enable it on a production server.
+    # REDMINE_KIT_LOOKBOOK says otherwise. In production they are always off,
+    # REDMINE_KIT_LOOKBOOK=1 included, because the previews render Redmine's
+    # pages as an administrator for anyone who can open them.
     def enabled?
       return false unless defined?(::Lookbook)
+      return false if Rails.env.production?
 
       default = Rails.env.development? ? "1" : "0"
       ENV.fetch("REDMINE_KIT_LOOKBOOK", default) == "1"

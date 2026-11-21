@@ -43,7 +43,7 @@ Then open <http://127.0.0.1:3000/lookbook>. To install into an existing Redmine,
 
 ## Security
 
-Redmine Kit Lookbook is a development tool. Never enable it on a production server: anyone who can open `/lookbook` sees pages rendered as an administrator. Use it only in a Redmine with Redmine's test data. See [Security](docs/security.md), and [SECURITY.md](SECURITY.md) to report a vulnerability.
+Redmine Kit Lookbook is a development tool. It is always off in production, even with `REDMINE_KIT_LOOKBOOK=1`: anyone who can open `/lookbook` sees pages rendered as an administrator. Use it only in a Redmine with Redmine's test data. See [Security](docs/security.md), and [SECURITY.md](SECURITY.md) to report a vulnerability.
 
 ## Sponsors
 

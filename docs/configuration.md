@@ -6,7 +6,7 @@ Redmine Kit Lookbook is configured with environment variables of the Redmine pro
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `REDMINE_KIT_LOOKBOOK` | `1` in development, `0` otherwise | Turns the previews on (`1`) or off (`0`). Keep it off in production (see [Security](security.md)). |
+| `REDMINE_KIT_LOOKBOOK` | `1` in development, `0` otherwise | Turns the previews on (`1`) or off (`0`). In production the previews are always off, even with `1` (see [Security](security.md)). |
 | `REDMINE_KIT_LOOKBOOK_PATH` | `/lookbook` | Where Lookbook is mounted. |
 | `REDMINE_KIT_LOOKBOOK_PREVIEW_PATHS` | (none) | More preview directories, separated by `:` (see [Writing previews](writing-previews.md#where-previews-go)). |
 | `REDMINE_KIT_LOOKBOOK_SERVERS` | (none) | Other Redmine servers that run this plugin, as `label=url,label=url`. A "Server" option then appears in the toolbar (see [Several servers](#several-servers)). |
