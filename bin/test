@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# The plugin's tests in Redmine 7.0.3 on PostgreSQL 16, in Apple container when
+# it runs, else in Docker (CI; CONTAINER_CLI=container|docker chooses). The test
+# image has no Lookbook (bin/test_image): the tests check the plugin's own
+# objects, and that it stays off without Lookbook.
+#   bin/test            # the plugin's tests
+#   bin/test <files>    # some files of the plugin's tests
+#   COVERAGE=1 bin/test # also the plugin's coverage, in coverage/coverage.xml
+# bin/check-previews checks the previews in the development Redmine (bin/dev).
+# Commands that run inside the container are in single quotes on purpose.
+# shellcheck disable=SC2016
+set -euo pipefail
+cd "$(dirname "$0")/.."
+plugin=redmine_kit_lookbook
+name=redmine-kit-lookbook-test
+image=$name
+source bin/test_slot
+source bin/container_cli
+bin/services >/dev/null
+source bin/test_image
+
+# A database of this run's own, dropped when the tests end.
+db="redmine_test_$$"
+setup='bin/rails db:drop db:create db:migrate redmine:plugins:migrate db:schema:dump >/dev/null'
+teardown='; status=$?; bin/rails db:drop >/dev/null 2>&1; exit $status'
+# With COVERAGE=1, the plugin's tests also measure their coverage of the
+# plugin's files (test/test_helper.rb), in one worker, into coverage/. COVERAGE
+# itself stays out of the container: Redmine's test_helper starts its own
+# SimpleCov with it.
+workers=(-e PARALLEL_WORKERS="${PARALLEL_WORKERS:-2}")
+if [[ -n "${COVERAGE:-}" ]]; then
+  mkdir -p coverage
+  rm -f coverage/.resultset.json
+  workers=(-e PLUGIN_COVERAGE=plugin -e PARALLEL_WORKERS=1 -v "$PWD/coverage:/redmine/plugins/$plugin/coverage")
+fi
+if (($#)); then
+  files=("${@/#/plugins/$plugin/}")
+else
+  files=("plugins/$plugin/test")
+fi
+"$cli" run --rm --network "$network" ${opts[@]+"${opts[@]}"} -e TEST_DATABASE="$db" "${workers[@]}" "$image" \
+  sh -c "$setup"' && "$@"'"$teardown" test bin/rails test "${files[@]}"

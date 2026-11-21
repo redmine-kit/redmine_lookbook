@@ -8,7 +8,7 @@ Guidelines for people and coding agents working in this repository. See [README.
 - **Do not edit Redmine.** Extend Redmine through plugin mechanisms only.
 - **Off means off.** With the plugin disabled (production, or `REDMINE_KIT_LOOKBOOK=0`), nothing may reference the Lookbook gem. Keep such code out of the autoloaded directories (`app/`, `lib/`); `lookbook/` holds it (the preview controller and the page component) and `RedmineKit::Lookbook.setup` loads it.
 - **Autoloading.** Redmine autoloads `lib/` with Zeitwerk: one constant per file, named after the path. Do not `require` files from `lib/`.
-- **Check before committing.** Run `bin/check-previews` against the development Redmine and keep it passing.
+- **Check before committing.** Run `bin/test` (the plugin's own objects, without Lookbook), and `bin/check-previews` against the development Redmine, and keep them passing.
 
 ## Documentation
 

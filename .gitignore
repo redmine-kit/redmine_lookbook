@@ -2,3 +2,4 @@
 /docker/themes/*
 !/docker/themes/.gitkeep
 *.gem
+coverage/

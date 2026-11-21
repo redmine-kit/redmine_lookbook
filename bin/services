@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Starts PostgreSQL 16 for the tests, or stops it with --down: in Apple
+# container when it runs, else in Docker (CI; CONTAINER_CLI=container|docker
+# chooses). No host ports: the tests run in a container on the same network.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+source bin/container_cli
+name=redmine-kit-lookbook-test
+if [[ "$cli" == docker ]]; then
+  compose=(docker compose -f test/compose.yml -p "$name")
+  if [[ "${1:-}" == "--down" ]]; then
+    "${compose[@]}" down -v
+    exit 0
+  fi
+  "${compose[@]}" up -d --wait
+  exit 0
+fi
+# Apple container: the same service as test/compose.yml, on the network the
+# tests of every repository share (bin/container_cli), which stays.
+network=$kit_test_network
+postgres=$name-postgres
+if [[ "${1:-}" == "--down" ]]; then
+  container rm -f "$postgres" >/dev/null 2>&1 || true
+  exit 0
+fi
+ensure_shared_network "$network"
+if ! container inspect "$postgres" 2>/dev/null | grep -q '"state" : "running"'; then
+  container rm -f "$postgres" >/dev/null 2>&1 || true
+  container run -d --name "$postgres" --network "$network" -m 1G --progress none \
+    -e POSTGRES_HOST_AUTH_METHOD=trust \
+    "$(sed -n 's/^ *image: //p' test/compose.yml)" >/dev/null
+fi
+for _ in $(seq 60); do
+  container exec "$postgres" pg_isready -q -U postgres && exit 0
+  sleep 2
+done
+echo "PostgreSQL did not start: container logs $postgres" >&2
+exit 1

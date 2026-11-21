@@ -1,0 +1,49 @@
+# shellcheck shell=bash
+# Sourced by bin/test (redmine_kit_ui's, with the same slots, so that the runs of
+# both repositories count together): at most TEST_SLOTS runs at once on this machine
+# (default 2). Each run starts a Redmine container with 4 GB and parallel
+# workers; many at the same time (several agents testing at once) overloaded
+# the Mac, so every run took many times longer. A run waits for a free slot: a
+# directory under the temp folder holding its pid; a slot whose process is
+# gone is taken over. Freed when the run exits.
+test_slots=${TEST_SLOTS:-2}
+test_slot_root="${TMPDIR:-/tmp}/redmine-kit-ui-test-slots"
+mkdir -p "$test_slot_root"
+test_slot=
+test_slot_waited=
+while [[ -z "$test_slot" ]]; do
+  for ((i = 0; i < test_slots; i++)); do
+    candidate="$test_slot_root/slot-$i"
+    if mkdir "$candidate" 2>/dev/null; then
+      echo $$ >"$candidate/pid"
+      test_slot=$candidate
+      break
+    fi
+    holder=$(cat "$candidate/pid" 2>/dev/null || true)
+    if [[ -n "$holder" ]] && ! kill -0 "$holder" 2>/dev/null; then
+      rm -rf "$candidate" # left by a run that died
+    fi
+  done
+  if [[ -z "$test_slot" ]]; then
+    [[ -n "$test_slot_waited" ]] || echo "bin/test: waiting for a free slot ($test_slots runs at a time; TEST_SLOTS to change)" >&2
+    test_slot_waited=1
+    sleep 5
+  fi
+done
+
+# Building the test image: one build at a time, since runs build the same tag
+# and builds at the same time clobber each other ("descriptor mismatch").
+test_build_lock="$test_slot_root/build"
+lock_build() {
+  until mkdir "$test_build_lock" 2>/dev/null; do
+    holder=$(cat "$test_build_lock/pid" 2>/dev/null || true)
+    if [[ -n "$holder" ]] && ! kill -0 "$holder" 2>/dev/null; then rm -rf "$test_build_lock"; else sleep 2; fi
+  done
+  echo $$ >"$test_build_lock/pid"
+}
+unlock_build() { rm -rf "$test_build_lock"; }
+trap 'unlock_build_if_mine; rm -rf "$test_slot"' EXIT
+unlock_build_if_mine() {
+  [[ "$(cat "$test_build_lock/pid" 2>/dev/null || true)" == "$$" ]] && unlock_build
+  return 0
+}

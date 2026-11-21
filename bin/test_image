@@ -1,0 +1,75 @@
+# shellcheck shell=bash
+# Sourced by bin/test and bin/test-gem after bin/container_cli and bin/test_slot:
+# the image the tests run in ($image) and what they mount ($opts). No image is
+# built for the plugin: $image is the base image of every Redmine Kit plugin's
+# tests (test/Dockerfile: Ruby, Redmine 7.0.3 and its gems), tagged with the
+# file's hash and built only when no image has that tag. The plugins come as
+# files, mounted at /src/plugins: this checkout's run-time and test files
+# (tracked and new, not ignored, as they are in the working tree). The image's
+# entrypoint copies them into Redmine's plugins/ and installs the gems the
+# plugin's Gemfile adds into its named volume ($name-gems), kept between runs;
+# the image leaves out the development group, so Lookbook is not installed, as
+# on a production server. The tests need no other plugin.
+: "${name:?}" "${plugin:?}" "${cli:?}"
+context=$(mktemp -d)
+test_contexts+=("$context")
+trap 'unlock_build_if_mine; rm -rf "$test_slot" ${test_contexts[@]+"${test_contexts[@]}"}' EXIT
+mkdir -p "$context/plugins/$plugin"
+git ls-files -co --exclude-standard . |
+  grep -E '^(init\.rb|Gemfile|[^/]*\.gemspec|LICENSE|(app|assets|boot|config|db|lib|lookbook|previews|test)/)' |
+  while IFS= read -r file; do if [[ -e "$file" ]]; then printf '%s\n' "$file"; fi; done | tar -cf - -T - | tar -xf - -C "$context/plugins/$plugin"
+# Redmine from its repository instead of the 7.0.3 release: REDMINE_BRANCH=
+# <branch> (master) at the branch's current commit, or REDMINE_COMMIT=<sha>;
+# a base image of its own, tagged with the commit.
+build_args=()
+redmine_commit=${REDMINE_COMMIT:-}
+if [[ -z "$redmine_commit" && -n "${REDMINE_BRANCH:-}" ]]; then
+  redmine_commit=$(git ls-remote https://github.com/redmine/redmine.git "refs/heads/$REDMINE_BRANCH" | cut -f1)
+  [[ -n "$redmine_commit" ]] || { echo "no branch $REDMINE_BRANCH in Redmine's repository" >&2; exit 1; }
+fi
+image=redmine-kit-test-base:$(shasum -a 256 test/Dockerfile | cut -c1-12)
+if [[ -n "$redmine_commit" ]]; then
+  build_args=(--build-arg REDMINE_COMMIT="$redmine_commit")
+  image=$image-${redmine_commit:0:12}
+fi
+if ! "$cli" image inspect "$image" >/dev/null 2>&1; then
+  lock_build
+  # another run may have built it while this one waited
+  if ! "$cli" image inspect "$image" >/dev/null 2>&1; then
+    empty=$(mktemp -d)
+    if [[ "$cli" == docker ]]; then
+      docker buildx build --load -q -t "$image" ${build_args[@]+"${build_args[@]}"} -f test/Dockerfile "$empty" >/dev/null
+    else
+      # The build's log only when it fails (`container build -q` doesn't return).
+      log=$(mktemp)
+      container build --progress plain -t "$image" ${build_args[@]+"${build_args[@]}"} -f test/Dockerfile "$empty" \
+        >"$log" 2>&1 || { cat "$log" >&2; exit 1; }
+      rm -f "$log"
+    fi
+    rmdir "$empty"
+  fi
+  unlock_build
+fi
+# The plugin's gems volume holds one run at a time (Apple container attaches a
+# named volume to one container only): runs of this plugin wait for each other.
+gems_lock="${TMPDIR:-/tmp}/$name-gems.lock"
+until [[ "$(cat "$gems_lock/pid" 2>/dev/null)" == "$$" ]] || mkdir "$gems_lock" 2>/dev/null; do
+  holder=$(cat "$gems_lock/pid" 2>/dev/null || true)
+  if [[ -n "$holder" ]] && ! kill -0 "$holder" 2>/dev/null; then rm -rf "$gems_lock"; else sleep 3; fi
+done
+echo $$ >"$gems_lock/pid"
+test_contexts+=("$gems_lock")
+mounts=(-v "$context/plugins:/src/plugins" -v "$name-gems:/extra-gems")
+# The network of the PostgreSQL container (bin/services) and the options to
+# reach it: in Docker by its name; in Apple container, on the network the
+# tests of every repository share (bin/container_cli), by its address
+# (containers don't find each other by name there), with more memory than the
+# 1 GB a container gets by default.
+if [[ "$cli" == docker ]]; then
+  network=${name}_default
+  opts=("${mounts[@]}")
+else
+  network=$kit_test_network
+  opts=(-m 4G "${mounts[@]}" -e TEST_DATABASE_HOST="$(container inspect "$name-postgres" |
+    sed -n 's/.*"ipv4Address" : "\([0-9.]*\)\/.*/\1/p' | head -1)")
+fi

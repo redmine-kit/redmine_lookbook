@@ -1,0 +1,9 @@
+test:
+  adapter: postgresql
+  # bin/test: the PostgreSQL container's address
+  host: <%= ENV.fetch('TEST_DATABASE_HOST', 'postgres') %>
+  # bin/test names a database per run, so that runs at the same time (several
+  # agents, a terminal and CI) don't drop each other's
+  database: <%= ENV.fetch('TEST_DATABASE', 'redmine_test') %>
+  username: postgres
+  encoding: unicode
