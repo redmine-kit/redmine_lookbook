@@ -28,7 +28,7 @@ The documentation covers [installation](docs/installation.md), [the toolbar](doc
 ## Quick start
 
 ```sh
-git clone https://github.com/redmine-kit/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git redmine_kit_lookbook
 cd redmine_kit_lookbook
 bin/dev
 ```

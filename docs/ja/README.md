@@ -32,7 +32,7 @@ Redmine Kit Lookbook は開発の初期です。対応するのは Redmine 7.0 �
 ## クイックスタート
 
 ```sh
-git clone https://github.com/redmine-kit/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git redmine_kit_lookbook
 cd redmine_kit_lookbook
 bin/dev
 ```

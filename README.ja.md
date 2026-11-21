@@ -11,12 +11,16 @@ Redmine Kit Lookbook は、Redmine のコンポーネントと画面を [Lookboo
 
 > **状態:** 開発の初期です。実装し、Redmine 7.0.3 でテストしています。Redmine 7.0 に対応しています。
 
+<a id="documentation"></a>
+
 ## ドキュメント
 
 - Web サイト: https://redmine-kit.github.io/redmine_lookbook/ja/ (English: https://redmine-kit.github.io/redmine_lookbook/)
 - Markdown: [docs/ja/README.md](docs/ja/README.md) (English: [docs/README.md](docs/README.md)) と、そこからリンクしているページ
 
 ドキュメントには、[インストール](docs/ja/installation.md)、[ツールバー](docs/ja/usage.md)、[すべてのプレビュー](docs/ja/previews.md)、[独自のプレビューの書き方](docs/ja/writing-previews.md)があります。Redmine 7 がテーマを適用する仕組みと、テーマの作者のためのチェックリストは、[Redmine Design Guide](https://redmine-kit.github.io/design-guide/ja/)にあります([テーマ](https://redmine-kit.github.io/design-guide/ja/themes.html)、[テーマのチェックリスト](https://redmine-kit.github.io/design-guide/ja/theme-checklist.html))。
+
+<a id="features"></a>
 
 ## 機能
 
@@ -25,21 +29,27 @@ Redmine Kit Lookbook は、Redmine のコンポーネントと画面を [Lookboo
 - **ツールバーでの切り替え:** テーマ、言語、レイアウトを切り替えられます。デフォルトは Redmine の設定に合わせます。
 - **テストデータ:** Redmine 自身のテストデータとテスト用のリポジトリ(Subversion、Git、Mercurial)で画面を表示します。
 
+<a id="quick-start"></a>
+
 ## クイックスタート
 
 ```sh
-git clone https://github.com/redmine-kit/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git redmine_kit_lookbook
 cd redmine_kit_lookbook
 bin/dev
 ```
 
 起動したら <http://127.0.0.1:3000/lookbook> を開きます。既存の Redmine へのインストールは、[インストール](docs/ja/installation.md#an-existing-redmine)を参照してください。
 
+<a id="requirements"></a>
+
 ## 動作環境
 
 - Redmine 7.0
 - Redmine 7.0 が対応する Ruby
 - [Lookbook](https://github.com/lookbook-hq/lookbook) 2.3
+
+<a id="security"></a>
 
 ## セキュリティ
 

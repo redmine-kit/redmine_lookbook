@@ -14,7 +14,7 @@ Redmine Kit Lookbook runs in a Redmine 7.0 in development mode that is set up on
 The Docker setup builds a Redmine 7.0.3 with this plugin and Redmine's test data. It needs [Apple container](https://github.com/apple/container) or Docker: `bin/dev` uses Apple container when it is installed and running, else Docker Compose (`docker/compose.yml`); `CONTAINER_CLI=container` or `CONTAINER_CLI=docker` chooses.
 
 ```sh
-git clone https://github.com/redmine-kit/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git redmine_kit_lookbook
 cd redmine_kit_lookbook
 bin/dev
 ```
@@ -61,7 +61,22 @@ bin/dev reset
    git clone https://github.com/redmine-kit/redmine_lookbook.git plugins/redmine_kit_lookbook
    ```
 
-3. Install the gems. Lookbook is in the `development` group of the plugin's `Gemfile`.
+   Or install it as a gem. Each version tag publishes the plugin to GitHub Packages (`https://rubygems.pkg.github.com/redmine-kit`); installing from it needs a GitHub token with `read:packages`, even for a public package. The gem does not include the plugin's `Gemfile`, so add Lookbook with it to Redmine's `Gemfile.local`, and after step 3 link the installed gem into `plugins/`:
+
+   ```ruby
+   group :development do
+     gem "lookbook", "~> 2.3"
+     source "https://rubygems.pkg.github.com/redmine-kit" do
+       gem "redmine_kit_lookbook"
+     end
+   end
+   ```
+
+   ```sh
+   ln -s "$(bundle info --path redmine_kit_lookbook)" plugins/redmine_kit_lookbook
+   ```
+
+3. Install the gems. Lookbook is in the `development` group of the plugin's `Gemfile` (with the gem, of `Gemfile.local`).
 
    ```sh
    bundle install

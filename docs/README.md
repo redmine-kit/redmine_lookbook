@@ -28,7 +28,7 @@ Redmine Kit Lookbook is in early development. It supports Redmine 7.0 only and h
 ## Quick start
 
 ```sh
-git clone https://github.com/redmine-kit/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git redmine_kit_lookbook
 cd redmine_kit_lookbook
 bin/dev
 ```

@@ -29,7 +29,7 @@ Redmine Kit Lookbook は開発用のツールです。`/lookbook` を開ける�
 ## Docker のイメージ
 
 - Dockerfile は、redmine.org から Redmine をダウンロードし、決まった SHA256 で確認してから使います。
-- このリポジトリの外部の GitHub Actions は、コミットの SHA で固定しています。ドキュメントのワークフローは、同じ組織の `redmine-kit/docs-skeleton` を `main` のブランチから使います。
+- このリポジトリの外部の GitHub Actions は、バージョンのタグで固定し、各タグのコミットを `.github/workflows/actions.lock` (`gh actions-lock`) に記録しています。CI はこのファイルを検証します (`verify-lockfile.yml`)。ドキュメントのワークフローは、同じ組織の `redmine-kit/docs-skeleton` を `main` のブランチから使います。
 - CI では、本番のサーバーと同じく Lookbook のない本番の設定で、Redmine を読み込めることを確認しています。
 - 「Server」の切り替えは、`REDMINE_KIT_LOOKBOOK_SERVERS` のサーバーだけを開きます。
 

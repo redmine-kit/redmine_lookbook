@@ -21,7 +21,7 @@ Page previews pass the user to render as in Rack env keys of an internal request
 ## The Docker image
 
 - The Dockerfile downloads Redmine from redmine.org and checks it against a fixed SHA256 before using it.
-- The GitHub Actions of other parties in this repository are pinned to commit SHAs. The documentation workflow uses `redmine-kit/docs-skeleton` (of the same organization) from its `main` branch.
+- The GitHub Actions of other parties in this repository are pinned by version tag, and the commit of each tag is locked in `.github/workflows/actions.lock` (`gh actions-lock`), which CI verifies (`verify-lockfile.yml`). The documentation workflow uses `redmine-kit/docs-skeleton` (of the same organization) from its `main` branch.
 - CI checks that Redmine loads in production without Lookbook, as on a production server.
 - The "Server" option opens only the servers in `REDMINE_KIT_LOOKBOOK_SERVERS`.
 

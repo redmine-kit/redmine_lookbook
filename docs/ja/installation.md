@@ -18,7 +18,7 @@ Redmine Kit Lookbook は、プレビューのためだけに用意した、開�
 Docker の環境は、このプラグインと Redmine のテストデータを入れた Redmine 7.0.3 をビルドします。必要なのは [Apple container](https://github.com/apple/container) か Docker だけです。`bin/dev` は、Apple container がインストールされていて動いていればそれを、そうでなければ Docker Compose (`docker/compose.yml`) を使います (`CONTAINER_CLI=container` か `CONTAINER_CLI=docker` で選べます)。
 
 ```sh
-git clone https://github.com/redmine-kit/redmine_lookbook.git
+git clone https://github.com/redmine-kit/redmine_lookbook.git redmine_kit_lookbook
 cd redmine_kit_lookbook
 bin/dev
 ```
@@ -67,7 +67,22 @@ bin/dev reset
    git clone https://github.com/redmine-kit/redmine_lookbook.git plugins/redmine_kit_lookbook
    ```
 
-3. gem をインストールします。Lookbook は、プラグインの `Gemfile` の `development` のグループにあります。
+   gem としてインストールすることもできます。バージョンのタグごとに、プラグインを GitHub Packages (`https://rubygems.pkg.github.com/redmine-kit`) に公開しています。GitHub Packages からのインストールには、公開パッケージでも `read:packages` を持つ GitHub のトークンが必要です。gem にはプラグインの `Gemfile` が含まれないので、Lookbook も一緒に Redmine の `Gemfile.local` に追加し、手順 3 のあとでインストールした gem を `plugins/` にリンクします。
+
+   ```ruby
+   group :development do
+     gem "lookbook", "~> 2.3"
+     source "https://rubygems.pkg.github.com/redmine-kit" do
+       gem "redmine_kit_lookbook"
+     end
+   end
+   ```
+
+   ```sh
+   ln -s "$(bundle info --path redmine_kit_lookbook)" plugins/redmine_kit_lookbook
+   ```
+
+3. gem をインストールします。Lookbook は、プラグインの `Gemfile` (gem の場合は `Gemfile.local`) の `development` のグループにあります。
 
    ```sh
    bundle install
