@@ -53,7 +53,7 @@ The theme, language and layout options are Lookbook [display options](https://lo
 
 ## Lookbook's UI on iPad and iPhone
 
-Lookbook sizes its UI with `100vh`. Safari counts the area behind its toolbars in `100vh`, so the bottom of the UI was cut off. The plugin replaces Lookbook's `lookbook/partials/_user_styles.html.erb` partial with one that sets the same heights with `100dvh`, and renders Lookbook's user styles as before.
+Lookbook sizes its UI with `100vh`. Safari counts the area behind its toolbars in `100vh`, which cuts off the bottom of the UI. The plugin replaces Lookbook's `lookbook/partials/_user_styles.html.erb` partial with one that sets the same heights with `100dvh`, and renders Lookbook's user styles as before.
 
 ## Limitations
 

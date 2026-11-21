@@ -67,7 +67,7 @@ Redmine は、いくつかの箇所(スタイルシート、アイコン、フ�
 
 ## iPad と iPhone での Lookbook の画面
 
-Lookbook は、画面の高さを `100vh` で決めています。Safari は、ツールバーの裏の部分も `100vh` に含めるので、画面の下が隠れていました。このプラグインは、Lookbook の部分テンプレート `lookbook/partials/_user_styles.html.erb` を置き換え、同じ高さを `100dvh` で指定します。Lookbook のユーザーのスタイルは、これまでどおり出力します。
+Lookbook は、画面の高さを `100vh` で決めています。Safari は、ツールバーの裏の部分も `100vh` に含めるので、画面の下が隠れます。このプラグインは、Lookbook の部分テンプレート `lookbook/partials/_user_styles.html.erb` を置き換え、同じ高さを `100dvh` で指定します。Lookbook のユーザーのスタイルは、これまでどおり出力します。
 
 <a id="limitations"></a>
 
