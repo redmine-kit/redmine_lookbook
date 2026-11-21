@@ -36,7 +36,8 @@ module RedmineKit
 
       CASES.each do |location, expected|
         test "a redirect to #{location} is #{expected ? "followed to #{expected}" : 'not followed'}" do
-          assert_equal expected, renderer.send(:same_server_path, location)
+          followed = renderer.send(:same_server_path, location)
+          expected ? assert_equal(expected, followed) : assert_nil(followed)
         end
       end
     end

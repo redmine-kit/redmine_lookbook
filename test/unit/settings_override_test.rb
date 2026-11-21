@@ -24,9 +24,9 @@ module RedmineKit
       end
 
       test "changes nothing in the database" do
-        before = Setting.find_by(name: "ui_theme")&.value
-        SettingsOverride.with(ui_theme: "alternate") { Setting.ui_theme }
-        assert_equal before, Setting.find_by(name: "ui_theme")&.value
+        assert_no_changes -> { Setting.where(name: "ui_theme").pluck(:value) } do
+          SettingsOverride.with(ui_theme: "alternate") { Setting.ui_theme }
+        end
       end
 
       test "a nested block adds to the outer one and gives it back after" do
