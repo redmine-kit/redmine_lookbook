@@ -1,5 +1,7 @@
 # A development Redmine with Redmine Kit Lookbook. Not for production use.
-FROM ruby:3.4-bookworm
+# The latest Ruby release that Redmine 7.0 supports (Ruby 3.2 to 4.0), on the
+# latest Debian.
+FROM ruby:4.0.10-trixie
 
 ARG REDMINE_VERSION=7.0.3
 # From https://www.redmine.org/releases/redmine-7.0.3.tar.gz.sha256
