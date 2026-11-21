@@ -13,6 +13,7 @@ Guidelines for people and coding agents working in this repository. See [README.
 ## Documentation
 
 - **Two languages.** English is the source; the Japanese translation is `README.ja.md` and `docs/ja/`, with the same file names. Change both together.
+- **One language per document.** The English documents are in English only and name the UI with the English locale's strings (Redmine's and this plugin's `config/locales/en.yml`); Japanese appears only in the link to the translation, a strings table's `ja` column or a value an example must match (`../AGENTS.md` › Writing › Translations).
 - **Layout.** The READMEs stay short. The details go in `docs/`, which is published with [redmine-kit/docs-skeleton](https://github.com/redmine-kit/docs-skeleton): `docs/README.md` is the home page and links every page in sidebar order, each page starts with a `#` heading, and links between pages point to the `.md` files.
 - **Anchors in Japanese.** Put `<a id="..."></a>` with the English heading's anchor before each Japanese heading, so that links such as `configuration.md#several-servers` work in both languages.
 - **Screenshots.** Take the images in `docs/img/` again with `bin/capture-screenshots` when a change shows in them. Pages in `docs/ja/` use the Japanese images in `docs/img/ja/` when there is one.
