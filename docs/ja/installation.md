@@ -61,13 +61,7 @@ bin/dev reset
    bin/rails db:migrate
    ```
 
-2. このリポジトリを `plugins/redmine_kit_lookbook` にクローンします。
-
-   ```sh
-   git clone https://github.com/redmine-kit/redmine_lookbook.git plugins/redmine_kit_lookbook
-   ```
-
-   gem としてインストールすることもできます。バージョンのタグごとに、プラグインを GitHub Packages (`https://rubygems.pkg.github.com/redmine-kit`) に公開しています。GitHub Packages からのインストールには、公開パッケージでも `read:packages` を持つ GitHub のトークンが必要です。gem にはプラグインの `Gemfile` が含まれないので、Lookbook も一緒に Redmine の `Gemfile.local` に追加し、手順 3 のあとでインストールした gem を `plugins/` にリンクします。
+2. プラグインを gem として追加するか (推奨)、`plugins/` にクローンします。バージョンのタグごとに、プラグインを GitHub Packages (`https://rubygems.pkg.github.com/redmine-kit`) に公開しています。GitHub Packages からのインストールには、公開パッケージでも `read:packages` を持つ GitHub のトークンが必要です。gem にはプラグインの `Gemfile` が含まれないので、Lookbook も一緒に Redmine の `Gemfile.local` に追加します。
 
    ```ruby
    group :development do
@@ -78,11 +72,13 @@ bin/dev reset
    end
    ```
 
+   Redmine は gem のフォルダーからプラグインを読み込むので、`plugins/` には何も置きません。gem を使わないときは、このリポジトリを `plugins/redmine_kit_lookbook` にクローンします。クローンがあるときは、gem ではなくそちらを使います。
+
    ```sh
-   ln -s "$(bundle info --path redmine_kit_lookbook)" plugins/redmine_kit_lookbook
+   git clone https://github.com/redmine-kit/redmine_lookbook.git plugins/redmine_kit_lookbook
    ```
 
-3. gem をインストールします。Lookbook は、プラグインの `Gemfile` (gem の場合は `Gemfile.local`) の `development` のグループにあります。
+3. gem をインストールします。Lookbook は、`Gemfile.local` (クローンの場合はプラグインの `Gemfile`) の `development` のグループにあります。
 
    ```sh
    bundle install

@@ -19,8 +19,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # The plugin's tests in Redmine 7.0.3 on PostgreSQL 16 (bin/test), in Docker,
-  # without Lookbook.
+  # The plugin's tests in Redmine 7.0.3 on PostgreSQL 16 (bin/test), and the
+  # plugin installed as a gem (bin/test-gem), in Docker; neither has Lookbook.
   test:
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 30
@@ -29,6 +29,7 @@ jobs:
         with:
           persist-credentials: false
       - run: bin/test
+      - run: bin/test-gem
       - if: always()
         run: bin/services --down
 

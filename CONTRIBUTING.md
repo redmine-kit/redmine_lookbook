@@ -19,10 +19,11 @@ Thank you for helping with Redmine Kit Lookbook. Issues and pull requests are we
    bin/dev check
    ```
 
-4. Run the plugin's tests (Redmine 7.0.3 and PostgreSQL 16 in a container, without Lookbook):
+4. Run the plugin's tests (Redmine 7.0.3 and PostgreSQL 16 in a container, without Lookbook) and check the plugin installed as a gem:
 
    ```sh
    bin/test
+   bin/test-gem
    bin/services --down   # stops PostgreSQL
    ```
 

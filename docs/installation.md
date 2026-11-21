@@ -55,13 +55,7 @@ bin/dev reset
    bin/rails db:migrate
    ```
 
-2. Clone this repository into `plugins/redmine_kit_lookbook`:
-
-   ```sh
-   git clone https://github.com/redmine-kit/redmine_lookbook.git plugins/redmine_kit_lookbook
-   ```
-
-   Or install it as a gem. Each version tag publishes the plugin to GitHub Packages (`https://rubygems.pkg.github.com/redmine-kit`); installing from it needs a GitHub token with `read:packages`, even for a public package. The gem does not include the plugin's `Gemfile`, so add Lookbook with it to Redmine's `Gemfile.local`, and after step 3 link the installed gem into `plugins/`:
+2. Add the plugin as a gem (first choice), or clone it into `plugins/`. Each version tag publishes the plugin to GitHub Packages (`https://rubygems.pkg.github.com/redmine-kit`); installing from it needs a GitHub token with `read:packages`, even for a public package. The gem does not include the plugin's `Gemfile`, so add Lookbook with it to Redmine's `Gemfile.local`:
 
    ```ruby
    group :development do
@@ -72,11 +66,13 @@ bin/dev reset
    end
    ```
 
+   Redmine loads the plugin from the gem's folder; nothing goes into `plugins/`. Or clone this repository into `plugins/redmine_kit_lookbook`, which then takes the place of the gem:
+
    ```sh
-   ln -s "$(bundle info --path redmine_kit_lookbook)" plugins/redmine_kit_lookbook
+   git clone https://github.com/redmine-kit/redmine_lookbook.git plugins/redmine_kit_lookbook
    ```
 
-3. Install the gems. Lookbook is in the `development` group of the plugin's `Gemfile` (with the gem, of `Gemfile.local`).
+3. Install the gems. Lookbook is in the `development` group of `Gemfile.local` (with a clone, of the plugin's `Gemfile`).
 
    ```sh
    bundle install

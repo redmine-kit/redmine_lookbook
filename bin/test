@@ -6,7 +6,8 @@
 #   bin/test            # the plugin's tests
 #   bin/test <files>    # some files of the plugin's tests
 #   COVERAGE=1 bin/test # also the plugin's coverage, in coverage/coverage.xml
-# bin/check-previews checks the previews in the development Redmine (bin/dev).
+# bin/test-gem checks the plugin installed as a gem. bin/check-previews checks
+# the previews in the development Redmine (bin/dev).
 # Commands that run inside the container are in single quotes on purpose.
 # shellcheck disable=SC2016
 set -euo pipefail

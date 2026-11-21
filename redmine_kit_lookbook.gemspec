@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 # The plugin as a gem on GitHub Packages (.github/workflows/gem.yml), with the
-# plugin's run-time files; the installed gem is linked into Redmine's
-# plugins/. Lookbook itself is not a dependency: it belongs in the
-# development group of the Redmine that uses the previews, never in
-# production.
+# plugin's run-time files: Bundler requires boot/redmine_kit_lookbook.rb, which
+# hands the gem's folder to Redmine's plugin loader. Lookbook itself is not a
+# dependency: it belongs in the development group of the Redmine that uses the
+# previews, never in production.
 version = File.read(File.join(__dir__, 'lib/redmine_kit/lookbook.rb'))[/VERSION = "([^"]+)"/, 1]
 
 Gem::Specification.new do |spec|
@@ -14,8 +14,11 @@ Gem::Specification.new do |spec|
   spec.authors = ['Redmine Kit']
   spec.license = 'GPL-2.0-or-later'
   spec.homepage = 'https://github.com/redmine-kit/redmine_lookbook'
-  spec.required_ruby_version = '>= 3.2'
-  spec.files = Dir['{init.rb,LICENSE}', '{app,config,lib,lookbook,previews}/**/*']
+  # The Ruby versions of Redmine 7.0 (its Gemfile: ruby '>= 3.2.0', '< 4.1.0').
+  spec.required_ruby_version = ['>= 3.2', '< 4.1']
+  spec.files = Dir['{init.rb,LICENSE}', '{app,boot,config,lib,lookbook,previews}/**/*']
+  # boot/ only: lib/ is the code loader's (Zeitwerk), never required by name.
+  spec.require_paths = ['boot']
   spec.metadata['github_repo'] = 'ssh://github.com/redmine-kit/redmine_lookbook'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
