@@ -72,7 +72,7 @@ check='
     bin/rails db:drop db:create db:migrate redmine:plugins:migrate >/dev/null
     bin/rails zeitwerk:check
     RAILS_ENV=production SECRET_KEY_BASE=test-gem bin/rails runner "$CHECK" "$from" "$PLUGIN" "$ROUTE"
-    # The plugin's rake tasks (lib/tasks), which boot/ loads for the gem.
+    # The rake tasks of the plugin (lib/tasks), which boot/ loads for a gem.
     bin/rails -T redmine_kit:lookbook | grep -q "redmine_kit:lookbook:load_test_data" ||
       { echo "no rake tasks of $PLUGIN" >&2; exit 1; }
   done
