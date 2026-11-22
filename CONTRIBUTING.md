@@ -27,6 +27,10 @@ Thank you for helping with Redmine Kit Lookbook. Issues and pull requests are we
    bin/services --down   # stops PostgreSQL
    ```
 
+   A run stops the service containers it started (it doesn't remove them) when it ends, whether the tests pass, fail
+   or are interrupted. Containers that were running before the run, or that another run of this repository still uses,
+   are left running. `KEEP_SERVICES=1` keeps them running after the run.
+
 ## Guidelines
 
 - **Redmine stays unchanged.** Use Redmine's plugin mechanisms (hooks, `prepend`) and do not edit Redmine's own files.

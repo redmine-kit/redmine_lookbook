@@ -24,6 +24,7 @@ image=$name
 route=
 source bin/test_slot
 source bin/container_cli
+stop_services_at_exit "$name"
 bin/services >/dev/null
 source bin/test_image
 
