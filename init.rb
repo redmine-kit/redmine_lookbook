@@ -1,3 +1,7 @@
+# The plugins this one requires (config/dependencies.yml): without one,
+# Redmine stops here and names it.
+load File.expand_path('config/dependencies.rb', __dir__)
+
 Redmine::Plugin.register :redmine_kit_lookbook do
   name "Redmine Kit Lookbook"
   author "Redmine Kit"

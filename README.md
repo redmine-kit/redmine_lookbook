@@ -41,9 +41,27 @@ Then open <http://127.0.0.1:3000/lookbook>. To install into an existing Redmine,
 - A Ruby version that Redmine 7.0 supports
 - [Lookbook](https://github.com/lookbook-hq/lookbook) 2.3
 
+### Required plugins
+
+None.
+
+### Optional plugins
+
+None.
+
 ## Security
 
 Redmine Kit Lookbook is a development tool. It is always off in production, even with `REDMINE_KIT_LOOKBOOK=1`: anyone who can open `/lookbook` sees pages rendered as an administrator. Use it only in a Redmine with Redmine's test data. See [Security](docs/security.md), and [SECURITY.md](SECURITY.md) to report a vulnerability.
+
+## Releasing
+
+`bin/release` publishes the gem of the gemspec's version to Redmine Kit's registry on GitHub Packages, from a clean
+`main` only: the version must be newer than the last tag `v<version>`, the required plugins must resolve from the
+registry at their ranges (`config/dependencies.yml`), and `bin/lint`, `bin/test` and `bin/test-gem` must pass. It
+pushes with the key `github` of `~/.gem/credentials` (`:github: Bearer <token>`, a token with `write:packages`) and
+reads the registry with `BUNDLE_RUBYGEMS__PKG__GITHUB__COM`; no token goes into the repository or the output. It makes
+the signed tag `v<version>` and prints the command that pushes it. Versions are semantic: a change that breaks a plugin
+using this one raises the major version (the minor one before 1.0), and the ranges in the plugins that require it.
 
 ## Sponsors
 

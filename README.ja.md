@@ -49,11 +49,28 @@ bin/dev
 - Redmine 7.0 が対応する Ruby
 - [Lookbook](https://github.com/lookbook-hq/lookbook) 2.3
 
+<a id="required-plugins"></a>
+
+### 必須プラグイン
+
+ありません。
+
+<a id="optional-plugins"></a>
+
+### オプションのプラグイン
+
+ありません。
+
 <a id="security"></a>
 
 ## セキュリティ
 
 Redmine Kit Lookbook は開発用のツールです。本番環境では、`REDMINE_KIT_LOOKBOOK=1` を設定しても常に無効です。`/lookbook` を開ける人は、管理者としてレンダリングした画面を見られるためです。Redmine のテストデータだけがある Redmine で使ってください。[セキュリティ](docs/ja/security.md)を参照してください。脆弱性の報告の方法は [SECURITY.md](SECURITY.md) にあります。
+
+<a id="releasing"></a>
+## リリース
+
+`bin/release` は、gemspec のバージョンの gem を GitHub Packages の Redmine Kit のレジストリに公開します。実行できるのは変更のない `main` からだけで、バージョンが最後のタグ `v<version>` より新しいこと、必須プラグインがレジストリから範囲どおりに解決できること (`config/dependencies.yml`)、`bin/lint`、`bin/test`、`bin/test-gem` が成功することが条件です。公開には `~/.gem/credentials` のキー `github` (`:github: Bearer <token>`。`write:packages` を持つトークン) を使い、レジストリの読み取りには `BUNDLE_RUBYGEMS__PKG__GITHUB__COM` を使います。トークンはリポジトリにも出力にも含めません。署名付きのタグ `v<version>` を作り、それをプッシュするコマンドを表示します。バージョンはセマンティックバージョニングに従います。このプラグインを使うプラグインが動かなくなる変更ではメジャーバージョン (1.0 より前はマイナーバージョン) を上げ、それを必要とするプラグインの範囲も変えます。
 
 <a id="sponsors"></a>
 
