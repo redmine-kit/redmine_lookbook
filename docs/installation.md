@@ -55,14 +55,12 @@ bin/dev reset
    bin/rails db:migrate
    ```
 
-2. Add the plugin as a gem (first choice), or clone it into `plugins/`. Each version tag publishes the plugin to GitHub Packages (`https://rubygems.pkg.github.com/redmine-kit`); installing from it needs a GitHub token with `read:packages`, even for a public package. The gem does not include the plugin's `Gemfile`, so add Lookbook with it to Redmine's `Gemfile.local`:
+2. Add the plugin as a gem from its repository (first choice), or clone it into `plugins/`. It is a development tool, so it isn't released to Redmine Kit's registry on GitHub Packages ([Releasing](../README.md#releasing)). The gem does not include the plugin's `Gemfile`, so add Lookbook with it to Redmine's `Gemfile.local`:
 
    ```ruby
    group :development do
      gem "lookbook", "~> 2.3"
-     source "https://rubygems.pkg.github.com/redmine-kit" do
-       gem "redmine_kit_lookbook"
-     end
+     gem "redmine_kit_lookbook", git: "https://github.com/redmine-kit/redmine_lookbook.git", branch: "main"
    end
    ```
 

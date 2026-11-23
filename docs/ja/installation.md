@@ -61,14 +61,12 @@ bin/dev reset
    bin/rails db:migrate
    ```
 
-2. プラグインを gem として追加するか (推奨)、`plugins/` にクローンします。バージョンのタグごとに、プラグインを GitHub Packages (`https://rubygems.pkg.github.com/redmine-kit`) に公開しています。GitHub Packages からのインストールには、公開パッケージでも `read:packages` を持つ GitHub のトークンが必要です。gem にはプラグインの `Gemfile` が含まれないので、Lookbook も一緒に Redmine の `Gemfile.local` に追加します。
+2. プラグインをリポジトリから gem として追加するか (推奨)、`plugins/` にクローンします。開発用のツールなので、GitHub Packages の Redmine Kit のレジストリには公開しません ([リリース](../README.ja.md#releasing))。gem にはプラグインの `Gemfile` が含まれないので、Lookbook も一緒に Redmine の `Gemfile.local` に追加します。
 
    ```ruby
    group :development do
      gem "lookbook", "~> 2.3"
-     source "https://rubygems.pkg.github.com/redmine-kit" do
-       gem "redmine_kit_lookbook"
-     end
+     gem "redmine_kit_lookbook", git: "https://github.com/redmine-kit/redmine_lookbook.git", branch: "main"
    end
    ```
 

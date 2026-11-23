@@ -70,7 +70,7 @@ Redmine Kit Lookbook は開発用のツールです。本番環境では、`REDM
 <a id="releasing"></a>
 ## リリース
 
-`bin/release` は、gemspec のバージョンの gem を GitHub Packages の Redmine Kit のレジストリに公開します。実行できるのは変更のない `main` からだけで、バージョンが最後のタグ `v<version>` より新しいこと、必須プラグインがレジストリから範囲どおりに解決できること (`config/dependencies.yml`)、`bin/lint`、`bin/test`、`bin/test-gem` が成功することが条件です。公開には `~/.gem/credentials` のキー `github` (`:github: Bearer <token>`。`write:packages` を持つトークン) を使い、レジストリの読み取りには `BUNDLE_RUBYGEMS__PKG__GITHUB__COM` を使います。トークンはリポジトリにも出力にも含めません。署名付きのタグ `v<version>` を作り、それをプッシュするコマンドを表示します。バージョンはセマンティックバージョニングに従います。このプラグインを使うプラグインが動かなくなる変更ではメジャーバージョン (1.0 より前はマイナーバージョン) を上げ、それを必要とするプラグインの範囲も変えます。
+Redmine Kit Lookbook は開発用のツールなので、リリースしません。gem を GitHub Packages の Redmine Kit のレジストリに公開することはなく、`bin/release` は実行を断ります。このリポジトリからインストールします ([インストール](docs/ja/installation.md))。
 
 <a id="sponsors"></a>
 
